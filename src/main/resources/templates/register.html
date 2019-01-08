@@ -31,7 +31,7 @@
   		
    			 <h1 style="font-size:100%;">Aby rozpocząć rejestracje wpisz 20-cyfrowy kod otrzymany na uczelni / w szkole</h1> 
    			
-   			 	<form th:action="@{/registerKeyController}" th:object="${keyRegisterModel}" method="get">
+   			 	<form th:action="@{/registerKeyController}" th:object="${keyRegisterModel}" method="post">
     
 			        <p><input type="text" th:field="*{keyRegisterValue}" placeholder="20-cyfrowy kod" width="48" height="48"/></p>
 			                

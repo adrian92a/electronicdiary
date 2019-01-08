@@ -15,6 +15,20 @@ public class RegisterKey implements Serializable {
 	@GeneratedValue  
 	private Long id;
 	public String  keyRegisterValue;
+	public String firstName;
+	public String lastName;
+	public String pesel;
+	public Role role;
+	
+
+	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Role role) {
+		super();
+		this.keyRegisterValue = keyRegisterValue;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.role = role;
+	}
 
 	public RegisterKey(String keyRegisterValue) 
 	{
@@ -23,6 +37,38 @@ public class RegisterKey implements Serializable {
 
 	public RegisterKey() 
 	{	
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPesel() {
+		return pesel;
+	}
+
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getKeyRegisterValue() 

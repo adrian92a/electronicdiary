@@ -44,7 +44,7 @@ public class RegisterKeyControllerMvc {
 		return false;
 	}
 	
-	 @GetMapping
+	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKey registerKey)
 	{
 		if(existRegisterKey(registerKey.getKeyRegisterValue()))
