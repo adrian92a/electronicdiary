@@ -22,7 +22,6 @@ public class RegisterKey implements Serializable {
 	
 
 	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Role role) {
-		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -34,6 +33,7 @@ public class RegisterKey implements Serializable {
 
 	public RegisterKey() 
 	{	
+		this.keyRegisterValue = keyRegisterValue;
 	}
 
 	public String getFirstName() {

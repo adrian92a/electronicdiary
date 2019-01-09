@@ -23,28 +23,35 @@
         </ul>
     </div>
 </nav>  
- <div class="container">
-  
-			<div class="col-lg-6">
+ <div class="col-lg-3" >
 
     		<p th:text="${message}">Dodaj</p>
   		
-   			 <h1 style="font-size:100%;">Twoje dane</h1> 
-   			
-   			   
+   			 <h2 style="font-size:130%;">Twoje dane:</h2> 
+<form th:action="@{/userAdditionalData}" method="post">
   			   <tr>
-  			   
-   	 	Kod użyty do rejestracji : <input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
-
-      
+	  			   <br/>
+	  			   
+	  			   Kod logowania <input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
+	   	 		   Imię				 <input class="form-control" type="text" th:field="${RegisterKey.firstName}" readonly/>	
+	      			Nazwisko					<input class="form-control" type="text" th:field="${RegisterKey.lastName}" readonly/>
+	      			Pesel					<input class="form-control" type="text" th:field="${RegisterKey.pesel}" readonly/>
+	      			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
 			</tr>
-  			   
-  			    
-		
-						</div> 
-							 <div class="col-lg-6">
-							 
-					     	</div>
-      					 </div>
+			 <br/>
+			<button type="submit" >Submit to another page</button>
+			</form>
+</div>	
+
+</div> 
+    
+    <div class ="col-lg-3">
+    
+    </div> 
+    
+  	<div class="col-lg-3">
+  
+</div>   
+    					 
 </body>
 </html>
