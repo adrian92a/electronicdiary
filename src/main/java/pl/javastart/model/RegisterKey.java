@@ -30,10 +30,7 @@ public class RegisterKey implements Serializable {
 		this.role = role;
 	}
 
-	public RegisterKey(String keyRegisterValue) 
-	{
-		this.keyRegisterValue = keyRegisterValue;
-	}
+
 
 	public RegisterKey() 
 	{	

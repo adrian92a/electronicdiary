@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Home</title>
 </head>
 <body>
-<h1>Witaj</h1>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Electronic Diary</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/pupils">Lista pupilków</a></li>
+            <li><a href="/addpupil">Dodaj</a></li>
+            <li><a href="/login">Zaloguj sie</a></li>
+            <li class="active" ><a href="/register">Utwórz konto</a></li>
+        </ul>
+    </div>
+</nav>  
+ <div class="container">
+  
+			<div class="col-lg-6">
+
+    		<p th:text="${message}">Dodaj</p>
+  		
+   			 <h1 style="font-size:100%;">Twoje dane</h1> 
+   			
+   			   
+  			   <tr>
+  			   
+   	 	Kod użyty do rejestracji : <input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
+
+      
+			</tr>
+  			   
+  			    
+		
+						</div> 
+							 <div class="col-lg-6">
+							 
+					     	</div>
+      					 </div>
 </body>
 </html>

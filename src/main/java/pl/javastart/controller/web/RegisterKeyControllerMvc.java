@@ -12,12 +12,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.javastart.model.Pupil;
 import pl.javastart.model.RegisterKey;
+import pl.javastart.model.User;
 import pl.javastart.repository.RegisterKeyRepository;
 
 
 @Controller
 @RequestMapping("/registerKeyController")
 public class RegisterKeyControllerMvc {
+	
+	RegisterKey  registerkey;
+
 	
 
 	private RegisterKeyRepository registerKeyRepo;
@@ -45,10 +49,13 @@ public class RegisterKeyControllerMvc {
 	}
 	
 	 @PostMapping
-	public String redirectKey(@ModelAttribute RegisterKey registerKey)
+	public String redirectKey(@ModelAttribute RegisterKey registerKey, Model model)
 	{
 		if(existRegisterKey(registerKey.getKeyRegisterValue()))
 		{
+			model.addAttribute("RegisterKey", registerKey);
+			model.addAttribute("RegisterKeyFirstName", registerKey.getFirstName());
+
 			return "registrationpanel";
 		}
 		  return "redirect:/";
