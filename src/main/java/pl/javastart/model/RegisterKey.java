@@ -18,15 +18,15 @@ public class RegisterKey implements Serializable {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public Role role;
+	
 	
 
-	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Role role) {
+	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel) {
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
-		this.role = role;
+		
 	}
 
 
@@ -60,13 +60,7 @@ public class RegisterKey implements Serializable {
 		this.pesel = pesel;
 	}
 
-	public Role getRole() {
-		return role;
-	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 	public String getKeyRegisterValue() 
 	{

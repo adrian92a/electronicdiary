@@ -19,4 +19,8 @@ public interface RegisterKeyRepository extends JpaRepository<RegisterKey, Long>
 {
 	@Query("select u from RegisterKey u where u.keyRegisterValue = ?1")
 	  RegisterKey findByEmailAddress(String emailAddress);
+	
+	
+//	@Query("INSERT INTO User(login,password) VALUES( ?1 ,?2)")
+//	void save(String login,String password);
 }

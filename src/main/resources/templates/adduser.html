@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,7 +7,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Home</title>
 </head>
-
 <body>
 
 
@@ -30,18 +29,13 @@
   <p th:text="${message}">Dodaj</p>
   
    			 <h1>Add pupilek:</h1> 
-   			 	<form th:action="@{/pupils}" th:object="${pupilModel}" method="post">
+   			 	<form th:action="@{/adduser}" th:object="${userModel}" method="post">
     
-	       			<p><input type="text" th:field="*{firstName}" placeholder="Name" /></p>
-	        
-			        <p><input type="text" th:field="*{lastName}" placeholder="Last name" /></p>
-			        
-			        <p><input type="number" th:field="*{pesel}" placeholder="pesel" /></p>
 			                
 			        <p><input type="submit" value="Add Pupil" /></p>        
   			   </form>    
   			       
-    <a th:href="@{/pupils}">List all pupils</a>
+
     
 </div> 
     

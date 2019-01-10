@@ -2,28 +2,52 @@ package pl.javastart.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+
 @Entity
+@Table
 public class User implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
     
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
     private String login;
     private String password;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "role_id")
+    private Role role;
     
-	public Long getId() {
-		return id;
+
+	public Role getRole() {
+		return role;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public User() {
+	}
+	
+	public User(String login, String password) {
+		super();
+		this.login = login;
+		this.password = password;
+
 	}
 	public String getLogin() {
 		return login;
@@ -37,20 +61,23 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public User(Long id, String login, String password) {
-		super();
-		this.id = id;
-		this.login = login;
-		this.password = password;
-	}
-	
-	public User() {
-	}
-    
 
-
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", role=" + role + "]";
+	}
 
 }
