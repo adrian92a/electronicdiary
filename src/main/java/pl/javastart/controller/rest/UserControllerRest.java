@@ -13,7 +13,4 @@ public class UserControllerRest {
 	{
 		this.userRepo=userRepo;
 	}
-	
-	
-	
 }

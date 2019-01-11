@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import pl.javastart.model.RegisterKey;
-
+import pl.javastart.model.Role;
 import pl.javastart.repository.RegisterKeyRepository;
+import pl.javastart.repository.RoleRepository;
 
 
 
@@ -25,6 +27,9 @@ public class RegisterKeyControllerMvc {
 
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
+	
+	@Autowired
+	public RoleRepository roleRepo;
 	
 	@Autowired
 	public RegisterKeyControllerMvc(RegisterKeyRepository registerKeyRepo)
@@ -52,8 +57,11 @@ public class RegisterKeyControllerMvc {
 		 
 	 }
 
-	 
-	
+		public int findRole(Role role)
+		{
+			return roleRepo.findIdByRoleName(role.getRoleName());
+		}
+	@PostConstruct
 	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKey registerKey, Model model)
 	{
@@ -61,10 +69,10 @@ public class RegisterKeyControllerMvc {
 		{
 //			registerKeyRepo.getOne(registerKe n y.getId()); 		
 //			RegisterKey userRegisterKey =registerKeyRepo.getOne(registerKey.getId());
-
+			String roleName= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
 			RegisterKey registerKey2=registerKeyRepo.findByEmailAddress(registerKey.getKeyRegisterValue());
 			model.addAttribute("RegisterKey", registerKey2);
-		
+			model.addAttribute("RegisterKeyRole",roleName);
 
 			return "registrationpanel";
 		}

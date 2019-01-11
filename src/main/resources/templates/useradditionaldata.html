@@ -29,18 +29,19 @@
   		
    			 <h2 style="font-size:130%;">Twoje dane:</h2> 
 <form th:action="@{/userAdditionalData}" method="post">
-  			   <tr>
-	  			   <br/>
-	  			   
-	  			   Kod logowania <input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
-	   	 		   Imię				 <input class="form-control" type="text" th:field="${RegisterKey.firstName}" readonly/>	
-	      			Nazwisko					<input class="form-control" type="text" th:field="${RegisterKey.lastName}" readonly/>
-	      			Pesel					<input class="form-control" type="text" th:field="${RegisterKey.pesel}" readonly/>
-	      			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
-			</tr>
-			 <br/>
+  			  
+	  			<form th:action="@{/pupils}" th:object="${pupilModel}" method="post">
+    
+	       			<p><input type="text" th:field="*{firstName}" placeholder="Name" /></p>
+	        
+			        <p><input type="text" th:field="*{lastName}" placeholder="Last name" /></p>
+			        
+			        <p><input type="number" th:field="*{pesel}" placeholder="pesel" /></p>
+			                
+			        <p><input type="submit" value="Add Pupil" /></p>        
+  			    </form>
 			<button type="submit" >Submit to another page</button>
-			</form>
+			
 </div>	
 
 </div> 

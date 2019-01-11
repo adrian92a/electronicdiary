@@ -27,18 +27,11 @@ public class User implements Serializable {
     private Long id;
     private String login;
     private String password;
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "role_id")
-    private Role role;
+    
     
 
-	public Role getRole() {
-		return role;
-	}
+	
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
 
 	public User() {
 	}
@@ -75,9 +68,6 @@ public class User implements Serializable {
 		return serialVersionUID;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", role=" + role + "]";
-	}
+
 
 }

@@ -29,18 +29,27 @@
   		
    			 <h2 style="font-size:130%;">Twoje dane:</h2> 
 <form th:action="@{/userAdditionalData}" method="post">
-  			   <tr>
+  			   w
 	  			   <br/>
 	  			   
-	  			   Kod logowania <input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
-	   	 		   Imię				 <input class="form-control" type="text" th:field="${RegisterKey.firstName}" readonly/>	
-	      			Nazwisko					<input class="form-control" type="text" th:field="${RegisterKey.lastName}" readonly/>
-	      			Pesel					<input class="form-control" type="text" th:field="${RegisterKey.pesel}" readonly/>
-	      			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
-			</tr>
-			 <br/>
+		    Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
+	 		Imię				 	<input class="form-control" type="text" th:field="${RegisterKey.firstName}" readonly/>	
+   			Nazwisko				<input class="form-control" type="text" th:field="${RegisterKey.lastName}" readonly/>
+   			Pesel					<input class="form-control" type="text" th:field="${RegisterKey.pesel}" readonly/>
+	      		
+	      			
+			 		<br/>
 			<button type="submit" >Submit to another page</button>
 			</form>
+			
+			
+			
+			<form th:action="@{/userAdditionalData}" method="post">
+			Twoje uprawnienia		<input class="form-control" type="text" th:field="${RegisterKeyRole.roleName}" readonly/>
+			</form>
+			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
+			<button type="submit" >Submit to another page</button>
+			
 </div>	
 
 </div> 

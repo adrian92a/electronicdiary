@@ -1,10 +1,14 @@
 package pl.javastart.model;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
@@ -18,23 +22,36 @@ public class RegisterKey implements Serializable {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	
-	
 
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "role_id")
+    private Role role;
+	
 	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel) {
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.pesel = pesel;
-		
+		this.pesel = pesel;	
 	}
-
-
-
-	public RegisterKey() 
-	{	
+	
+	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Role role) {
+		super();
 		this.keyRegisterValue = keyRegisterValue;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.role = role;
 	}
+
+
+	
+	public RegisterKey() {
+		super();
+	}
+
+
+
 
 	public String getFirstName() {
 		return firstName;

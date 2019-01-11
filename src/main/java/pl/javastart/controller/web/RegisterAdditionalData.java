@@ -10,7 +10,7 @@ import pl.javastart.model.RegisterKey;
 
 @Controller
 @RequestMapping("/userAdditionalData")
-public class RegisterAdditionalDataMvc {
+public class RegisterAdditionalData {
 	 @PostMapping
 		public String web()
 		{

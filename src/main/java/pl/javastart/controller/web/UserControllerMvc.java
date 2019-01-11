@@ -36,9 +36,9 @@ public class UserControllerMvc
 	this.roleRepo = roleRepo;
 }
 
-	User user= new User("adrian", "skorupa");
-	
-	Role role= new Role("admin");
+//	User user= new User("adrian", "skorupa");
+//	
+//	Role role= new Role("admin");
 	
 	public int findRole(Role role)
 	{
@@ -48,14 +48,14 @@ public class UserControllerMvc
 	@PostMapping
     public String addUser(@ModelAttribute User userModel,  RedirectAttributes redirectAttr) 
     {   
-		User user= new User("adrian", "skorupa");
-		
-		Role role= new Role("admin");
-		user.setRole(role);
-		userRepo.save(user);
-    
-
- 
+//		User user= new User("adrian", "skorupa");
+//		
+//		Role role= new Role("admin");
+//		user.setRole(role);
+//		userRepo.save(user);
+//    
+//
+// 
         return "redirect:/";
         
     }
