@@ -15,8 +15,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
+@XmlRootElement
 @Entity
-@Table
 public class User implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
     
@@ -28,11 +28,10 @@ public class User implements Serializable {
     private String login;
     private String password;
     
+	@OneToOne
+    @JoinColumn(name = "register_key_id")
+    private RegisterKey registerKey;
     
-
-	
-
-
 	public User() {
 	}
 	

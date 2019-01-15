@@ -1,5 +1,5 @@
 package pl.javastart.model;
 
-public class UserRegister {
+public class Subject {
 
 }

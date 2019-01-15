@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.javastart.model.RegisterKey;
+import pl.javastart.model.RegisterKeyAndRoleDTO;
 import pl.javastart.model.Role;
 import pl.javastart.repository.RegisterKeyRepository;
 import pl.javastart.repository.RoleRepository;
@@ -23,8 +25,8 @@ import pl.javastart.repository.RoleRepository;
 @RequestMapping("/registerKeyController")
 public class RegisterKeyControllerMvc {
 
-	public RegisterKey  registerkey;
 
+	public String error;
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
 	
@@ -37,19 +39,20 @@ public class RegisterKeyControllerMvc {
 		this.registerKeyRepo=registerKeyRepo;
 	}
 
-	public boolean existRegisterKey(String key)
+	public boolean existRegisterKeyAndIsntUsed(String key)
 	{
-		
-	     List<RegisterKey> registerkeys = (List<RegisterKey>) registerKeyRepo.findAll();
-	     
-	
-		for(RegisterKey registerkey : registerkeys )
+	 List<RegisterKey> registerkeys = (List<RegisterKey>) registerKeyRepo.findAll();
+	 for(RegisterKey registerkey : registerkeys )
 		{
-			if(registerkey.getKeyRegisterValue().equals(key))
+			if(registerkey.getKeyRegisterValue().equals(key) && registerkey.getUsed())
 			{
 				return true;
-			}		
+			}
+		
+	
+			
 		}
+	 
 		return false;
 	}
 	 private static void selectKeyUser(String key)
@@ -61,24 +64,43 @@ public class RegisterKeyControllerMvc {
 		{
 			return roleRepo.findIdByRoleName(role.getRoleName());
 		}
-	@PostConstruct
+
 	 @PostMapping
-	public String redirectKey(@ModelAttribute RegisterKey registerKey, Model model)
+	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
 	{
-		if(existRegisterKey(registerKey.getKeyRegisterValue()))
+		if(existRegisterKeyAndIsntUsed(registerKey.getKeyRegisterValue()) )
 		{
-//			registerKeyRepo.getOne(registerKe n y.getId()); 		
-//			RegisterKey userRegisterKey =registerKeyRepo.getOne(registerKey.getId());
 			String roleName= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
-			RegisterKey registerKey2=registerKeyRepo.findByEmailAddress(registerKey.getKeyRegisterValue());
-			model.addAttribute("RegisterKey", registerKey2);
-			model.addAttribute("RegisterKeyRole",roleName);
-
-			return "registrationpanel";
+			RegisterKey registerKey2 = registerKeyRepo.findByRegisterey(registerKey.getKeyRegisterValue());
+			RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
+			registerKeyAndRoleDTO.setKeyRegisterValue(registerKey2.getKeyRegisterValue());
+			registerKeyAndRoleDTO.setFirstName(registerKey2.getFirstName());
+			registerKeyAndRoleDTO.setLastName(registerKey2.getLastName());
+			registerKeyAndRoleDTO.setPesel(registerKey2.getPesel());
+			registerKeyAndRoleDTO.setRoleName(roleName);		
+			registerKeyAndRoleDTO.setLogin(null);
+			registerKeyAndRoleDTO.setPassword(null);
+			
+			if(registerKeyAndRoleDTO.getRoleName().equals("uczeń"))
+			{
+				registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
+				model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
+				return "pupilsubmitregistrationpanel";
+			}
+		
+			
+			if(registerKeyAndRoleDTO.getRoleName().equals("nauczyciel"))
+			{
+				registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
+				model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
+				return "teachersubmitregistrationpanel";
+			}
 		}
-		  return "redirect:/";
+		RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
+		registerKeyAndRoleDTO.setKeyError("Kod jest niepoprawny lub został już wykorzystany do rejestracji");
+		System.out.println("----Niepoprawny kod");
+		model.addAttribute("keyRegisterModel", registerKeyAndRoleDTO);	
+		
+        return "/register";
 	}
-
-
-	
 }

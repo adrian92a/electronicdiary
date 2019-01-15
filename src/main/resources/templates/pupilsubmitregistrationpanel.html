@@ -8,9 +8,7 @@
     <title>Home</title>
 </head>
 <body>
-
-
-<nav class="navbar navbar-default">
+			<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">Electronic Diary</a>
@@ -28,31 +26,28 @@
     		<p th:text="${message}">Dodaj</p>
   		
    			 <h2 style="font-size:130%;">Twoje dane:</h2> 
-<form th:action="@{/userAdditionalData}" method="post">
-  			   w
-	  			   <br/>
-	  			   
-		    Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKey.keyRegisterValue}" readonly/>
-	 		Imię				 	<input class="form-control" type="text" th:field="${RegisterKey.firstName}" readonly/>	
-   			Nazwisko				<input class="form-control" type="text" th:field="${RegisterKey.lastName}" readonly/>
-   			Pesel					<input class="form-control" type="text" th:field="${RegisterKey.pesel}" readonly/>
-	      		
-	      			
-			 		<br/>
-			<button type="submit" >Submit to another page</button>
-			</form>
-			
-			
-			
-			<form th:action="@{/userAdditionalData}" method="post">
-			Twoje uprawnienia		<input class="form-control" type="text" th:field="${RegisterKeyRole.roleName}" readonly/>
-			</form>
+<form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
+	  		<br/>   	   
+		    Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
+	 		Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>	
+   			Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
+   			Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
+	      	Role					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.roleName}" readonly/>
+	     	Klasa					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.className}"readonly/>				
+	 		<br/>
+		
 			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
-			<button type="submit" >Submit to another page</button>
+		
+			<br/>	
+			Login					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.login}"/>				
+			Password				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}"/>		
+		<button type="submit" >Submit to another page</button>
+			</form>
 			
+				
 </div>	
 
-</div> 
+
     
     <div class ="col-lg-3">
     
@@ -60,7 +55,6 @@
     
   	<div class="col-lg-3">
   
-</div>   
-    					 
+</div>   	 
 </body>
 </html>

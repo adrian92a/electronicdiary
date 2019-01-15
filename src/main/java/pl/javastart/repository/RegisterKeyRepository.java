@@ -18,7 +18,7 @@ import pl.javastart.model.RegisterKey;
 public interface RegisterKeyRepository extends JpaRepository<RegisterKey, Long>
 {
 	@Query("select u from RegisterKey u where u.keyRegisterValue = ?1")
-	  RegisterKey findByEmailAddress(String emailAddress);
+	  RegisterKey findByRegisterey(String key);
 	@Query("select u.roleName from Role u inner join RegisterKey r on u.id=r.role  where r.keyRegisterValue = ?1")
 	  String findRegisterKeyRoleName(String registerKet);
 	

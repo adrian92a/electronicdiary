@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Home</title>
+</head>
+<body>
+			<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Electronic Diary</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/pupils">Lista pupilków</a></li>
+            <li><a href="/addpupil">Dodaj</a></li>
+            <li><a href="/login">Zaloguj sie</a></li>
+            <li class="active" ><a href="/register">Utwórz konto</a></li>
+        </ul>
+    </div>
+</nav>  
+ <div class="col-lg-3" >
+    		 <p th:text="${message}">Dodaj</p>
+   			 <h2 style="font-size:130%;">Twoje dane:</h2> 
+<form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
+	  			   <br/>  
+		    Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
+	 		Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>	
+   			Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
+   			Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
+	      	Role					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.roleName}" readonly/>
+			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
+			<br/>
+			Login					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.login}"/>				
+			Password				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}"/>		
+			<br/>
+				<button type="submit" >Submit to another page</button>
+				
+</form>
+</div>	
+    <div class ="col-lg-3">
+    </div> 
+  	<div class="col-lg-3">
+</div>   	 
+</body>
+</html>

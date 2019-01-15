@@ -39,13 +39,14 @@ public class PupilControllerMvc
     @PostMapping
     public String addPupil(@ModelAttribute Pupil pupilModel, RedirectAttributes redirectAttr) 
     {   
-    	Map<String, String> errorsMap = userValidation.validateUser(pupilModel);
+   // 	Map<String, String> errorsMap = userValidation.validateUser(pupilModel);
     			
-    	if(errorsMap.isEmpty())
-    	{
+//    	if(errorsMap.isEmpty())
+//    	{
+    	
+//    	System.out.println(pupilModel.getFirstName());
+//    	}
     	pupilRepo.save(pupilModel);
-    	System.out.println(pupilModel.getFirstName());
-    	}
         redirectAttr.addFlashAttribute("message", "Pupil added successfuly");
         return "redirect:/";
         

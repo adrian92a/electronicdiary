@@ -23,7 +23,7 @@
         </ul>
     </div>
 </nav>  
- <div class="container">
+
   
 	<div class="col-lg-6">
 
@@ -34,17 +34,22 @@
    			 	<form th:action="@{/registerKeyController}" th:object="${keyRegisterModel}" method="post">
     
 			        <p><input type="text" th:field="*{keyRegisterValue}" placeholder="20-cyfrowy kod" width="48" height="48"/></p>
+			        
+			 
+			     
 			                
 			        <p><input type="submit" value="Rozpocznij rejestracje" /></p>      
-			          
-  			   </form>    
-  			        
 		
-	</div> 
-					 <div class="col-lg-6">
-					 
-			     	</div>
-       </div>
+  			   </form>    
+  			      <h3 th:text="${keyRegisterModel.keyError}"></h3>    
+		
+	</div>  
+    	<div class="col-lg-3">
+  
+</div>   
+  	<div class="col-lg-3">
+  
+</div>
 </body>
 </html>
 

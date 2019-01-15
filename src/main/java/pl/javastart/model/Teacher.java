@@ -1,7 +1,6 @@
 package pl.javastart.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-public class Pupil implements Serializable {
+public class Teacher implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
     
     @Id
@@ -22,67 +21,39 @@ public class Pupil implements Serializable {
 	public String lastName;
 	public String pesel;
 	public String roleName;
-	public String className;
 	public String login;
 	public String password;
-   // public Set<Mark> marks;
-    
-    public Pupil() {
-    }
-
-    public Pupil(String firstName, String lastName, String pesel) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
+	
+	 
+	
+	
+	
+	public Teacher() {
+		super();
 	}
-  
-
-
-	public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String className, String login, String password) {
+	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
+			String login, String password) {
 		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
 		this.roleName = roleName;
-		this.className = className;
 		this.login = login;
 		this.password = password;
 	}
-
 	public String getKeyRegisterValue() {
 		return keyRegisterValue;
 	}
-
 	public void setKeyRegisterValue(String keyRegisterValue) {
 		this.keyRegisterValue = keyRegisterValue;
 	}
-
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}
@@ -95,26 +66,25 @@ public class Pupil implements Serializable {
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 	public String getLogin() {
 		return login;
 	}
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	
-
-
-
-
+	
+	
 }
