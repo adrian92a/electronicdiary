@@ -4,6 +4,7 @@ package pl.javastart.controller.web;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 
@@ -62,30 +63,42 @@ public class RegisterKeyControllerMvc {
 	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
 	{
+		 
+		 System.out.println("------"+registerKey.getKeyRegisterValue());
 		if(existRegisterKeyAndIsntUsed(registerKey.getKeyRegisterValue()) )
 		{
-			String roleName= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
+			Set<Role> roleName= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
+			
+			 for(Role  r : roleName)
+	
+			 {
+			System.out.println("------"+registerKey.getKeyRegisterValue());
 			RegisterKey registerKey2 = registerKeyRepo.findByRegisterey(registerKey.getKeyRegisterValue());
+			System.out.println("---"+ registerKey2.getFirstName());
 			RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
-			registerKeyAndRoleDTO.setKeyRegisterValue(registerKey2.getKeyRegisterValue());
+			registerKeyAndRoleDTO.
+			setKeyRegisterValue(
+					registerKey2.getKeyRegisterValue());
 			registerKeyAndRoleDTO.setFirstName(registerKey2.getFirstName());
 			registerKeyAndRoleDTO.setLastName(registerKey2.getLastName());
 			registerKeyAndRoleDTO.setPesel(registerKey2.getPesel());
-			registerKeyAndRoleDTO.setRoleName(roleName);		
+			registerKeyAndRoleDTO.setRoles(roleName);
 			registerKeyAndRoleDTO.setLogin(null);
 			registerKeyAndRoleDTO.setPassword(null);
-			if(registerKeyAndRoleDTO.getRoleName().equals("uczeń"))
-			{
-				registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
-				model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
-				return "pupilsubmitregistrationpanel";
-			}	
-			if(registerKeyAndRoleDTO.getRoleName().equals("nauczyciel"))
-			{
-				registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
-				model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
-				return "teachersubmitregistrationpanel";
-			}
+			
+					if(r.getRoleName().equals("uczen"))
+					{
+						registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
+						model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
+						return "pupilsubmitregistrationpanel";
+					}	
+					if(r.getRoleName().equals("nauczyciel"))
+					{
+						registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
+						model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
+						return "teachersubmitregistrationpanel";
+					}
+			 }
 		}
 		RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
 		registerKeyAndRoleDTO.setKeyError("Kod jest niepoprawny lub został już wykorzystany do rejestracji");
