@@ -18,7 +18,7 @@ public class RegisterKey implements Serializable {
 	  private static final long serialVersionUID =8539936152170847419L;
 	  
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)  
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	public String  keyRegisterValue;

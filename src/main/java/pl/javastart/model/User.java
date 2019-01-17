@@ -1,15 +1,19 @@
 package pl.javastart.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@Table(name="users")
 public class User implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
     
@@ -25,27 +30,43 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
-    private String login;
+    private String username;
     private String password;
+    private boolean enabled;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	private Set<Role> roles = new HashSet<>();
     
-	@OneToOne
-    @JoinColumn(name = "register_key_id")
-    private RegisterKey registerKey;
     
-	public User() {
+    @ManyToOne
+    @JoinColumn(name="roleName" , referencedColumnName = "roleName")
+    private Role role;
+    
+    public boolean isEnabled() 
+    {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) 
+	{
+		this.enabled = enabled;
+	}
+
+	public User()
+	{
+		
 	}
 	
-	public User(String login, String password) {
+	public User(String username, String password) {
 		super();
-		this.login = login;
+		this.username = username;
 		this.password = password;
 
 	}
 	public String getLogin() {
-		return login;
+		return username;
 	}
 	public void setLogin(String login) {
-		this.login = login;
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;
@@ -65,6 +86,22 @@ public class User implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 

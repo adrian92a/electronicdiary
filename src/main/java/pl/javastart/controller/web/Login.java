@@ -8,9 +8,9 @@ import pl.javastart.model.Pupil;
 import pl.javastart.model.User;
 @Controller
 public class Login {
-	 @GetMapping("/login")
-	    public String registerUser(Model model) {
-		  model.addAttribute("userModel", new User());
-	        return "login";
-	    } 
+
+	 @GetMapping("/loginform")
+	    public String login() {
+	        return "loginform";
+	    }
 }

@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.javastart.model.Pupil;
 import pl.javastart.model.RegisterKeyAndRoleDTO;
 import pl.javastart.model.Teacher;
+import pl.javastart.model.User;
 import pl.javastart.repository.PupilRepository;
 import pl.javastart.repository.RegisterKeyRepository;
 import pl.javastart.repository.TeacherRepository;
+import pl.javastart.repository.UserRepository;
 
 @Controller
 @RequestMapping("/registerUser")
 public class RegisterControllerMvc {
-	
+	@Autowired
+	private UserRepository userRepo;
 	
 	@Autowired
 	private PupilRepository pupilRepo;
@@ -40,13 +43,22 @@ public class RegisterControllerMvc {
 	 @PostMapping
 	 public String registerKey(@ModelAttribute @Valid RegisterKeyAndRoleDTO userRegisterDTO, Model model)
 	 {
-		if(userRegisterDTO.getRoleName().equals("uczeń"))
+		if(userRegisterDTO.getRoleName().equals("uczen"))
 		{
 		 model.addAttribute("userRegistrationDto",userRegisterDTO);
 		 System.out.println(userRegisterDTO.getClassName() + " ----numer klasy");
 		 System.out.println(userRegisterDTO.getKeyRegisterValue() +"------key register");
 		 System.out.println("wchodzi do rejesestracji");
 		 Pupil pupil = new Pupil();
+		
+		 
+		 User user = new User();
+		 user.setLogin(userRegisterDTO.getLogin());
+		 user.setPassword(userRegisterDTO.getPassword());
+		 userRepo.save(user);
+	
+		 
+		 
 		 pupil.setClassName(userRegisterDTO.getClassName());
 		 pupil.setFirstName(userRegisterDTO.getFirstName());
 		 pupil.setKeyRegisterValue(userRegisterDTO.getKeyRegisterValue());
@@ -55,8 +67,14 @@ public class RegisterControllerMvc {
 		 pupil.setRoleName(userRegisterDTO.getRoleName());
 		 pupil.setLogin(userRegisterDTO.getLogin());
 		 pupil.setPassword(userRegisterDTO.getPassword());
+		 
+		 pupil.setUser(user);
 		 pupilRepo.save(pupil);
-		 return "/login";
+		 
+		 
+		
+		 model.addAttribute("userModel", new User());	
+		 return "/loginform";
 		}
 		if(userRegisterDTO.getRoleName().equals("nauczyciel"))
 		{
@@ -64,6 +82,15 @@ public class RegisterControllerMvc {
 		 System.out.println(userRegisterDTO.getKeyRegisterValue() +"------key register");
 		 System.out.println("wchodzi do rejesestracji");
 		 Teacher teacher = new Teacher();
+		 
+		
+		 
+		 User user = new User();
+		 user.setLogin(userRegisterDTO.getLogin());
+		 user.setPassword(userRegisterDTO.getPassword());
+		 userRepo.save(user);
+		 
+		 
 		 teacher.setFirstName(userRegisterDTO.getFirstName());
 		 teacher.setKeyRegisterValue(userRegisterDTO.getKeyRegisterValue());
 		 teacher.setLastName(userRegisterDTO.getLastName());
@@ -71,8 +98,11 @@ public class RegisterControllerMvc {
 		 teacher.setRoleName(userRegisterDTO.getRoleName());
 		 teacher.setLogin(userRegisterDTO.getLogin());
 		 teacher.setPassword(userRegisterDTO.getPassword());
+		 teacher.setUser(user);
 		 teacherRepo.save(teacher);
-		 return "/login";
+		
+			model.addAttribute("userModel", new User());	
+		 return "/loginform";
 		}
 		 return "/login";
 		 

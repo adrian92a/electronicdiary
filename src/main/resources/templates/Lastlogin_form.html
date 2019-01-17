@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Authors</title>
+    <title>Home</title>
 </head>
 <body>
 
@@ -16,33 +16,28 @@
             <a class="navbar-brand" href="/">Electronic Diary</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/pupils">Lista pupilków</a></li>
+            <li><a href="/pupils">Lista pupilków</a></li>
             <li><a href="/addpupil">Dodaj</a></li>
-             <li class="active" ><a href="/loginform">Zaloguj sie</a></li>
-             <li><a href="/register">Utwórz konto</a></li>
+            <li class="active"  ><a href="/login">Zaloguj sie</a></li>
+            <li  ><a href="/register">Utwórz konto</a></li>
         </ul>
     </div>
 </nav>
 
-<div>
-    <div>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>imie	</th>
-                <th>nazwisko  </th>
-                <th>pesel  </th>
-            </tr>
-            </thead>
+    
+  	<div class="col-lg-3">
+  <p th:text="${message}">Panel Logowania</p>
+  
+<h1>Zaloguj się:</h1> 
 
-            <tr th:each="pupil: ${pupilList}">
-                <td th:text="${pupil.firstName}"></td>
-                <td th:text="${pupil.lastName}"></td>
-                <td th:text="${pupil.pesel}"></td>
-            </tr>
-        </table>
-    </div>
+</div> 
+  </div> 
+    
+    <div class ="col-lg-3">  
+ 
+    <div class="col-lg-3">
 
+    </div> 
 </body>
 </html>
 

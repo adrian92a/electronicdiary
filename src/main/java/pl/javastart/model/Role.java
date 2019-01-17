@@ -41,3 +41,4 @@ public void setId(int id) {
 public String toString() {
 	return "Role [id=" + id + ", roleName=" + roleName + "]";}
 }
+

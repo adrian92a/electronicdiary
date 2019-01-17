@@ -17,6 +17,7 @@ import pl.javastart.repository.PupilRepository;
 @RequestMapping("/pupils")
 public class PupilControllerMvc 
 {
+	
 	@Autowired
     private UserValidation userValidation;
 	

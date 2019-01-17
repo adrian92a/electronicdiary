@@ -24,8 +24,6 @@ import pl.javastart.repository.RoleRepository;
 @Controller
 @RequestMapping("/registerKeyController")
 public class RegisterKeyControllerMvc {
-
-
 	public String error;
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
@@ -44,27 +42,23 @@ public class RegisterKeyControllerMvc {
 	 List<RegisterKey> registerkeys = (List<RegisterKey>) registerKeyRepo.findAll();
 	 for(RegisterKey registerkey : registerkeys )
 		{
-			if(registerkey.getKeyRegisterValue().equals(key) && registerkey.getUsed())
+//			if(registerkey.getKeyRegisterValue().equals(key) && registerkey.getUsed())
+//			{
+//				return true;
+//			}
+			if(registerkey.getKeyRegisterValue().equals(key))
 			{
 				return true;
 			}
-		
-	
-			
-		}
-	 
+		} 
 		return false;
 	}
 	 private static void selectKeyUser(String key)
-	 {
-		 
-	 }
-
+	 {}
 		public int findRole(Role role)
 		{
 			return roleRepo.findIdByRoleName(role.getRoleName());
 		}
-
 	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
 	{
@@ -80,15 +74,12 @@ public class RegisterKeyControllerMvc {
 			registerKeyAndRoleDTO.setRoleName(roleName);		
 			registerKeyAndRoleDTO.setLogin(null);
 			registerKeyAndRoleDTO.setPassword(null);
-			
 			if(registerKeyAndRoleDTO.getRoleName().equals("uczeń"))
 			{
 				registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
 				model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
 				return "pupilsubmitregistrationpanel";
-			}
-		
-			
+			}	
 			if(registerKeyAndRoleDTO.getRoleName().equals("nauczyciel"))
 			{
 				registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
@@ -100,7 +91,6 @@ public class RegisterKeyControllerMvc {
 		registerKeyAndRoleDTO.setKeyError("Kod jest niepoprawny lub został już wykorzystany do rejestracji");
 		System.out.println("----Niepoprawny kod");
 		model.addAttribute("keyRegisterModel", registerKeyAndRoleDTO);	
-		
         return "/register";
 	}
 }

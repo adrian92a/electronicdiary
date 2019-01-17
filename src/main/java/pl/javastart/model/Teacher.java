@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -25,9 +27,29 @@ public class Teacher implements Serializable {
 	public String password;
 	
 	 
+	@OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 	
 	
-	
+	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
+			String login, String password, User users) {
+		super();
+		this.keyRegisterValue = keyRegisterValue;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.roleName = roleName;
+		this.login = login;
+		this.password = password;
+		this.user = user;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User users) {
+		this.user = user;
+	}
 	public Teacher() {
 		super();
 	}
