@@ -23,8 +23,6 @@ public class Teacher implements Serializable {
 	public String lastName;
 	public String pesel;
 	public String roleName;
-	public String login;
-	public String password;
 	
 	 
 	@OneToOne
@@ -40,8 +38,6 @@ public class Teacher implements Serializable {
 		this.lastName = lastName;
 		this.pesel = pesel;
 		this.roleName = roleName;
-		this.login = login;
-		this.password = password;
 		this.user = user;
 	}
 	public User getUser() {
@@ -53,16 +49,14 @@ public class Teacher implements Serializable {
 	public Teacher() {
 		super();
 	}
-	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String login, String password) {
+	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName) {
 		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
 		this.roleName = roleName;
-		this.login = login;
-		this.password = password;
+
 	}
 	public String getKeyRegisterValue() {
 		return keyRegisterValue;
@@ -94,18 +88,8 @@ public class Teacher implements Serializable {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
+
 	
 	
 	

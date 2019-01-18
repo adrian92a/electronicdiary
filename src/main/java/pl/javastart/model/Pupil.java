@@ -25,8 +25,7 @@ public class Pupil implements Serializable {
 	public String pesel;
 	public String roleName;
 	public String className;
-	public String login;
-	public String password;
+
    // public Set<Mark> marks;
     
 	@OneToOne
@@ -46,7 +45,7 @@ public class Pupil implements Serializable {
     }
 
     public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String className, String login, String password, User users) {
+			String className, User user) {
 		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
@@ -54,8 +53,6 @@ public class Pupil implements Serializable {
 		this.pesel = pesel;
 		this.roleName = roleName;
 		this.className = className;
-		this.login = login;
-		this.password = password;
 		this.user = user;
 	}
 
@@ -68,7 +65,7 @@ public class Pupil implements Serializable {
 
 
 	public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String className, String login, String password) {
+			String className) {
 		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
@@ -76,8 +73,7 @@ public class Pupil implements Serializable {
 		this.pesel = pesel;
 		this.roleName = roleName;
 		this.className = className;
-		this.login = login;
-		this.password = password;
+		
 	}
 
 	public String getKeyRegisterValue() {
@@ -124,26 +120,6 @@ public class Pupil implements Serializable {
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-
-
 
 
 }
