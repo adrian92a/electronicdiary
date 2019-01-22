@@ -1,6 +1,7 @@
 package pl.javastart.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,75 +23,101 @@ public class Teacher implements Serializable {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public String roleName;
-	
+	public String login;
+	public String password;
+	public Teacher() {}
 	 
 	@OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-	
-	
-	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String login, String password, User users) {
-		super();
-		this.keyRegisterValue = keyRegisterValue;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.roleName = roleName;
-		this.user = user;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User users) {
-		this.user = user;
-	}
-	public Teacher() {
-		super();
-	}
-	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName) {
-		super();
-		this.keyRegisterValue = keyRegisterValue;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.roleName = roleName;
 
+
+	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, 
+			String login, String password, User user) {
+		super();
+		this.keyRegisterValue = keyRegisterValue;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.login = login;
+		this.password = password;
+		this.user = user;
 	}
+
+
+
+
+
 	public String getKeyRegisterValue() {
 		return keyRegisterValue;
 	}
+
+
 	public void setKeyRegisterValue(String keyRegisterValue) {
 		this.keyRegisterValue = keyRegisterValue;
 	}
+
+
 	public String getFirstName() {
 		return firstName;
 	}
+
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
+
 	public String getLastName() {
 		return lastName;
 	}
+
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+
 	public String getPesel() {
 		return pesel;
 	}
+
+
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-	public String getRoleName() {
-		return roleName;
+
+
+
+	public String getLogin() {
+		return login;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	
 
-	
-	
-	
 }

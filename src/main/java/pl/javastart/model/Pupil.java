@@ -23,57 +23,30 @@ public class Pupil implements Serializable {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public String roleName;
 	public String className;
-
+	public String login;
+	public String password;
    // public Set<Mark> marks;
     
 	@OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-	
-	
-    public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public Pupil() {
-    }
+		super();
+	}
 
-    public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String className, User user) {
+	public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel,
+			String className, String login, String password, User user) {
 		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
-		this.roleName = roleName;
 		this.className = className;
+		this.login = login;
+		this.password = password;
 		this.user = user;
-	}
-
-	public Pupil(String firstName, String lastName, String pesel) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-	}
-  
-
-
-	public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel, String roleName,
-			String className) {
-		super();
-		this.keyRegisterValue = keyRegisterValue;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.roleName = roleName;
-		this.className = className;
-		
 	}
 
 	public String getKeyRegisterValue() {
@@ -82,22 +55,6 @@ public class Pupil implements Serializable {
 
 	public void setKeyRegisterValue(String keyRegisterValue) {
 		this.keyRegisterValue = keyRegisterValue;
-	}
-
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
 	}
 
 	public String getFirstName() {
@@ -111,15 +68,57 @@ public class Pupil implements Serializable {
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getPesel() {
 		return pesel;
 	}
+
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
+
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
+
+	
+
+
 
 
 }

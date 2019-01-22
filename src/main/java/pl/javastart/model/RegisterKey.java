@@ -26,7 +26,7 @@ public class RegisterKey implements Serializable {
 	public String lastName;
 	public String pesel;
 	public String className;
-	public boolean used;
+	public Boolean used;
 	
 //    @Transient
 //    public String keyError;
@@ -40,7 +40,7 @@ public class RegisterKey implements Serializable {
 //		this.keyError = keyError;
 //	}
 
-	public boolean getUsed() {
+	public Boolean getUsed() {
 		return used;
 	}
 

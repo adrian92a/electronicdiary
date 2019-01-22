@@ -1,14 +1,13 @@
-package pl.javastart.service;
+package pl.javastart.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pl.javastart.model.User;
-
-import pl.javastart.repository.RoleRepository;
+import pl.javastart.model.Role;
 import pl.javastart.repository.UserRepository;
-
+import pl.javastart.repository.RoleRepository;;
 
 @Service
 public class UserService {
@@ -19,7 +18,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public UserService(PasswordEncoder passwordEncoder) { 
+	public UserService(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -33,9 +32,11 @@ public class UserService {
 		this.roleRepository = roleRepository;
 	}
 
-	public void  addWithDefaultRole(User user) {
+	public void addUser(User user) {
 		String passwordHash = passwordEncoder.encode(user.getPassword());
 		user.setPassword(passwordHash);
 		userRepository.save(user);
 	}
+
+	
 }

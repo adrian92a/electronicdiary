@@ -5,12 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import pl.javastart.model.Pupil;
+import pl.javastart.model.RegisterKeyAndRoleDTO;
 import pl.javastart.model.User;
 @Controller
 public class Login {
 
 	 @GetMapping("/loginform")
-	    public String login() {
+	    public String login(Model model) {
+		 model.addAttribute("userModel", new User());
 	        return "loginform";
 	    }
 }
