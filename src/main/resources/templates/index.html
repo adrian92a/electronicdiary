@@ -16,12 +16,17 @@
             <a class="navbar-brand" href="/">Electronic Diary</a>
         </div>
         <ul class="nav navbar-nav">
-              <li><a href="/loginform">Zaloguj sie</a></li>
-               <li><a href="/register">Utwórz konto</a></li>
+
+ <li> <a th:if= "${#strings.isEmpty(session.username)}" href="/loginform">Zaloguj sie</a><li>
+               <li><a th:if= "${#strings.isEmpty(session.username)}" href="/register">Utwórz konto</a></li>
+       			 <li> <a th:if= "${not #strings.isEmpty(session.username)}" href="/logout">Wyloguj sie</a></li>
         </ul>
     </div>
 </nav>
+<h3>Success Page</h3>
+ <h3 th:text="${session.username}">Zalogowany</h3>  
 
+	<br>
 </body>
 </html>
 

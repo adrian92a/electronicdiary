@@ -68,11 +68,12 @@ public class RegisterControllerMvc {
 		
 		 
 		 User user = new User();
+		 user.setRoles(roles);
 		 user.setUsername(userRegisterDTO.getLogin());
 		 user.setPassword(userRegisterDTO.getPassword());
 	
-		 userService.addUser(user);
-	
+	//	 userService.addUser(user);
+		 userRepo.save(user);
 		 pupil.setClassName(userRegisterDTO.getClassName());
 		 pupil.setFirstName(userRegisterDTO.getFirstName());
 		 pupil.setKeyRegisterValue(userRegisterDTO.getKeyRegisterValue());
@@ -100,18 +101,22 @@ public class RegisterControllerMvc {
 		
 	
 		 User user = new User();
+		 user.setRoles(roles);
 		 user.setUsername(userRegisterDTO.getLogin());
-		 user.setPassword(userRegisterDTO.getPassword());
-		
-		 userService.addUser(user);
 		 
+		 user.setPassword(userRegisterDTO.getPassword());
+		 
+	//	 userService.addUser(user);
+		 userRepo.save(user);
 		 
 		 teacher.setFirstName(userRegisterDTO.getFirstName());
 		 teacher.setKeyRegisterValue(userRegisterDTO.getKeyRegisterValue());
 		 teacher.setLastName(userRegisterDTO.getLastName());
 		 teacher.setPesel(userRegisterDTO.getPesel());
 		 teacher.setLogin(userRegisterDTO.getLogin());
+		 
 		 teacher.setPassword(userRegisterDTO.getPassword());
+
 		 teacher.setUser(user);
 		 
 		 teacherRepo.save(teacher);

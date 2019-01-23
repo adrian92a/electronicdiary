@@ -36,10 +36,7 @@ public class User implements Serializable {
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
     
-    
-    @ManyToOne
-    @JoinColumn(name="roleName" , referencedColumnName = "roleName")
-    private Role role;
+  
     
     public boolean isEnabled() 
     {

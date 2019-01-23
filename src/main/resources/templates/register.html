@@ -16,7 +16,8 @@
             <a class="navbar-brand" href="/">Electronic Diary</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="/loginform">Zaloguj sie</a></li>
+        <li> <a th:if= "${#strings.isEmpty(session.username)}" href="/loginform">Zaloguj sie</a><li>
+   
             <li class="active" ><a href="/register">Utwórz konto</a></li>
         </ul>
     </div>
