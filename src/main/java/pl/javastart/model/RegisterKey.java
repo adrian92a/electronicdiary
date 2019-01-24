@@ -25,20 +25,43 @@ public class RegisterKey implements Serializable {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public String className;
+	public Integer schollClassnumber;
+	public String schollClassLetter;
 	public Boolean used;
-	
-//    @Transient
-//    public String keyError;
-	
-	
-//	public String getKeyError() {
-//		return keyError;
-//	}
-//
-//	public void setKeyError(String keyError) {
-//		this.keyError = keyError;
-//	}
+
+
+	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel,
+			Integer schollClassnumber, String schollClassLetter, Boolean used, Role role) {
+		super();
+		this.keyRegisterValue = keyRegisterValue;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.schollClassnumber = schollClassnumber;
+		this.schollClassLetter = schollClassLetter;
+		this.used = used;
+		this.role = role;
+	}
+
+	public Integer getSchollClassnumber() {
+		return schollClassnumber;
+	}
+
+	public void setSchollClassnumber(Integer schollClassnumber) {
+		this.schollClassnumber = schollClassnumber;
+	}
+
+	public String getSchollClassLetter() {
+		return schollClassLetter;
+	}
+
+	public void setSchollClassLetter(String schollClassLetter) {
+		this.schollClassLetter = schollClassLetter;
+	}
+
+	public void setUsed(Boolean used) {
+		this.used = used;
+	}
 
 	public Boolean getUsed() {
 		return used;
@@ -54,15 +77,6 @@ public class RegisterKey implements Serializable {
 	
 
 	
-	
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String classNumber) {
-		this.className = classNumber;
-	}
-
 
 	public Role getRole() {
 		return role;
@@ -94,18 +108,6 @@ public class RegisterKey implements Serializable {
 		super();
 	}
 
-
-public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, String className,
-		Role role) {
-	super();
-	this.keyRegisterValue = keyRegisterValue;
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.pesel = pesel;
-	this.className = className;
-	this.role = role;
-	
-}
 
 
 	public String getFirstName() {

@@ -1,18 +1,15 @@
 package pl.javastart.controller.web;
 
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import pl.javastart.model.RegisterKey;
 import pl.javastart.model.RegisterKeyAndRoleDTO;
@@ -29,8 +26,7 @@ public class RegisterKeyControllerMvc {
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
 	
-	@Autowired
-	public RoleRepository roleRepo;
+
 	
 	@Autowired
 	public RegisterKeyControllerMvc(RegisterKeyRepository registerKeyRepo)
@@ -43,7 +39,7 @@ public class RegisterKeyControllerMvc {
 	 List<RegisterKey> registerkeys = (List<RegisterKey>) registerKeyRepo.findAll();
 	 for(RegisterKey registerkey : registerkeys )
 		{
-		 System.out.println(registerkey);
+		 System.out.println("---------------"+registerkey);
 			if(registerkey.getKeyRegisterValue().equals(key) 	)
 //					&& registerkey.getUsed())
 			{
@@ -56,12 +52,12 @@ public class RegisterKeyControllerMvc {
 		} 
 		return true;
 	}
-	 private static void selectKeyUser(String key)
+//	 private static void selectKeyUser(String key)
 	 {}
-		public int findRole(Role role)
-		{
-			return roleRepo.findIdByRoleName(role.getRoleName());
-		}
+//		public int findRole(Role role)
+//		{
+//			return roleRepo.findIdByRoleName(role.getRoleName());
+//		}
 	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
 	{
@@ -77,18 +73,20 @@ public class RegisterKeyControllerMvc {
 				registerKeyAndRoleDTO.setFirstName(registerKey2.getFirstName());
 				registerKeyAndRoleDTO.setLastName(registerKey2.getLastName());
 				registerKeyAndRoleDTO.setPesel(registerKey2.getPesel());
-				registerKeyAndRoleDTO.setRoleName(roles);		
+				registerKeyAndRoleDTO.setRoleName(roles);	
+				System.out.println("--------------"+registerKey2.getSchollClassLetter());
+				System.out.println("--------------"+registerKey2.getSchollClassnumber());
+				registerKeyAndRoleDTO.setSchollClassLetter(registerKey2.getSchollClassLetter());
+				registerKeyAndRoleDTO.setSchollClassnumber(registerKey2.getSchollClassnumber());
 				registerKeyAndRoleDTO.setLogin(null);
 				registerKeyAndRoleDTO.setPassword(null);
-				if(r.getRoleName().equals("uczen"))
+				if(r.getRoleName().equals("uczeń"))
 				{
-					registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
 					model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
 					return "pupilsubmitregistrationpanel";
 				}	
 				if(r.getRoleName().equals("nauczyciel"))
 				{
-					registerKeyAndRoleDTO.setClassName(registerKey2.getClassName());;
 					model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
 					return "teachersubmitregistrationpanel";
 				}

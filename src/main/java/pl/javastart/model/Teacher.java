@@ -19,12 +19,9 @@ public class Teacher implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int id;
-	public String  keyRegisterValue;
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public String login;
-	public String password;
 	public Teacher() {}
 	 
 	@OneToOne
@@ -32,29 +29,12 @@ public class Teacher implements Serializable {
     private User user;
 
 
-	public Teacher(String keyRegisterValue, String firstName, String lastName, String pesel, 
-			String login, String password, User user) {
+	public Teacher(String firstName, String lastName, String pesel, User user) {
 		super();
-		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
-		this.login = login;
-		this.password = password;
 		this.user = user;
-	}
-
-
-
-
-
-	public String getKeyRegisterValue() {
-		return keyRegisterValue;
-	}
-
-
-	public void setKeyRegisterValue(String keyRegisterValue) {
-		this.keyRegisterValue = keyRegisterValue;
 	}
 
 
@@ -87,26 +67,6 @@ public class Teacher implements Serializable {
 		this.pesel = pesel;
 	}
 
-
-
-	public String getLogin() {
-		return login;
-	}
-
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 
 	public User getUser() {

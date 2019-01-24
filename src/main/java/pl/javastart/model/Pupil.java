@@ -1,60 +1,68 @@
 package pl.javastart.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@Table(name="pupil")
 public class Pupil implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="pupil_id")
     public int id;
-	public String  keyRegisterValue;
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public String className;
-	public String login;
-	public String password;
+	
+	
+	
+	 @ManyToOne
+	 @JoinColumn(name="schollclass_id")
+	 private Schollclass schollclass;
+	 
+	 
+	 
+	 
+
    // public Set<Mark> marks;
     
 	@OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+	public Schollclass getSchollclass() {
+		return schollclass;
+	}
+
+	public void setSchollclass(Schollclass schollclass) {
+		this.schollclass = schollclass;
+	}
+
 	public Pupil() {
 		super();
 	}
 
-	public Pupil(String keyRegisterValue, String firstName, String lastName, String pesel,
-			String className, String login, String password, User user) {
-		super();
-		this.keyRegisterValue = keyRegisterValue;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.className = className;
-		this.login = login;
-		this.password = password;
-		this.user = user;
+	public int getId() {
+		return id;
 	}
 
-	public String getKeyRegisterValue() {
-		return keyRegisterValue;
-	}
-
-	public void setKeyRegisterValue(String keyRegisterValue) {
-		this.keyRegisterValue = keyRegisterValue;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -82,29 +90,6 @@ public class Pupil implements Serializable {
 	}
 
 
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public User getUser() {
 		return user;
@@ -113,12 +98,28 @@ public class Pupil implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
+	public Pupil( String firstName, String lastName, String pesel, Schollclass schollclass,
+			User user) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.schollclass = schollclass;
+		this.user = user;
+	}
 
 	
 
+	
 
-
-
+	
 }
+	
+	
+
+	
+
+
+
+

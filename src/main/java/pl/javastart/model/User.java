@@ -12,8 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,17 +30,23 @@ public class User implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name="user_id")
     private Long id;
     private String username;
     private String password;
     private boolean enabled;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	private Set<Role> roles = new HashSet<>();
-    
-  
-    
-    public boolean isEnabled() 
+//    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//	private Set<Role> roles = new HashSet<>();
+    @ManyToMany()
+    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id",referencedColumnName="user_id",unique=false),
+    inverseJoinColumns=@JoinColumn( name="role_id", referencedColumnName="role_id",unique=false))
+    private Set<Role> roles= new HashSet<>();
+
+    public void addRole(Role role)
+    {
+    	roles.add(role);    
+    }
+	public boolean isEnabled() 
     {
 		return enabled;
 	}
@@ -53,12 +61,6 @@ public class User implements Serializable {
 		
 	}
 	
-	public User(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-
-	}
 	public String getLogin() {
 		return username;
 	}
