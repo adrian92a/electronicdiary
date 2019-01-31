@@ -79,7 +79,7 @@ LessonRepository lessonRepo;
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.removeAttribute("email");
-		session.removeAttribute("email");
+		session.removeAttribute("rolename");
 		return "index";
 	}
  

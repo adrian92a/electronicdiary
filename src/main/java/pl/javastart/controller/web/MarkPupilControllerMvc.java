@@ -36,7 +36,7 @@ import pl.javastart.repository.PupilRepository;
 public class MarkPupilControllerMvc {
 	private static final int Mark = 0;
 	
-	 HashSet<Object> pupilsMarks = new HashSet<Object>(); 
+
 	@Autowired
 	AccountController accountController;
 	@Autowired
@@ -73,12 +73,12 @@ public class MarkPupilControllerMvc {
 //	    }
 	    
 	    
-	    @GetMapping(value = "/subjects")
-	    public String showSubjects(HttpSession session, @RequestParam(required = false) 
-	    String query, @RequestParam(required = false) String subjectType, 
-	    ModelMap modelMap) {
+@GetMapping(value = "/subjects")
+public String showSubjects(HttpSession session, @RequestParam(required = false) 
+String query, @RequestParam(required = false) String subjectType, 
+ModelMap model) {
 //model.addAttribute("subjectList", markRepo.findMarks(query,productType));
-modelMap.addAttribute("selectedsubjectType", subjectType);
+model.addAttribute("selectedsubjectType", subjectType);
 //modelMap.addAttribute("markList",lessonRepo.find(pupilRepo.szukajId((String) session.getAttribute("email"))));
 System.out.println("---------" + subjectType);
 String email=(String) session.getAttribute("email");
@@ -89,12 +89,12 @@ System.out.println("---------xxxx" + x);
 List<Object[]> lista =lessonRepo.find(1);
 System.out.println("---------" + subjectType);
 
-List<Object[]> lista1 =lessonRepo.find(pupilRepo.szukajId(email));
-List<MarksDTO> userMarks;
+//List<Object[]> lista1 = lessonRepo.find(pupilRepo.szukajId(email));
+List<MarksDTO> userMarks=null;
 int markValue;
 String subject;
-
-for (Object[] obj : lista1) {
+HashSet<Object> pupilsMarks = new HashSet<Object>(); 
+for (Object[] obj : lessonRepo.find(pupilRepo.szukajId(email))) {
     markValue =  (int) obj[4];
     System.out.println("--------- markValue" + markValue);
     subject = (String) obj[3];
@@ -103,7 +103,7 @@ for (Object[] obj : lista1) {
     
     pupilsMarks.add(mark);
 }		
-modelMap.addAttribute("userMarks",pupilsMarks);
+model.addAttribute("userMarks",pupilsMarks);
 return "checkmarks";
 	    }
 	    
