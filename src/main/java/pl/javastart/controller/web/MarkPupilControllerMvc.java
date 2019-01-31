@@ -13,6 +13,7 @@ import javax.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.javastart.model.Lesson;
 import pl.javastart.model.Mark;
+import pl.javastart.model.MarksDTO;
 import pl.javastart.model.Pupil;
 import pl.javastart.model.SubjectType;
 import pl.javastart.repository.LessonRepository;
@@ -50,8 +52,8 @@ public class MarkPupilControllerMvc {
 		System.out.println("------------email(HttpSession session)");
 	return (String) session.getAttribute("email");
 	}
-//
-//	List<Mark> userMarks;
+
+//	List<MarksDTO> userMarks;
 //	    public HashSet<Object> listMarks(String pupilName) 
 //	    {
 //		  
@@ -72,12 +74,35 @@ public class MarkPupilControllerMvc {
 	    
 	    
 	    @GetMapping(value = "/subjects")
-	    public String showSubjects(@RequestParam(required = false) 
+	    public String showSubjects(HttpSession session, @RequestParam(required = false) 
 	    String query, @RequestParam(required = false) String subjectType, 
-	    Model model) {
-// model.addAttribute("productsList", markRepo.findProducts(query,productType));
-model.addAttribute("selectedsubjectType", subjectType);
+	    ModelMap modelMap) {
+//model.addAttribute("subjectList", markRepo.findMarks(query,productType));
+modelMap.addAttribute("selectedsubjectType", subjectType);
+//modelMap.addAttribute("markList",lessonRepo.find(pupilRepo.szukajId((String) session.getAttribute("email"))));
 System.out.println("---------" + subjectType);
+String email=(String) session.getAttribute("email");
+System.out.println(email);
+System.out.println("---------xxxx   " + pupilRepo.szukajId("kubwoj"));
+Integer x= pupilRepo.szukajId(email);
+System.out.println("---------xxxx" + x);
+List<Object[]> lista =lessonRepo.find(1);
+System.out.println("---------" + subjectType);
+List<Object[]> lista1 =lessonRepo.find(pupilRepo.szukajId(email));
+List<MarksDTO> userMarks;
+int markValue;
+String subject;
+
+for (Object[] obj : lista1) {
+    markValue =  (int) obj[4];
+    System.out.println("--------- markValue" + markValue);
+    subject = (String) obj[3];
+    System.out.println("--------- subject" + subject);
+    MarksDTO mark = new MarksDTO(markValue,subject);
+    
+    pupilsMarks.add(mark);
+}		
+modelMap.addAttribute("userMarks",pupilsMarks);
 return "index";
 	    }
 	    

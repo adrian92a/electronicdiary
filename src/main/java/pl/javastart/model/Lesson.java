@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -17,11 +18,11 @@ import javax.persistence.Table;
 @Table(name="lesson")
 public class Lesson implements Serializable {
 	private String subjectName;
-    public Lesson(Schollclass schollclass, Teacher teacher, Set<Mark> marks, String subjectName) {
+    public Lesson(Schollclass schollclass, Teacher teacher , String subjectName) {
 		super();
 		this.schollclass = schollclass;
 		this.teacher = teacher;
-		this.marks = marks;
+		
 		this.subjectName = subjectName;
 	}
 
@@ -50,12 +51,13 @@ public class Lesson implements Serializable {
     @JoinColumn(name="teacher_id")
     private Teacher teacher;
     
+
     
-    @OneToMany
-	@JoinTable(name="lesson_mark",
-	 	joinColumns = @JoinColumn(name="lesson_id"),
-	 	inverseJoinColumns=@JoinColumn(name="mark_id"))
-	 private Set<Mark> marks;
+//    @OneToMany
+//	@JoinTable(name="lesson_mark",
+//	 	joinColumns = @JoinColumn(name="lesson_id"),
+//	 	inverseJoinColumns=@JoinColumn(name="mark_id"))
+//	 private Set<Mark> marks;
     
     
     public Schollclass getSchollclass() {
@@ -68,10 +70,7 @@ public class Lesson implements Serializable {
 		return teacher;}
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;}
-	public Set<Mark> getMarks() {
-		return marks;}
-	public void setMarks(Set<Mark> marks) {
-		this.marks = marks;}
+
 	public String getSubjectName() {
 		return subjectName;}
 	public void setSubjectName(String subjectName) {

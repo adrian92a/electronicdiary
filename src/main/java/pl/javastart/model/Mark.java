@@ -26,11 +26,25 @@ private static final long serialVersionUID = 7021150458271420830L;
 	 
 	 public Integer markValue;
 	
-
+	 @ManyToOne
+	    @JoinColumn(name="lesson_id")
+	    private Lesson lesson;
 		
 		public Long getId() {
 		return id;
 	}
+
+
+
+	public Lesson getLesson() {
+			return lesson;
+		}
+
+
+
+		public void setLesson(Lesson lesson) {
+			this.lesson = lesson;
+		}
 
 
 

@@ -33,19 +33,12 @@ public class Pupil implements Serializable {
 	
 	@OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user;    
 	
 	 @ManyToOne
 	 @JoinColumn(name="schollclass_id")
 	 private Schollclass schollclass;
 	 
-	 @OneToMany
-	 @JoinTable(name="pupil_mark",
-	 	joinColumns = @JoinColumn(name="pupil_id"),
-	 	inverseJoinColumns=@JoinColumn(name="mark_id"))
-	 private Set<Mark> marks;
-   // public Set<Mark> marks;
-    
 
 
 	public Schollclass getSchollclass() {
@@ -59,14 +52,14 @@ public class Pupil implements Serializable {
 		this.pesel = pesel;
 	}
 
-	public Pupil(String firstName, String lastName, String pesel, User user, Schollclass schollclass, Set<Mark> marks) {
+	public Pupil(String firstName, String lastName, String pesel, User user, Schollclass schollclass) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
 		this.user = user;
 		this.schollclass = schollclass;
-		this.marks = marks;
+	
 	}
 
 	public void setSchollclass(Schollclass schollclass) {

@@ -101,7 +101,7 @@
 //	Pupil pupil3 = new Pupil("Ferdynant","Kiepski","51251252");
 //	
 //	schoolClassRepo.save(schollclass);
-//	pupil3.setUser(user1);
+//	pupil3.setUser(user3);
 //	pupil3.setSchollclass(schollclass);
 //    pupilRepo.save(pupil3);
 //	
@@ -125,10 +125,11 @@
 //    
 //    Mark mark1= new Mark(5,pupil2);
 //    Set<Mark> markSet=new HashSet<>();
+//    mark1.setLesson(matematyka1);
 //    markSet.add(mark1);
-//    matematyka1.setMarks(markSet);
-//    markRepository.save(mark1);
 //    lessonRepo.save(matematyka1);
+//    markRepository.save(mark1);
+//   
 //
 //    }
 //}

@@ -25,7 +25,7 @@ public class MarkControllerRest {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Mark> getMarks(@RequestParam(defaultValue="name") String orderBy) {
     	int id=2;
-        List<Object[]> marks = markRepo.findMark("janpedz");
+//        List<Object[]> marks = markRepo.findMark("janpedz");
 //        if("name".equals(orderBy)) {
 //        	marks.sort(Comparator.comparing(Mark::get));
 //        } else if("population".equals(orderBy)) {
