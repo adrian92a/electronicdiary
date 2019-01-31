@@ -45,25 +45,15 @@
 	</form>
 </div>    
     <div class ="col-lg-3">
-    <h3>Zalogowany jako</h3>
- <h3 th:text="${session.email}">Zalogowany</h3>  
+    <h1 style="font-size:100%;" >Zalogowany jako:</h1>
+ <h4 th:text="${session.email}">Zalogowany</h4>  
   <h3>Twoje uprawnienia</h3>
- <h3 th:text="${session.rolename}">Zalogowany</h3>  
+ <h4 th:text="${session.rolename}">Zalogowany</h4>  
 	<br>
     </div> 
     
   	<div class="col-lg-3">
-  <table border="1px">
-    <tr>
-        <th>Nazwa przedmiotu</th>
-        <th>Ocena </th>
-    </tr>
-    <tr th:each="marks : ${userMarks}">
-        <td th:text="${marks.markValue}"></td>
-        <td th:text="${marks.subjectName}"></td>
-     
-    </tr>
-</table>
+ 
      </div>  
      
      

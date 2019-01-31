@@ -88,6 +88,7 @@ Integer x= pupilRepo.szukajId(email);
 System.out.println("---------xxxx" + x);
 List<Object[]> lista =lessonRepo.find(1);
 System.out.println("---------" + subjectType);
+
 List<Object[]> lista1 =lessonRepo.find(pupilRepo.szukajId(email));
 List<MarksDTO> userMarks;
 int markValue;
@@ -103,7 +104,7 @@ for (Object[] obj : lista1) {
     pupilsMarks.add(mark);
 }		
 modelMap.addAttribute("userMarks",pupilsMarks);
-return "index";
+return "checkmarks";
 	    }
 	    
 	    

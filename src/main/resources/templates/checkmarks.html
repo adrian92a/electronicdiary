@@ -21,12 +21,22 @@
  <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
                <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
        			<li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-				<li><a href="/checkmarks">Sprawdz oceny</a></li>			 	
+						 	
         </ul>
     </div>
 </nav>
 
-
+ <table border="1px">
+    <tr>
+        <th>Ocena      </th>
+        <th>Przedmiot </th>
+    </tr>
+    <tr th:each="marks : ${userMarks}">
+        <td th:text="${marks.markValue}"></td>
+        <td th:text="${marks.subjectName}"></td>
+     
+    </tr>
+</table>
 
 </body>
 </html>
