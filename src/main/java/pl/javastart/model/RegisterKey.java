@@ -1,14 +1,16 @@
-package pl.javastart.model;
+  package pl.javastart.model;
 
 import java.beans.Transient;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -27,11 +29,14 @@ public class RegisterKey implements Serializable {
 	public String pesel;
 	public Integer schollClassnumber;
 	public String schollClassLetter;
-	public Boolean used;
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	public boolean used;
+
+
 
 
 	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel,
-			Integer schollClassnumber, String schollClassLetter, Boolean used, Role role) {
+			Integer schollClassnumber, String schollClassLetter, boolean used, Role role) {
 		super();
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
@@ -43,6 +48,23 @@ public class RegisterKey implements Serializable {
 		this.role = role;
 	}
 
+	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel,
+			Integer schollClassnumber, String schollClassLetter, boolean used) {
+		super();
+		this.keyRegisterValue = keyRegisterValue;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.schollClassnumber = schollClassnumber;
+		this.schollClassLetter = schollClassLetter;
+		this.used = used;
+	}
+
+	@ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+	
+	
 	public Integer getSchollClassnumber() {
 		return schollClassnumber;
 	}
@@ -70,14 +92,6 @@ public class RegisterKey implements Serializable {
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
-
-	@OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "role_id")
-    private Role role;
-	
-
-	
-
 	public Role getRole() {
 		return role;
 	}

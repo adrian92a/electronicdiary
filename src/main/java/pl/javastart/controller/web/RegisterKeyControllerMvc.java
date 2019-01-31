@@ -61,12 +61,17 @@ public class RegisterKeyControllerMvc {
 	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
 	{
+		 System.out.println("------------- 1");
+		 System.out.println("----------Wartosc register Key	"+registerKey.getKeyRegisterValue());
 		if(existRegisterKeyAndIsntUsed(registerKey.getKeyRegisterValue()) )
 		{
+			System.out.println("------------- 2");
 			Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
 			for(Role r:roles)
 			{
 				
+				
+				System.out.println("-------------3");
 				RegisterKey registerKey2 = registerKeyRepo.findByRegisterey(registerKey.getKeyRegisterValue());
 				RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
 				registerKeyAndRoleDTO.setKeyRegisterValue(registerKey2.getKeyRegisterValue());

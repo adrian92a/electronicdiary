@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
     
@@ -32,29 +32,51 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
     private Long id;
-    private String username;
+    private String email;
     private String password;
-    private boolean enabled;
+
 //    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 //	private Set<Role> roles = new HashSet<>();
-    @ManyToMany()
-    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id",referencedColumnName="user_id",unique=false),
-    inverseJoinColumns=@JoinColumn( name="role_id", referencedColumnName="role_id",unique=false))
-    private Set<Role> roles= new HashSet<>();
+//    @ManyToMany()
+//    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id",referencedColumnName="user_id",unique=false),
+//    inverseJoinColumns=@JoinColumn( name="role_id", referencedColumnName="role_id",unique=false))
+//    private Set<Role> roles= new HashSet<>();
+	@ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+	
 
-    public void addRole(Role role)
-    {
-    	roles.add(role);    
-    }
-	public boolean isEnabled() 
-    {
-		return enabled;
+
+	public User( String email, String password) {
+		super();
+	
+		this.email = email;
+		this.password = password;
 	}
 
-	public void setEnabled(boolean enabled) 
-	{
-		this.enabled = enabled;
+
+
+
+	public User(String email, String password, Role role) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.role = role;
 	}
+
+	public Role getRole() {
+		return role;
+	}
+
+
+
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+
+
 
 	public User()
 	{
@@ -62,10 +84,10 @@ public class User implements Serializable {
 	}
 	
 	public String getLogin() {
-		return username;
+		return email;
 	}
-	public void setLogin(String login) {
-		this.username = username;
+	public void setLogin(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
@@ -88,20 +110,13 @@ public class User implements Serializable {
 	}
 
 	public String getUsername() {
-		return username;
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String email) {
+		this.email = email;
 	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
 
 
 

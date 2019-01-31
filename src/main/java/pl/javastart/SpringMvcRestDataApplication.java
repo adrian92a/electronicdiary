@@ -16,7 +16,7 @@ public class SpringMvcRestDataApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringMvcRestDataApplication.class, args);
-	
+
 
 	}
 

@@ -1,4 +1,4 @@
-package pl.javastart.controller.web;
+ package pl.javastart.controller.web;
 
 import java.util.Set;
 
@@ -65,6 +65,7 @@ public class RegisterControllerMvc {
 		 Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(userRegisterDTO.getKeyRegisterValue());
 			for(Role r:roles)
 			{
+				
 		if(r.getRoleName().equals("uczeń"))
 		{
 		 model.addAttribute("userRegistrationDto",userRegisterDTO);
@@ -78,12 +79,12 @@ public class RegisterControllerMvc {
 		 User user = new User();
 		 user.setUsername(userRegisterDTO.getLogin());
 		 user.setPassword(userRegisterDTO.getPassword());
-		 user.setEnabled(true);
-		 
-		 user.addRole(role);
-			
-		 userRepo.save(user);
 	
+		 
+	
+		user.setRole(role);	
+		 userRepo.save(user);
+		 
 		 
 		 
 	
@@ -92,7 +93,7 @@ public class RegisterControllerMvc {
 		 pupil.setLastName(userRegisterDTO.getLastName());
 		 pupil.setPesel(userRegisterDTO.getPesel());
 
-		 pupil.setUser(user);
+//		 pupil.setUser(user);
 		
 		 System.out.println("--------------- "+userRegisterDTO.getSchollClassnumber());
 		 System.out.println("--------------- "+ userRegisterDTO.getSchollClassLetter());
@@ -118,13 +119,13 @@ public class RegisterControllerMvc {
 		 Role role= roleRepo.getOne(2l);
 		 
 	
-		
+		 
 		 User user = new User();
+		 user.setRole(role);	
 		 user.setUsername(userRegisterDTO.getLogin());
 		 user.setPassword(userRegisterDTO.getPassword());
-		 user.setEnabled(true);
 		 System.out.println("------------Obiekt1");
-		  user.addRole(role);
+		
 		 System.out.println("------------Obiekt2");
 		 userRepo.save(user);
 		System.out.println("------------Obiekt4");

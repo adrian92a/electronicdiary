@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                .permitAll()
 	            .loginProcessingUrl("/processlogin")
 	                .permitAll()
-	            .usernameParameter("username")
+	            .usernameParameter("email")
 	            .passwordParameter("password"); 
 	}
 	

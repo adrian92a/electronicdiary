@@ -21,7 +21,7 @@ public interface RegisterKeyRepository extends JpaRepository<RegisterKey, Long>
 {
 	@Query("select u from RegisterKey u where u.keyRegisterValue = ?1")
 	  RegisterKey findByRegisterey(String key);
-	@Query("select u.roleName from Role u inner join RegisterKey r on u.id=r.role  where r.keyRegisterValue = ?1")
+	@Query("select r from Role r inner join RegisterKey rk on r.id=rk.role  where rk.keyRegisterValue = ?1")
 	Set<Role> findRegisterKeyRoleName(String registerKet);
 	
 //	@Query("INSERT INTO User(login,password) VALUES( ?1 ,?2)")

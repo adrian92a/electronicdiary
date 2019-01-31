@@ -24,12 +24,19 @@ import javax.persistence.Table;
 public class Role implements Serializable {
     private static final long serialVersionUID = 7021150458271420830L;
 @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column(name="role_id")
 private Long id;
 private String roleName;
 
 
+
+
+
+public Role(Long id, String roleName) {
+	super();
+	this.id = id;
+	this.roleName = roleName;
+}
 
 public Role() {
 	super();

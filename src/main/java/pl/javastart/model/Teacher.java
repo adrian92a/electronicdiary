@@ -3,6 +3,7 @@ package pl.javastart.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,7 @@ public class Teacher implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="teacher_id")
     public int id;
 	public String firstName;
 	public String lastName;
@@ -27,6 +29,14 @@ public class Teacher implements Serializable {
 	@OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
+	public Teacher(String firstName, String lastName, String pesel) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+	}
 
 
 	public Teacher(String firstName, String lastName, String pesel, User user) {
