@@ -25,7 +25,8 @@ private static final long serialVersionUID = 7021150458271420830L;
 	 private Long id;
 	 
 	 public Integer markValue;
-	
+	 public Integer markWeight;
+	 public String markPurpose;
 	 @ManyToOne
 	    @JoinColumn(name="lesson_id")
 	    private Lesson lesson;
@@ -33,21 +34,45 @@ private static final long serialVersionUID = 7021150458271420830L;
 		public Long getId() {
 		return id;
 	}
-
-
-
 	public Lesson getLesson() {
 			return lesson;
 		}
 
 
 
+		public Mark(Integer markValue, Integer markWeight, String markPurpose, Pupil pupil) {
+		super();
+		this.markValue = markValue;
+		this.markWeight = markWeight;
+		this.markPurpose = markPurpose;
+		this.pupil = pupil;
+	}
+		public Mark(Integer markValue, Integer markWeight, String markPurpose, Lesson lesson, Pupil pupil) {
+		super();
+		this.markValue = markValue;
+		this.markWeight = markWeight;
+		this.markPurpose = markPurpose;
+		this.lesson = lesson;
+		this.pupil = pupil;
+	}
 		public void setLesson(Lesson lesson) {
 			this.lesson = lesson;
 		}
 
 
 
+	public Integer getMarkWeight() {
+			return markWeight;
+		}
+		public void setMarkWeight(Integer markWeight) {
+			this.markWeight = markWeight;
+		}
+		public String getMarkPurpose() {
+			return markPurpose;
+		}
+		public void setMarkPurpose(String markPurpose) {
+			this.markPurpose = markPurpose;
+		}
 	public Mark(Long id, Integer markValue, Pupil pupil) {
 			super();
 			this.id = id;

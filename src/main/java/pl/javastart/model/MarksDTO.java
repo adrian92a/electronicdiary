@@ -3,8 +3,10 @@ package pl.javastart.model;
 import java.util.Set;
 
 public class MarksDTO {
-	public int  markValue;
+	public Integer  markValue;
 	public String subjectName;
+	public String markPurpose;
+	public Integer markWeight;
 	public int getMarkValue() {
 		return markValue;
 	}
@@ -17,12 +19,25 @@ public class MarksDTO {
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-	public MarksDTO(int markValue, String subjectName) {
+	public String getMarkPurpose() {
+		return markPurpose;
+	}
+	public void setMarkPurpose(String markPurpose) {
+		this.markPurpose = markPurpose;
+	}
+	public Integer getMarkWeight() {
+		return markWeight;
+	}
+	public void setMarkWeight(Integer markWeight) {
+		this.markWeight = markWeight;
+	}
+	public MarksDTO(int markValue,  String markPurpose, Integer markWeight) {
 		super();
 		this.markValue = markValue;
-		this.subjectName = subjectName;
+		this.markPurpose = markPurpose;
+		this.markWeight = markWeight;
 	}
-	
+
 	
 
 }

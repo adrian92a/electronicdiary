@@ -76,36 +76,36 @@ public class MarkPupilControllerMvc {
 @GetMapping(value = "/subjects")
 public String showSubjects(HttpSession session, @RequestParam(required = false) 
 String query, @RequestParam(required = false) String subjectType, 
-ModelMap model) {
-//model.addAttribute("subjectList", markRepo.findMarks(query,productType));
-model.addAttribute("selectedsubjectType", subjectType);
-//modelMap.addAttribute("markList",lessonRepo.find(pupilRepo.szukajId((String) session.getAttribute("email"))));
-System.out.println("---------" + subjectType);
-String email=(String) session.getAttribute("email");
-System.out.println(email);
-System.out.println("---------xxxx   " + pupilRepo.szukajId("kubwoj"));
-Integer x= pupilRepo.szukajId(email);
-System.out.println("---------xxxx" + x);
-List<Object[]> lista =lessonRepo.find(1);
-System.out.println("---------" + subjectType);
+ModelMap model)
+{
 
-//List<Object[]> lista1 = lessonRepo.find(pupilRepo.szukajId(email));
-List<MarksDTO> userMarks=null;
-int markValue;
-String subject;
-HashSet<Object> pupilsMarks = new HashSet<Object>(); 
-for (Object[] obj : lessonRepo.find(pupilRepo.szukajId(email))) {
-    markValue =  (int) obj[4];
-    System.out.println("--------- markValue" + markValue);
-    subject = (String) obj[3];
-    System.out.println("--------- subject" + subject);
-    MarksDTO mark = new MarksDTO(markValue,subject);
-    
-    pupilsMarks.add(mark);
-}		
-model.addAttribute("userMarks",pupilsMarks);
-return "checkmarks";
-	    }
+		model.addAttribute("selectedsubjectType", subjectType);
+
+		String email=(String) session.getAttribute("email");
+		
+		Integer markValue;
+		String markPurpose;
+		Integer markWeight;
+		HashSet<Object> pupilsMarks = new HashSet<Object>(); 
+		for (Object[] obj : lessonRepo.find(pupilRepo.szukajId(email),subjectType.toString())) 
+		{
+		    markValue =   (int) obj[0];
+		  
+		    System.out.println(markValue);
+		}
+		for (Object[] obj : lessonRepo.find(pupilRepo.szukajId(email),subjectType.toString())) 
+		{
+		    markValue =   (int) obj[0];
+		    markPurpose =  (String) obj[1];
+		    markWeight =  (int) obj[2];
+	
+	    MarksDTO mark = new MarksDTO(markValue,markPurpose,markWeight); 
+		    pupilsMarks.add(mark);
+		}		
+		model.addAttribute("userMarks",pupilsMarks);
+		return "checkmarks";
+
+}
 	    
 	    
 	    

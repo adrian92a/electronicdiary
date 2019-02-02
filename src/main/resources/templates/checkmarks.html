@@ -7,6 +7,31 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+table#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+table#t01 th {
+  background-color: black;
+  color: white;
+}
+</style>
+
+
 </head>
 <body>
 
@@ -26,18 +51,36 @@
     </div>
 </nav>
 
- <table border="1px">
+    <div class ="col-lg-3">
+	<form th:action="@{/subjects}" method="get">
+					    <select th:name="subjectType">
+						         <option th:each="state : ${T(pl.javastart.model.SubjectType).values()}"
+				          			  th:value="${state}"
+				            		  th:text="${state}"
+				            		  th:selected="${selectedsubjectType eq state.name()}" >
+				   			 	</option>
+					   	 </select>
+			   		   	 <input type="submit" value="Znajdz oceny" />
+					</form>
+</div>
+
+  <div class ="col-lg-6">
+  <h2>Tabela ocen</h2>
+ <table  id="t01">
     <tr>
         <th>Ocena      </th>
-        <th>Przedmiot </th>
+        <th>Opis oceny </th>
+         <th>Waga oceny</th>
     </tr>
     <tr th:each="marks : ${userMarks}">
         <td th:text="${marks.markValue}"></td>
-        <td th:text="${marks.subjectName}"></td>
-     
+        <td th:text="${marks.markPurpose}"></td>
+     	  <td th:text="${marks.markWeight}"></td>
     </tr>
 </table>
+</div>
 
+  
 </body>
 </html>
 

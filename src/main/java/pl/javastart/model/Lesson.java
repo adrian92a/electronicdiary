@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="lesson")
 public class Lesson implements Serializable {
-	private String subjectName;
+
     public Lesson(Schollclass schollclass, Teacher teacher , String subjectName) {
 		super();
 		this.schollclass = schollclass;
@@ -46,7 +46,7 @@ public class Lesson implements Serializable {
     @OneToOne
     @JoinColumn(name="schollclass_id")
     private Schollclass schollclass;   
-    
+	private String subjectName;
     @OneToOne	
     @JoinColumn(name="teacher_id")
     private Teacher teacher;

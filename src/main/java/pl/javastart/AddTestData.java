@@ -123,7 +123,7 @@
 //    
 //
 //    
-//    Mark mark1= new Mark(5,pupil2);
+//    Mark mark1= new Mark(5,3,"sprawdzian",pupil2);
 //    Set<Mark> markSet=new HashSet<>();
 //    mark1.setLesson(matematyka1);
 //    markSet.add(mark1);

@@ -16,10 +16,11 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">WebSiteName</a>
     </div>
+    
     <ul class="nav navbar-nav">
 
- <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
-               <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
+				 <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
+             	  <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
        			 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
 
        			 	 <li th:switch="${session.rolename}">
@@ -27,21 +28,11 @@
        			 		<li th:action="@{/checkmarks}" th:object="${sesion}" >
 	       			 	</li>
 	       			 	
-							    <li th:switch="${session.rolename}" class="dropdown"><a th:case="'uczeń'" class="dropdown-toggle" data-toggle="dropdown" href="#">Sprawdz oceny <span class="caret"></span></a>
-									   
-									          	 <ul  class="dropdown-menu">
-											          <li th:each="lesson: ${subjectNames}" >	
-												          <a  
-												          		th:utext="${lesson.subjectName}" 
-													        	th:object="${lesson}"  
-													            th:href="@{/checkmarks}"> 
-												          </a>
-				      </li>
-				      
-		       		</ul>
-        </li>
-    </div>
-</nav>
+	       			 	</ul>
+	      </div>
+	
+</nav>     			 	
+
 
 <h3>Success Page</h3>
  <h3 th:text="${session.email}">Zalogowany</h3>  

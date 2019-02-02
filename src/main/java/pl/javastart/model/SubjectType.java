@@ -1,8 +1,8 @@
 package pl.javastart.model;
 import java.util.Arrays;
 public enum SubjectType {
-	Matematyka,
-	Polski;
+	matematyka,
+	polski;
 
 	private String polishName;
 

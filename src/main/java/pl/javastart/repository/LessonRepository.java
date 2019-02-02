@@ -13,20 +13,11 @@ import pl.javastart.model.User;
 
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Long>{
-
-//	@Query("select p.id, l.schollclass, l.teacher,l.subjectName, m.markValue from Lesson l "
-//			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id inner join Mark m on "
-//			+ "m.pupil.id=p.id "
-//			+ "where p.id =?1")
-//	List<Object[]> find(int id);
-//	
-
-	@Query("select p.id, l.schollclass, l.teacher,l.subjectName, m.markValue from Lesson l "
+	@Query("select m.markValue, m.markPurpose, m.markWeight, p.id, l.schollclass, l.teacher,l.subjectName from Lesson l "
 			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id inner join Mark m on "
 			+ "m.pupil.id=p.id "
-			+ "where p.id =?1")
-	List<Object[]> find(int id);
-	
+			+ "where p.id =?1 and l.subjectName=?2")
+	List<Object[]> find(int id,String subjectName);
 	
 	@Query("select distinct l from Lesson l")
 	List<Lesson>  findDistinctSubject();

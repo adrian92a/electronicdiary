@@ -16,40 +16,35 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">WebSiteName</a>
     </div>
+    
     <ul class="nav navbar-nav">
 
- <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
-               <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
+				 <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
+             	  <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
        			 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
 
-       			 	 <li th:switch="${session.rolename}">
+       			 	 <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
        			
-       			 		<li th:action="@{/checkmarks}" th:object="${sesion}" >
-	       			 	</li>
+       			 	
+       			 		
+	       			
+	       			 	
+	       			 	</ul>
 	      </div>
-</nav>     	
-
+	
+</nav>     		
+    <div class ="col-lg-3">
+    <h1 style="font-size:100%;" >Zalogowany jako:</h1>
+ <h1 style="font-size:100%;" th:text="${session.email}">Zalogowany</h1>  
+  <h3 style="font-size:100%;" >Twoje uprawnienia</h3>
+ <h1 style="font-size:100%;"th:text="${session.rolename}">Zalogowany</h1>  
+	<br>
 
 
 <div class="col-lg-3">
-  
- 		 			<form th:action="@{/subjects}" method="get">
-		    <select th:name="subjectType">
-			         <option th:each="state : ${T(pl.javastart.model.SubjectType).values()}"
-	          			  th:value="${state}"
-	            		  th:text="${state}"
-	            		  th:selected="${selectedsubjectType eq state.name()}" >
-	   			 	</option>
-		    </select>
-   		   <input type="submit" value="Znajdz oceny" />
-	</form>
+
 </div>    
-    <div class ="col-lg-3">
-    <h1 style="font-size:100%;" >Zalogowany jako:</h1>
- <h4 th:text="${session.email}">Zalogowany</h4>  
-  <h3>Twoje uprawnienia</h3>
- <h4 th:text="${session.rolename}">Zalogowany</h4>  
-	<br>
+
     </div> 
     
   	<div class="col-lg-3">
