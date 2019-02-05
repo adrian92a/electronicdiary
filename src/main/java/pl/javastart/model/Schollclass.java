@@ -37,6 +37,14 @@ public class Schollclass {
 	public Schollclass() {
 		super();
 	}
+	
+	public Schollclass(int id, Integer classNumber, String classLetter) {
+		super();
+		this.id = id;
+		this.classNumber = classNumber;
+		this.classLetter = classLetter;
+	}
+
 	public Schollclass(Integer classNumber, String classLetter) {
 		super();
 		this.classNumber = classNumber;

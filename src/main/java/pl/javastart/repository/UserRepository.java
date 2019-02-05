@@ -24,4 +24,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 @Query("select r.roleName from Role r inner join User u on r.id=u.role  where u.email = ?1")  
 String findUserRole(String email);
 
+@Query("select u.id from User u where u.email = ?1")
+Integer findUserByEmail(String email);
+
 	}

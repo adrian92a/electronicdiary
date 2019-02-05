@@ -17,7 +17,16 @@ public interface LessonRepository extends JpaRepository<Lesson, Long>{
 			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id inner join Mark m on "
 			+ "m.pupil.id=p.id "
 			+ "where p.id =?1 and l.subjectName=?2")
-	List<Object[]> find(int id,String subjectName);
+	List<Object[]> findValuesToMarkTable(int id,String subjectName);
+	
+	@Query("select l.teacher.id from Lesson l "
+			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id "
+			+ "where p.id =?1 and l.subjectName=?2")
+	Integer findTeacher(int id, String subjectName);
+	
+	@Query("select s.id, s.classNumber, s.classLetter, l.id , l.schollclass from Lesson l inner join Schollclass s on s.id= l.schollclass.id "
+			+ "where l.teacher.id=?1")
+	List<Object[]> findTeacherClass(int id);
 	
 	@Query("select distinct l from Lesson l")
 	List<Lesson>  findDistinctSubject();

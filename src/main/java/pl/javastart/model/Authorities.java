@@ -15,7 +15,7 @@
 //import javax.persistence.Table;
 //import javax.xml.bind.annotation.XmlRootElement;
 //
-//
+//   country
 //@Entity
 //@Table(name="authorities")
 //public class Authorities implements Serializable {

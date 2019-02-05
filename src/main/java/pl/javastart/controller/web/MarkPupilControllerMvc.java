@@ -28,15 +28,19 @@ import pl.javastart.model.Mark;
 import pl.javastart.model.MarksDTO;
 import pl.javastart.model.Pupil;
 import pl.javastart.model.SubjectType;
+import pl.javastart.model.TeacherDTO;
 import pl.javastart.repository.LessonRepository;
 import pl.javastart.repository.MarkRepository;
 import pl.javastart.repository.PupilRepository;
+import pl.javastart.repository.TeacherRepository;
 
 @Controller
 public class MarkPupilControllerMvc {
 	private static final int Mark = 0;
 	
-
+	@Autowired
+	TeacherRepository teacherRepo;
+	
 	@Autowired
 	AccountController accountController;
 	@Autowired
@@ -53,31 +57,11 @@ public class MarkPupilControllerMvc {
 	return (String) session.getAttribute("email");
 	}
 
-//	List<MarksDTO> userMarks;
-//	    public HashSet<Object> listMarks(String pupilName) 
-//	    {
-//		  
-//		System.out.println("----------- "+(accountController));
-//		   System.out.println("----------- wchodzi do ListMarks");
-//
-//	        int markValue;
-//	        String email;
-//		   List<Object[]> markPupil=  markRepo.findMark(pupilName);
-//		   for (Object[] obj : markPupil) {
-//			     markValue =  (int) obj[0];
-//			     email = (String) obj[1];
-//			     pupilsMarks.add(obj);
-//			}		   
-//	        System.out.println("----------- wchodzi do pętli 1");
-//			return pupilsMarks;
-//	    }
-	    
-	    
 @GetMapping(value = "/subjects")
 public String showSubjects(HttpSession session, @RequestParam(required = false) 
 String query, @RequestParam(required = false) String subjectType, 
 ModelMap model)
-{
+	{
 
 		model.addAttribute("selectedsubjectType", subjectType);
 
@@ -87,46 +71,28 @@ ModelMap model)
 		String markPurpose;
 		Integer markWeight;
 		HashSet<Object> pupilsMarks = new HashSet<Object>(); 
-		for (Object[] obj : lessonRepo.find(pupilRepo.szukajId(email),subjectType.toString())) 
-		{
-		    markValue =   (int) obj[0];
-		  
-		    System.out.println(markValue);
-		}
-		for (Object[] obj : lessonRepo.find(pupilRepo.szukajId(email),subjectType.toString())) 
+		Integer numerNauczyciela = lessonRepo.findTeacher(pupilRepo.szukajId(email),subjectType.toString());
+	
+		
+		String teacherFirstName=teacherRepo.findFirstNameTeacher(numerNauczyciela);
+		String teacherLastName= teacherRepo.findLastNameTeacher(numerNauczyciela);
+	
+		TeacherDTO teacher = new TeacherDTO(teacherFirstName,teacherLastName);
+		model.addAttribute("teacherFirstName",teacher.getFirstName());
+		model.addAttribute("teacherLastName",teacher.getLasName());
+		
+		for (Object[] obj : lessonRepo.findValuesToMarkTable(pupilRepo.szukajId(email),subjectType.toString())) 
 		{
 		    markValue =   (int) obj[0];
 		    markPurpose =  (String) obj[1];
 		    markWeight =  (int) obj[2];
-	
+		    
 	    MarksDTO mark = new MarksDTO(markValue,markPurpose,markWeight); 
 		    pupilsMarks.add(mark);
 		}		
+	
 		model.addAttribute("userMarks",pupilsMarks);
 		return "checkmarks";
 
-}
-	    
-	    
-	    
-//	    @RequestMapping("/checkmarks")
-//	  public String getMoviesOrdered(@RequestBody Lesson lesson, 
-//			  @RequestParam String myselect, Model model){
-//		  System.out.println("subjectType");
-//		    return "index";
-//		}
-	  
-//	  
-//	    @RequestMapping(value="/checkmarks", method = RequestMethod.GET)
-//	    public String pupilMarks(HttpSession session,RedirectAttributes redirectAttr) 
-//	    {   
-//	    	System.out.println("----------"+accountController.userName(session).toString());
-//	        return "/checkmarks";
-//	    }
-//	    @GetMapping
-//	    public String listCities(Model model) {
-//	        List<String> subjects = lessonRepo.findDistinctSubject();
-//	        model.addAttribute("subjectNames",subjects );
-//	        return "list";
-//	    }
+	}	   
 }

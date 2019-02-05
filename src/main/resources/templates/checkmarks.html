@@ -64,8 +64,10 @@ table#t01 th {
 					</form>
 </div>
 
-  <div class ="col-lg-6">
-  <h2>Tabela ocen</h2>
+  <div class ="col-lg-6"   >
+	<p th:if="${teacherFirstName != null}" th:text ="'Imię i nazwisko nauczyciela:'+ ${teacherFirstName} + ' '+ ${teacherLastName}"></p>	
+ 	 
+
  <table  id="t01">
     <tr>
         <th>Ocena      </th>

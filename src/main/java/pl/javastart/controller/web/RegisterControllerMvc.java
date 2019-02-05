@@ -30,19 +30,14 @@ import pl.javastart.security.UserService;
 public class RegisterControllerMvc {
 	@Autowired
 	private SchoolClassRepository schoolRepo;
-	
 	@Autowired
 	private UserService	userService;
-	
 	@Autowired
 	private RoleRepository	roleRepo;
-	
 	@Autowired
 	private RegisterKeyRepository registerKeyRepo;
-
 	@Autowired
 	private UserRepository userRepo;
-	
 	@Autowired
 	private PupilRepository pupilRepo;
 
@@ -51,7 +46,6 @@ public class RegisterControllerMvc {
 	{
 		this.pupilRepo=pupilRepo;
 	}
-	
 	@Autowired
 	private TeacherRepository teacherRepo;
 	
@@ -69,7 +63,6 @@ public class RegisterControllerMvc {
 		if(r.getRoleName().equals("uczeń"))
 		{
 		 model.addAttribute("userRegistrationDto",userRegisterDTO);
-		// System.out.println(userRegisterDTO.getSchoolClass() + " ----numer klasy");
 		 System.out.println(userRegisterDTO.getKeyRegisterValue() +"------key register");
 		 System.out.println("wchodzi do rejesestracji");
 		 Pupil pupil = new Pupil();
@@ -79,66 +72,33 @@ public class RegisterControllerMvc {
 		 User user = new User();
 		 user.setUsername(userRegisterDTO.getLogin());
 		 user.setPassword(userRegisterDTO.getPassword());
-	
-		 
-	
+
 		user.setRole(role);	
 		 userRepo.save(user);
-		 
-		 
-		 
-	
-		 
+
 		 pupil.setFirstName(userRegisterDTO.getFirstName());
 		 pupil.setLastName(userRegisterDTO.getLastName());
 		 pupil.setPesel(userRegisterDTO.getPesel());
-
-//		 pupil.setUser(user);
-		
-		 System.out.println("--------------- "+userRegisterDTO.getSchollClassnumber());
-		 System.out.println("--------------- "+ userRegisterDTO.getSchollClassLetter());
-		 
-		 
 		 Schollclass scholl=schoolRepo.findSchollclassByClassNumberAndClassLetter(userRegisterDTO.getSchollClassnumber(),userRegisterDTO.getSchollClassLetter());
 		 pupil.setSchollclass(scholl);
 		 pupilRepo.save(pupil);
-		 
-		 
+
 		 model.addAttribute("userModel", new User());	
 		 return "/loginform";
 		}
+		
 		if(r.getRoleName().equals("nauczyciel"))
 		{
 		 model.addAttribute("userRegistrationDto",userRegisterDTO);
 		 System.out.println(userRegisterDTO.getKeyRegisterValue() +"------key register");
 		 System.out.println("wchodzi do rejesestracji");
-		 
-		 
-		
-	
 		 Role role= roleRepo.getOne(2l);
-		 
-	
-		 
 		 User user = new User();
 		 user.setRole(role);	
 		 user.setUsername(userRegisterDTO.getLogin());
 		 user.setPassword(userRegisterDTO.getPassword());
-		 System.out.println("------------Obiekt1");
-		
-		 System.out.println("------------Obiekt2");
 		 userRepo.save(user);
-		System.out.println("------------Obiekt4");
-		
-		System.out.println("------------Obiekt5");
-		
-		
-		 
-		 
-		
-		 
-		 
-	//	 userService.addUser(user);
+
 		 Teacher teacher = new Teacher();
 		 teacher.setFirstName(userRegisterDTO.getFirstName());
 		 teacher.setLastName(userRegisterDTO.getLastName());
@@ -147,11 +107,9 @@ public class RegisterControllerMvc {
 		 teacher.setUser(user);
 		 teacherRepo.save(teacher);
 		
-			model.addAttribute("userModel", new User());	
+		model.addAttribute("userModel", new User());	
 		 return "/loginform";
-		}
-		
-		 
+		} 
 	 }
 			 return "/login";
 }

@@ -18,7 +18,19 @@ import javax.persistence.Table;
 @Table(name="lesson")
 public class Lesson implements Serializable {
 
-    public Lesson(Schollclass schollclass, Teacher teacher , String subjectName) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+	
+	
+	
+	
+	
+
+	public Lesson(Schollclass schollclass, Teacher teacher , String subjectName) {
 		super();
 		this.schollclass = schollclass;
 		this.teacher = teacher;

@@ -1,23 +1,17 @@
 package pl.javastart.controller.web;
-
-
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import pl.javastart.model.RegisterKey;
 import pl.javastart.model.RegisterKeyAndRoleDTO;
 import pl.javastart.model.Role;
 import pl.javastart.repository.RegisterKeyRepository;
 import pl.javastart.repository.RoleRepository;
-
-
 
 @Controller
 @RequestMapping("/registerKeyController")
@@ -25,15 +19,12 @@ public class RegisterKeyControllerMvc {
 	public String error;
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
-	
 
-	
 	@Autowired
 	public RegisterKeyControllerMvc(RegisterKeyRepository registerKeyRepo)
 	{
 		this.registerKeyRepo=registerKeyRepo;
 	}
-
 	public boolean existRegisterKeyAndIsntUsed(String key)
 	{
 	 List<RegisterKey> registerkeys = (List<RegisterKey>) registerKeyRepo.findAll();
@@ -41,7 +32,6 @@ public class RegisterKeyControllerMvc {
 		{
 		 System.out.println("---------------"+registerkey);
 			if(registerkey.getKeyRegisterValue().equals(key) 	)
-//					&& registerkey.getUsed())
 			{
 				return true;
 			}
@@ -52,26 +42,14 @@ public class RegisterKeyControllerMvc {
 		} 
 		return true;
 	}
-//	 private static void selectKeyUser(String key)
-	 {}
-//		public int findRole(Role role)
-//		{
-//			return roleRepo.findIdByRoleName(role.getRoleName());
-//		}
 	 @PostMapping
 	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
 	{
-		 System.out.println("------------- 1");
-		 System.out.println("----------Wartosc register Key	"+registerKey.getKeyRegisterValue());
 		if(existRegisterKeyAndIsntUsed(registerKey.getKeyRegisterValue()) )
 		{
-			System.out.println("------------- 2");
 			Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
 			for(Role r:roles)
 			{
-				
-				
-				System.out.println("-------------3");
 				RegisterKey registerKey2 = registerKeyRepo.findByRegisterey(registerKey.getKeyRegisterValue());
 				RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
 				registerKeyAndRoleDTO.setKeyRegisterValue(registerKey2.getKeyRegisterValue());

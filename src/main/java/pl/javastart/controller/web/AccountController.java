@@ -67,8 +67,8 @@ LessonRepository lessonRepo;
 		}
 	}
 	
-	
-	  public String userName(HttpSession session)
+	HttpSession session;
+	  public String getUserEmail()
 	  {
 		String email=(String) session.getAttribute("email");
 		return email;

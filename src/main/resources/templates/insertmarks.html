@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+	  	<div class="container-fluid">
+	    <div class="navbar-header">
+      	<a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+			    <ul class="nav navbar-nav">
+			
+							 <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
+			             	 <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
+			       			 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
+				</ul>
+	      </div>
+</nav>   
+  	
+  	
+ 	<form name='f' th:object="${classForm}" method='POST'>
+                    <select th:field="*{classId}">
+                         <option th:each="subject : ${classTeacher}"
+                             th:value="${subject.classId}"
+                             th:utext="${subject.classNumber}"/>
+                  </select>
+                <input name="submit" type="submit" value="submit" />
+    </form>
+    
+ <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>imie	</th>
+                <th>nazwisko  </th>
+                <th>pesel  </th>
+            </tr>
+            </thead>
+
+            <tr th:each="pupil: ${pupilsMarks}">
+                <td th:text="${pupil.pupilId}"></td>
+                <td th:text="${pupil.firstName}"></td>
+                <td th:text="${pupil.lasName}"></td>
+            </tr>
+        </table>
+  			   
+  			   
+  			   
+<h3>Success Page</h3>
+ <h3 th:text="${session.email}">Zalogowany</h3>  
+ <h3 th:text="${session.rolename}">Zalogowany</h3>  
+	<br>
+</body>
+</html>
+

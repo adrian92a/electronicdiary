@@ -94,40 +94,61 @@
 //	userRepo.save(user1);
 //	userRepo.save(user2);
 //	userRepo.save(user3);
-//	Schollclass schollclass = new Schollclass(1,"B");
 //	
+//	Schollclass schollclass1 = new Schollclass(1,"A");
+//	Schollclass schollclass2 = new Schollclass(1,"B");
+//	Schollclass schollclass3 = new Schollclass(1,"C");
 //	
 //	Pupil pupil2 = new Pupil("Kuba","Wojewódzki","412412");
 //	Pupil pupil3 = new Pupil("Ferdynant","Kiepski","51251252");
 //	
-//	schoolClassRepo.save(schollclass);
+//	schoolClassRepo.save(schollclass1);
+//	schoolClassRepo.save(schollclass2);
+//	schoolClassRepo.save(schollclass3);
+//	
 //	pupil3.setUser(user3);
-//	pupil3.setSchollclass(schollclass);
+//	pupil3.setSchollclass(schollclass1);
 //    pupilRepo.save(pupil3);
 //	
 //	
 //	pupil2.setUser(user2);
-//	pupil2.setSchollclass(schollclass);
+//	pupil2.setSchollclass(schollclass1);
 //    pupilRepo.save(pupil2);
 //    
 //    
 //    Teacher teacher1 = new Teacher("Janusz","Pędziwiatr","1256231");
-//    teacher1.setUser(user3);
+//    teacher1.setUser(user1);
 //    teacherRepo.save(teacher1);
 //    
 //    
 //    Lesson matematyka1=new Lesson();
+//    Lesson matematyka2=new Lesson();
+//    Lesson matematyka3=new Lesson();
+//    
 //    matematyka1.setTeacher(teacher1);
-//    matematyka1.setSchollclass(schollclass);
+//    matematyka2.setTeacher(teacher1);
+//    matematyka3.setTeacher(teacher1);
+//    
+//    
+//    matematyka1.setSchollclass(schollclass1);
 //    matematyka1.setSubjectName("matematyka");
 //    
+//    matematyka2.setSchollclass(schollclass2);
+//    matematyka2.setSubjectName("matematyka");
 //
+//    matematyka3.setSchollclass(schollclass3);
+//    matematyka3.setSubjectName("matematyka");
+//    
 //    
 //    Mark mark1= new Mark(5,3,"sprawdzian",pupil2);
 //    Set<Mark> markSet=new HashSet<>();
 //    mark1.setLesson(matematyka1);
 //    markSet.add(mark1);
+//    
 //    lessonRepo.save(matematyka1);
+//    lessonRepo.save(matematyka2);
+//    lessonRepo.save(matematyka3);
+//    
 //    markRepository.save(mark1);
 //   
 //
