@@ -85,15 +85,20 @@ public class ClassDAO {
     	String email=(String) session.getAttribute("email");
     
     	
-    	Integer classId;
+    Integer classId;
    	 Integer classNumber;
    	 String classLetter;
+   	 String subjectName;
+   	Integer lessonId;
     	for(Object[] obj : lessonRepo.findTeacherClass(teacherRepo.findTeacherID(userRepo.findUserByEmail(email)))) 
     	{
     		classId =   (Integer) obj[0];
     		classNumber =  (Integer) obj[1];
     		classLetter = (String) obj[2];
-    		ClassDTO cl = new ClassDTO(classId,classNumber,classLetter); 
+    		subjectName =(String) obj[3];
+    		lessonId =(Integer) obj[4];
+    		
+    		ClassDTO cl = new ClassDTO(classId,classNumber,classLetter,subjectName,lessonId); 
     		teacherClasses.add(cl);
     	}
     	

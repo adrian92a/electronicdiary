@@ -53,7 +53,7 @@ public class Lesson implements Serializable {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="lesson_id")
-    private Long id;
+    private Integer id;
     
     @OneToOne
     @JoinColumn(name="schollclass_id")

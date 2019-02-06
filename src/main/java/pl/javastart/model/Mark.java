@@ -22,7 +22,7 @@ private static final long serialVersionUID = 7021150458271420830L;
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name="mark_id")
-	 private Long id;
+	 private Integer id;
 	 
 	 public Integer markValue;
 	 public Integer markWeight;
@@ -31,7 +31,7 @@ private static final long serialVersionUID = 7021150458271420830L;
 	    @JoinColumn(name="lesson_id")
 	    private Lesson lesson;
 		
-		public Long getId() {
+		public Integer getId() {
 		return id;
 	}
 	public Lesson getLesson() {
@@ -73,7 +73,7 @@ private static final long serialVersionUID = 7021150458271420830L;
 		public void setMarkPurpose(String markPurpose) {
 			this.markPurpose = markPurpose;
 		}
-	public Mark(Long id, Integer markValue, Pupil pupil) {
+	public Mark(Integer id, Integer markValue, Pupil pupil) {
 			super();
 			this.id = id;
 			this.markValue = markValue;
@@ -86,7 +86,7 @@ private static final long serialVersionUID = 7021150458271420830L;
 
 
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

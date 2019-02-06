@@ -1,17 +1,42 @@
 package pl.javastart.model;
 
-public class PupilDTO {
+public class PupilDTO implements Comparable<PupilDTO> {
+	public Integer index;
 	public Integer pupilId;
 	public String firstName;
-	public String lasName;
+	public String lastName;
+	public Integer lessonId;
+	public Integer getIndex() {
+		return index;
+	}
 
-	
-	
-	public PupilDTO(Integer pupilId, String firstName, String lasName) {
+	public Integer getLessonId() {
+		return lessonId;
+	}
+
+	public void setLessonId(Integer lessonId) {
+		this.lessonId = lessonId;
+	}
+
+	public PupilDTO(Integer index, Integer pupilId, String firstName, String lastName, Integer lessonId) {
 		super();
+		this.index = index;
 		this.pupilId = pupilId;
 		this.firstName = firstName;
-		this.lasName = lasName;
+		this.lastName = lastName;
+		this.lessonId = lessonId;
+	}
+
+	public PupilDTO(Integer index, Integer pupilId, String firstName, String lastName) {
+		super();
+		this.index = index;
+		this.pupilId = pupilId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 	public Integer getPupilId() {
 		return pupilId;
@@ -25,10 +50,20 @@ public class PupilDTO {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	public String getLasName() {
-		return lasName;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setLasName(String lasName) {
-		this.lasName = lasName;
-	}	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+ 
+	@Override
+	 public int compareTo(PupilDTO o) {
+	        int a = index.compareTo(o.getIndex());
+	       if (a==0){
+	          a = index.compareTo(o.getIndex());
+	       }
+	       return a;
+	}
 }

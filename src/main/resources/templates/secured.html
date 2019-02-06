@@ -1,11 +1,90 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"></meta>
-<title>Secret page</title>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>This is secured area</h1>
-	<a href="#" th:href="@{/}">Back to homepage</a>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    
+    <ul class="nav navbar-nav">
+
+				 <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
+             	  <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
+       			 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
+
+       		     <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
+       			 <li><a th:if="${session.rolename =='nauczyciel'}" href="/selectformget">Wstaw oceny</a></li>
+       		
+	       	</ul>
+	      </div>
+	
+</nav>  
+ 
+    <h1>Wstawianie ocen</h1>
+ 
+ 
+ 
+    <form th:action="@{/selectedClass}" name='f' th:object="${classForm}" method='POST'>
+        <table>
+            <tr>
+                <td>Wybierz klasę:</td>
+                <td>
+                    <select th:name="classId">
+                         <option value=""> -- </option>
+                         <option th:each="class : ${classes}"
+                            th:value="${class.classId}"
+                            th:utext="${class.classNumber} +' ' +  ${class.classLetter} +' ' + ${class.subjectName}"/>
+                  </select>
+ 
+                </td>
+            </tr>
+         
+            <tr>
+                <td><input name="submit" type="submit" value="submit" /></td>
+            </tr>
+        </table>
+    </form>
+    
+   
+    
+    
+
+  <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>id	</th>
+                <th>Imię  </th>
+                <th>Nazwisko  </th>
+                 <th>Ocena </th>
+                  <th>Opis </th>
+                   <th>Waga oceny  </th>
+            </tr>
+            </thead>
+ 
+            <tr th:each="pupil: ${pupilList}">
+			<td><input  type="text" name="pupilId" th:value="${pupil.pupilId}"  form="my_form" readonly></td> 
+			<td><input  type="text"  name="firstName"  th:value="${pupil.firstName}" form="my_form" readonly></td>           	
+            <td><input  type="text"  name="lastName" th:value="${pupil.lastName}" form="my_form" readonly></td>           	
+            <td> <input type="number" name="mark" form="my_form" placeholder="Ocena"/></td>
+		    <td> <input type="text" name="description" form="my_form" placeholder="Opis"/></td>
+		    <td> <input type="number" name="markWeight" form="my_form" placeholder="Waga Oceny"/></td> 
+			  <td>  <button formaction="@{/insertOneMark}"  type="button" form="my_form">Wstaw ocene</button>  </td>
+            </tr>
+             
+        </table>
+
+ 
 </body>
+ 
 </html>

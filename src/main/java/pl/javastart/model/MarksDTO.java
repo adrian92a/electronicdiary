@@ -7,6 +7,8 @@ public class MarksDTO {
 	public String subjectName;
 	public String markPurpose;
 	public Integer markWeight;
+	public Integer lessonId;
+	public Integer pupilId;
 	public int getMarkValue() {
 		return markValue;
 	}
@@ -36,6 +38,29 @@ public class MarksDTO {
 		this.markValue = markValue;
 		this.markPurpose = markPurpose;
 		this.markWeight = markWeight;
+	}
+	public MarksDTO(Integer markValue, String markPurpose, Integer markWeight, Integer lessonId, Integer pupilId) {
+		super();
+		this.markValue = markValue;
+		this.markPurpose = markPurpose;
+		this.markWeight = markWeight;
+		this.lessonId = lessonId;
+		this.pupilId = pupilId;
+	}
+	public Integer getLessonId() {
+		return lessonId;
+	}
+	public void setLessonId(Integer lessonId) {
+		this.lessonId = lessonId;
+	}
+	public Integer getPupilId() {
+		return pupilId;
+	}
+	public void setPupilId(Integer pupilId) {
+		this.pupilId = pupilId;
+	}
+	public void setMarkValue(Integer markValue) {
+		this.markValue = markValue;
 	}
 
 	

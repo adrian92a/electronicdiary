@@ -24,10 +24,14 @@ public interface LessonRepository extends JpaRepository<Lesson, Long>{
 			+ "where p.id =?1 and l.subjectName=?2")
 	Integer findTeacher(int id, String subjectName);
 	
-	@Query("select s.id, s.classNumber, s.classLetter, l.id , l.schollclass from Lesson l inner join Schollclass s on s.id= l.schollclass.id "
+	@Query("select s.id, s.classNumber, s.classLetter, l.subjectName, l.id , l.schollclass from Lesson l inner join Schollclass s on s.id= l.schollclass.id "
 			+ "where l.teacher.id=?1")
 	List<Object[]> findTeacherClass(int id);
 	
 	@Query("select distinct l from Lesson l")
 	List<Lesson>  findDistinctSubject();
+	
+	@Query("select l.id  from Lesson l inner join Schollclass s on s.id=l.schollclass.id where l.schollclass.id= ?1 and l.teacher.id=?2 and l.subjectName= ?3")
+	Integer  findLessonId(Integer schollClassId,Integer teacherId, String subjectName);
+	
 }	 

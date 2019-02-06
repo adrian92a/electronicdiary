@@ -2,6 +2,7 @@ package pl.javastart.controller.web;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -105,47 +106,65 @@ public class InsertMarks {
 	  
 		List<ClassDTO> list = classDAO.getCountries(session);
 	    model.addAttribute("classes", list);
-	 
+	   
 	    return "selectform";
 	}
 	
-	
+
 	@PostMapping("/selectedClass")
 	public String save(HttpSession session,@RequestParam("classId") Integer classID, Model model)
 	{
-		  ClassForm form = new ClassForm();
+			ClassForm form = new ClassForm();
 		    model.addAttribute("classForm", form);
 		
-		  
+		
 			List<ClassDTO> list = classDAO.getCountries(session);
 		    model.addAttribute("classes", list);
 		    
-		    Integer pupilId;;
+		    String email=(String) session.getAttribute("email");
+		    
+		    Integer pupilId;
 			String pupilFirstName;
 			String pupilLastName;
-			HashSet<Object> pupilList = new HashSet<Object>(); 		
+			
+		//	Integer lessonId = lessonRepo.findLessonId(classID, teacherRepo.findTeacherIdByEmail(email), subjectName)
+			
+		//	lessonId.getClassId();
+			int index=0;
+			TreeSet<Object> pupilList = new TreeSet<Object>(); 	
+			
 		    for (Object[] obj : pupilRepo.findPupilListFromClass(classID))
 			{
+		    	index= index+1;
+		    	System.out.println("index----------------   "   +index);
 		    	pupilId =   (int) obj[0];
 			    pupilFirstName =  (String) obj[1];
 			    pupilLastName =  (String) obj[2];
 				System.out.println(pupilFirstName);
-		    PupilDTO pupil = new PupilDTO(pupilId,pupilFirstName,pupilLastName); 
+		    PupilDTO pupil = new PupilDTO(index,pupilId,pupilFirstName,pupilLastName); 
 		    pupilList.add(pupil);
 			}		
-		    
+		 
 		    model.addAttribute("pupilList",pupilList);
 		    
 		System.out.println(classID);
 		return "selectform";
 	}
-	
-//	@GetMapping("/addMarksForm")
-//	public String saveMarks(HttpSession session)
-	
-//	@PostMapping("/addMarks")
-//	public String saveMarks(HttpSession session)
-	
+	@RequestMapping("/insertOneMark")
+	public String insertMark(HttpSession session,@RequestParam("pupilId") Integer pupilId,
+			@RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName,
+			@RequestParam("mark") Integer mark,
+			@RequestParam("description") String description,
+			@RequestParam("markWeight") Integer markWeight,
+			Model model)
+	{
+		
+		
+		System.out.println(description);
+		return "index";
+		
+	}
 	
 }
 
