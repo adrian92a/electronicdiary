@@ -84,34 +84,25 @@ public class ClassDAO {
     	 List<ClassDTO> teacherClasses = new ArrayList<ClassDTO>();
     	String email=(String) session.getAttribute("email");
     
-    	
+    	Integer lessonId;
     Integer classId;
    	 Integer classNumber;
    	 String classLetter;
    	 String subjectName;
-   	Integer lessonId;
+   
     	for(Object[] obj : lessonRepo.findTeacherClass(teacherRepo.findTeacherID(userRepo.findUserByEmail(email)))) 
     	{
+    		lessonId =(Integer) obj[4];
     		classId =   (Integer) obj[0];
     		classNumber =  (Integer) obj[1];
     		classLetter = (String) obj[2];
     		subjectName =(String) obj[3];
-    		lessonId =(Integer) obj[4];
+    		
     		
     		ClassDTO cl = new ClassDTO(classId,classNumber,classLetter,subjectName,lessonId); 
     		teacherClasses.add(cl);
     	}
-    	
-    	
-    	
-//    	  Country vn = new Country(1L, "VN", "Vietnam");
-//          Country en = new Country(2L, "EN", "England");
-//          Country ru = new Country(3L, "VN", "Russia");
-//   
-//          COUNTRIES.add(en);
-//          COUNTRIES.add(vn);
-//          COUNTRIES.add(ru);
-//          
+   
 		return teacherClasses;
  }
  

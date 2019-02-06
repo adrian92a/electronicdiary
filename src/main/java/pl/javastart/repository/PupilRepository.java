@@ -12,7 +12,7 @@ import pl.javastart.model.RegisterKey;
 import pl.javastart.model.User;
 
 @Repository
-public interface PupilRepository extends JpaRepository<Pupil, Long>{
+public interface PupilRepository extends JpaRepository<Pupil, Integer>{
 
 	@Query("select p.id from Pupil p "
 			+ "inner join User u on p.user.id=u.id where u.email= ?1")
@@ -22,4 +22,8 @@ public interface PupilRepository extends JpaRepository<Pupil, Long>{
 			+ "inner join Schollclass s on p.schollclass.id=s.id where s.id= ?1")
 	List<Object[]>  findPupilListFromClass(Integer id);
 	
+	
+	@Query("select p.id, p.firstName, p.lastName from Pupil p "
+			+ "inner join Schollclass s on p.schollclass.id=s.id inner join Lesson  ")
+	List<Object[]>  findPupilListFromLessonId(Integer id);
 }

@@ -57,7 +57,7 @@ SPAN.td
             <tr>
                 <td>Wybierz klasę:</td>
                 <td>
-                    <select th:name="classId">
+                    <select th:name=lessonId>
                     
                          <option value=""> -- </option>
                          <option th:each="class : ${classes}"
@@ -85,18 +85,20 @@ SPAN.td
         
            <thead  th:if="${pupil.index} < 2" >
             <tr>
-                <th>id	</th>
-                <th>Imię  </th>
-                <th>Nazwisko  </th>
-                 <th>Ocena </th>
-                  <th>Opis </th>
-                   <th>Waga oceny  </th>
+                <th>lessonId	</th>
+                <th>pupilId  </th>
+                <th>firstName  </th>
+                 <th>lastName </th>
+                  <th>	mark </th>
+                   <th>description  </th>
+                   <th>markWeight  </th>
             </tr>
             </thead>
           
           
           
             <tr>
+            <td><input class="form-control"  type="number" name="lessonId" th:value="${pupil.lessonId}"   readonly></td> 
 			<td><input class="form-control"  type="number" name="pupilId" th:value="${pupil.pupilId}"   readonly></td> 
 			<td><input class="form-control"  type="text"  name="firstName"   th:value="${pupil.firstName}" readonly></td>           	
             <td><input class="form-control" type="text"  name="lastName" th:value="${pupil.lastName}"  readonly></td>           	

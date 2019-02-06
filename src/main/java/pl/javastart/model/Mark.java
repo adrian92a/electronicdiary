@@ -40,6 +40,12 @@ private static final long serialVersionUID = 7021150458271420830L;
 
 
 
+		public Mark(Integer markValue, Integer markWeight, String markPurpose) {
+		super();
+		this.markValue = markValue;
+		this.markWeight = markWeight;
+		this.markPurpose = markPurpose;
+	}
 		public Mark(Integer markValue, Integer markWeight, String markPurpose, Pupil pupil) {
 		super();
 		this.markValue = markValue;

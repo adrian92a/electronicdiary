@@ -12,7 +12,7 @@ import pl.javastart.model.RegisterKey;
 import pl.javastart.model.User;
 
 @Repository
-public interface LessonRepository extends JpaRepository<Lesson, Long>{
+public interface LessonRepository extends JpaRepository<Lesson, Integer>{
 	@Query("select m.markValue, m.markPurpose, m.markWeight, p.id, l.schollclass, l.teacher,l.subjectName from Lesson l "
 			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id inner join Mark m on "
 			+ "m.pupil.id=p.id "

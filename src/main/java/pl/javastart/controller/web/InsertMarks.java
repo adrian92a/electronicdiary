@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.javastart.model.ClassDTO;
 import pl.javastart.model.ClassForm;
-
+import pl.javastart.model.Lesson;
+import pl.javastart.model.Mark;
 import pl.javastart.model.MarksDTO;
 import pl.javastart.model.PersonForm;
+import pl.javastart.model.Pupil;
 import pl.javastart.model.PupilDTO;
 import pl.javastart.model.RegisterKeyAndRoleDTO;
 import pl.javastart.repository.LessonRepository;
+import pl.javastart.repository.MarkRepository;
 import pl.javastart.repository.PupilRepository;
 import pl.javastart.repository.TeacherRepository;
 import pl.javastart.repository.UserRepository;
@@ -37,7 +40,10 @@ public class InsertMarks {
 	
 	@Autowired
 	private LessonRepository lessonRepo;
-
+	
+	@Autowired
+	private MarkRepository markRepo;
+	
 	@Autowired
 	private TeacherRepository teacherRepo;
 	
@@ -106,13 +112,14 @@ public class InsertMarks {
 	  
 		List<ClassDTO> list = classDAO.getCountries(session);
 	    model.addAttribute("classes", list);
+	 
 	   
 	    return "selectform";
 	}
-	
+
 
 	@PostMapping("/selectedClass")
-	public String save(HttpSession session,@RequestParam("classId") Integer classID, Model model)
+	public String save(HttpSession session,@RequestParam("lessonId") Integer lessonId, Model model)
 	{
 			ClassForm form = new ClassForm();
 		    model.addAttribute("classForm", form);
@@ -126,41 +133,52 @@ public class InsertMarks {
 		    Integer pupilId;
 			String pupilFirstName;
 			String pupilLastName;
-			
+			Integer pupilLessonId;
 		//	Integer lessonId = lessonRepo.findLessonId(classID, teacherRepo.findTeacherIdByEmail(email), subjectName)
 			
 		//	lessonId.getClassId();
 			int index=0;
 			TreeSet<Object> pupilList = new TreeSet<Object>(); 	
 			
-		    for (Object[] obj : pupilRepo.findPupilListFromClass(classID))
+		    for (Object[] obj : pupilRepo.findPupilListFromClass(lessonId))
 			{
+		    	pupilLessonId=lessonId;
 		    	index= index+1;
 		    	System.out.println("index----------------   "   +index);
 		    	pupilId =   (int) obj[0];
 			    pupilFirstName =  (String) obj[1];
 			    pupilLastName =  (String) obj[2];
+			    
 				System.out.println(pupilFirstName);
-		    PupilDTO pupil = new PupilDTO(index,pupilId,pupilFirstName,pupilLastName); 
+		    PupilDTO pupil = new PupilDTO(index,pupilId,pupilFirstName,pupilLastName,lessonId); 
 		    pupilList.add(pupil);
 			}		
 		 
 		    model.addAttribute("pupilList",pupilList);
 		    
-		System.out.println(classID);
+		System.out.println(lessonId);
 		return "selectform";
 	}
 	@RequestMapping("/insertOneMark")
-	public String insertMark(HttpSession session,@RequestParam("pupilId") Integer pupilId,
+	public String insertMark(HttpSession session,@RequestParam("lessonId") Integer lessonId,
 			@RequestParam("firstName") String firstName,
+			@RequestParam("pupilId") Integer pupilId,
 			@RequestParam("lastName") String lastName,
 			@RequestParam("mark") Integer mark,
 			@RequestParam("description") String description,
 			@RequestParam("markWeight") Integer markWeight,
 			Model model)
 	{
+		Lesson lesson=new Lesson();
+		lesson=lessonRepo.getOne(lessonId);
+		Pupil pupil= new Pupil();
+		pupil = pupilRepo.getOne(pupilId);
 		
+		Mark insertMark= new Mark(mark,markWeight,description);
+		insertMark.setLesson(lesson);
+		insertMark.setPupil(pupil);
 		
+		markRepo.save(insertMark);
 		System.out.println(description);
 		return "index";
 		

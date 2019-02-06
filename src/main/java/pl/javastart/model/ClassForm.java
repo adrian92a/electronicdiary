@@ -4,16 +4,16 @@ public class ClassForm {
 	
 	
 	  private String fullName;
-	    private Integer classId;
+	    private Integer lessonId;
 	 
 	    public ClassForm() {
 			super();
 		}
 
-		public ClassForm(String fullName, Integer classId) {
+		public ClassForm(String fullName, Integer lessonId) {
 			super();
 			this.fullName = fullName;
-			this.classId = classId;
+			this.lessonId = lessonId;
 		}
 
 		public String getFullName() {
@@ -25,10 +25,10 @@ public class ClassForm {
 	    }
 	 
 	    public Integer getCountryId() {
-	        return classId;
+	        return lessonId;
 	    }
 	 
-	    public void setCountryId(Integer classId) {
-	        this.classId = classId;
+	    public void setCountryId(Integer lessonId) {
+	        this.lessonId = lessonId;
 	    }
 }

@@ -4,7 +4,7 @@ public class PersonForm {
 	 
     private String fullName;
  
-    private Integer classId;
+    private Integer lessonId;
  
     public String getFullName() {
         return fullName;
@@ -15,10 +15,10 @@ public class PersonForm {
     }
  
     public Integer getCountryId() {
-        return classId;
+        return lessonId;
     }
  
     public void setCountryId(Integer classId) {
-        this.classId = classId;
+        this.lessonId = classId;
     }
 }
