@@ -9,6 +9,22 @@ public class MarksDTO {
 	public Integer markWeight;
 	public Integer lessonId;
 	public Integer pupilId;
+	
+	public enum Purpose {
+
+		SPRAWDZIAN("Sprawdzian"), 
+		KARTKOWKA("Kartkówka"), 
+		ODPOWIEDZUSTNA("Odpowiedz ustna"),
+		PRACA_DOMOWA("Praca domowa"),
+		INNE("inne");
+		
+		String name;
+
+		private Purpose(String name) {
+			this.name = name;
+		}
+	}
+	
 	public int getMarkValue() {
 		return markValue;
 	}
