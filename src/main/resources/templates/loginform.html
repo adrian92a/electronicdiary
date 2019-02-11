@@ -26,7 +26,7 @@
         </ul>
     </div>
 </nav>
-<p  style="font-size:50px;color:red;" th:text="${message}"></p>
+<p  style="font-weight: 500; font-size:30px;color:red;" th:text="${message}"></p>
     <h1>Please Login</h1>
 <form  th:action="@{/login}"  th:object="${userModel}" method="post">
     <input name="email" placeholder="Username" /> <br />

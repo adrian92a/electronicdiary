@@ -52,7 +52,7 @@ LessonRepository lessonRepo;
 
 			return "index";
 		} else {
-			redirectAttributes.addFlashAttribute("message", "Niepoprany email lub hasło");
+			redirectAttributes.addFlashAttribute("message", "Niepoprawny email lub hasło");
 
 			return "redirect:loginform/";
 		}
