@@ -4,14 +4,15 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.javastart.model.RegisterKey;
-import pl.javastart.model.RegisterKeyAndRoleDTO;
-import pl.javastart.model.Role;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import pl.javastart.model.*;
 import pl.javastart.repository.RegisterKeyRepository;
-import pl.javastart.repository.RoleRepository;
+import pl.javastart.repository.UserRepository;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registerKeyController")
@@ -19,7 +20,11 @@ public class RegisterKeyControllerMvc {
 	public String error;
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
+	@Autowired
+	public UserService userService;
 
+	@Autowired
+	public UserRepository userRepo;
 	@Autowired
 	public RegisterKeyControllerMvc(RegisterKeyRepository registerKeyRepo)
 	{
@@ -27,58 +32,75 @@ public class RegisterKeyControllerMvc {
 	}
 	public boolean existRegisterKeyAndIsntUsed(String key)
 	{
-	 List<RegisterKey> registerkeys = (List<RegisterKey>) registerKeyRepo.findAll();
+	 List<RegisterKey> registerkeys =  registerKeyRepo.findAll();
 	 for(RegisterKey registerkey : registerkeys )
 		{
-		 System.out.println("---------------"+registerkey);
-			if(registerkey.getKeyRegisterValue().equals(key) 	)
-			{
-				return true;
-			}
 			if(registerkey.getKeyRegisterValue().equals(key))
 			{
-				return true;
+				if(registerkey.getUsed()==false)
+				{
+					return true;
+				}
 			}
 		} 
-		return true;
+		return false;
 	}
-	 @PostMapping
-	public String redirectKey(@ModelAttribute RegisterKeyAndRoleDTO  registerKey, Model model)
+	@RequestMapping(method = RequestMethod.POST)
+	public String redirectKey(@Valid UserDTO userDTO, BindingResult result,Model model)
 	{
-		if(existRegisterKeyAndIsntUsed(registerKey.getKeyRegisterValue()) )
+		if(!existRegisterKeyAndIsntUsed(userDTO.getRegisterKey()) ){
+			result.addError(new FieldError("registerKey","registerKey","Kod jest niepoprany lub zostal juz wykorzystany do rejestracji"));
+		}
+		if (result.hasErrors()) {
+			return "register";
+		}
+		if(existRegisterKeyAndIsntUsed(userDTO.getRegisterKey()) )
 		{
-			Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(registerKey.getKeyRegisterValue());
+			Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(userDTO.getRegisterKey());
 			for(Role r:roles)
 			{
-				RegisterKey registerKey2 = registerKeyRepo.findByRegisterey(registerKey.getKeyRegisterValue());
-				RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
-				registerKeyAndRoleDTO.setKeyRegisterValue(registerKey2.getKeyRegisterValue());
-				registerKeyAndRoleDTO.setFirstName(registerKey2.getFirstName());
-				registerKeyAndRoleDTO.setLastName(registerKey2.getLastName());
-				registerKeyAndRoleDTO.setPesel(registerKey2.getPesel());
-				registerKeyAndRoleDTO.setRoleName(roles);	
-				System.out.println("--------------"+registerKey2.getSchollClassLetter());
-				System.out.println("--------------"+registerKey2.getSchollClassnumber());
-				registerKeyAndRoleDTO.setSchollClassLetter(registerKey2.getSchollClassLetter());
-				registerKeyAndRoleDTO.setSchollClassnumber(registerKey2.getSchollClassnumber());
-				registerKeyAndRoleDTO.setLogin(null);
-				registerKeyAndRoleDTO.setPassword(null);
-				if(r.getRoleName().equals("uczeń"))
-				{
-					model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
-					return "pupilsubmitregistrationpanel";
-				}	
-				if(r.getRoleName().equals("nauczyciel"))
-				{
-					model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
-					return "teachersubmitregistrationpanel";
+				RegisterKey registerKey2 = registerKeyRepo.findByRegisterey(userDTO.getRegisterKey());
+				RegisterKeyAndRoleDTO registerKeyAndRoleDTO = getRegisterKeyAndRoleDTO(userDTO, roles, registerKey2);
+				userDTO.setRole(r);
+				User user= userService.registerNewUserAccount(userDTO);
+				System.out.println("user-------"+user);
+				if(user==null) {
+					result.addError(new FieldError("email", "email", "Podany e-mail: " + '"' + userDTO.getEmail() + '"' + "  jest już zajęty"));
+				}
+				else{
+					userRepo.save(user);
+					registerKeyAndRoleDTO.setUser(user);
+
+					if (r.getRoleName().equals("uczeń")) {
+						model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
+						return "pupilsubmitregistrationpanel";
+					}
+					if (r.getRoleName().equals("nauczyciel")) {
+						model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
+						return "teachersubmitregistrationpanel";
+					}
 				}
 			}
 		}
-		RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();	
-		registerKeyAndRoleDTO.setKeyError("Kod jest niepoprawny lub został już wykorzystany do rejestracji");
-		System.out.println("----Niepoprawny kod");
-		model.addAttribute("keyRegisterModel", registerKeyAndRoleDTO);	
-        return "/register";
+		else
+		{
+			result.addError(new FieldError("registerKey","registerKey","Kod jest niepoprany lub zostal juz wykorzystany do rejestracji"));
+		}
+		return "/register";
+	}
+
+	private RegisterKeyAndRoleDTO getRegisterKeyAndRoleDTO(@Valid UserDTO userDTO, Set<Role> roles, RegisterKey registerKey2) {
+		RegisterKeyAndRoleDTO registerKeyAndRoleDTO = new RegisterKeyAndRoleDTO();
+		registerKeyAndRoleDTO.setKeyRegisterValue(registerKey2.getKeyRegisterValue());
+		registerKeyAndRoleDTO.setFirstName(registerKey2.getFirstName());
+		registerKeyAndRoleDTO.setLastName(registerKey2.getLastName());
+		registerKeyAndRoleDTO.setPesel(registerKey2.getPesel());
+		registerKeyAndRoleDTO.setRoleName(roles);
+		registerKeyAndRoleDTO.setSchollClassLetter(registerKey2.getSchollClassLetter());
+		registerKeyAndRoleDTO.setSchollClassnumber(registerKey2.getSchollClassnumber());
+		registerKeyAndRoleDTO.setEmail(userDTO.getEmail());
+		registerKeyAndRoleDTO.setPassword(userDTO.getPassword());
+
+		return registerKeyAndRoleDTO;
 	}
 }

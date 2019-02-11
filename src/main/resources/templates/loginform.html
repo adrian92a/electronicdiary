@@ -22,17 +22,19 @@
     <ul class="nav navbar-nav">
               <li><a  href="/loginform">Zaloguj sie</a></li>
                <li><a href="/register">Utwórz konto</a></li>
-             
+
         </ul>
     </div>
 </nav>
-
-<body>
+<p  style="font-size:50px;color:red;" th:text="${message}"></p>
     <h1>Please Login</h1>
-    <form  th:action="@{/login}"  th:object="${userModel}" method="post">
-        <input name="email" placeholder="Username" /> <br />
-        <input name="password" placeholder="Password" /> <br />
-        <input type="submit" value="Login" />
-    </form>
+<form  th:action="@{/login}"  th:object="${userModel}" method="post">
+    <input name="email" placeholder="Username" /> <br />
+    <input name="password" placeholder="Password" /> <br />
+    <input type="submit" value="Login" />
+</form>
+
+
 </body>
+
 </html>

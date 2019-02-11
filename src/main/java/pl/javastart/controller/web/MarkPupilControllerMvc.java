@@ -90,7 +90,7 @@ ModelMap model)
 	    MarksDTO mark = new MarksDTO(markValue,markPurpose,markWeight); 
 		    pupilsMarks.add(mark);
 		}		  
-	
+
 		model.addAttribute("userMarks",pupilsMarks);
 		return "checkmarks";
 

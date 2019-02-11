@@ -17,18 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="lesson")
 public class Lesson implements Serializable {
-
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-
-	
-	
-	
-	
-	
 
 	public Lesson(Schollclass schollclass, Teacher teacher , String subjectName) {
 		super();
@@ -38,12 +27,9 @@ public class Lesson implements Serializable {
 		this.subjectName = subjectName;
 	}
 
-
 	public Lesson() {
 		super();
 	}
-
-
 	public Lesson(String subjectName) {
 		super();
 		this.subjectName = subjectName;
@@ -62,14 +48,6 @@ public class Lesson implements Serializable {
     @OneToOne	
     @JoinColumn(name="teacher_id")
     private Teacher teacher;
-    
-
-    
-//    @OneToMany
-//	@JoinTable(name="lesson_mark",
-//	 	joinColumns = @JoinColumn(name="lesson_id"),
-//	 	inverseJoinColumns=@JoinColumn(name="mark_id"))
-//	 private Set<Mark> marks;
     
     
     public Schollclass getSchollclass() {

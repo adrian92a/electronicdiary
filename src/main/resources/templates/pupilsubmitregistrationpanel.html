@@ -7,6 +7,42 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var alert = "Hasło musi mieć co najmniej 8 znaków";
+
+            var email = document.getElementById("email").value;
+            var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+
+
+            if (password.length < 8) {
+                document.getElementById("validpassword").innerHTML = alert;
+            }
+            if (password.length >= 8) {
+                document.getElementById("validpassword").innerHTML = "";
+            }
+
+            var alert2 = "niepo rawny email"
+            if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
+                document.getElementById("validemail").innerHTML = alert2;
+            }
+            if (!(atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length)) {
+                document.getElementById("validemail").innerHTML = "";
+                if (password.length < 8 || atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= x.length) {
+                    return false;
+                }
+                return true;
+
+            }
+        }
+    </script>
+
 </head>
 <body>
 
@@ -17,34 +53,31 @@
       <a class="navbar-brand" href="#">WebSiteName</a>
     </div>
     <ul class="nav navbar-nav">
-            <li><a href="/pupils">Lista pupilków</a></li>
-            <li><a href="/addpupil">Dodaj</a></li>
-            <li><a href="/login">Zaloguj sie</a></li>
+            <li><a href="/loginform">Zaloguj sie</a></li>
             <li class="active" ><a href="/register">Utwórz konto</a></li>
         </ul>
     </div>
 </nav>  
  <div class="col-lg-3" >
 
-    		<p th:text="${message}">Dodaj</p>
-  		
    			 <h2 style="font-size:130%;">Twoje dane:</h2> 
-<form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
-	  		<br/>   	   
-		    Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
-	 		Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>	
-   			Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
-   			Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
-	  		classNumber			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
-	  		classLetter					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
-	 		<br/>
-		
+<form action="#" th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
+<br/>
+Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
+Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>
+Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
+Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
+classNumber			    <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
+classLetter				 <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
+<br/>
 			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
-		
-			<br/>	
-			Login					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.login}"/>				
-			Password				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}"/>		
+             <br/>
+			<br/>
+
+
 		<button type="submit" >Submit to another page</button>
+
+
 			</form>
 			
 				

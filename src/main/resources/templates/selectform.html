@@ -26,33 +26,28 @@ SPAN.td
     <script type="text/javascript" >
     </script>
     <script type="text/javascript" >
-function setMark(evt) {
-	var charCode = (evt.which) ? evt.which : event.keyCode
-		    if (charCode < 49 || charCode > 54)
-		    	 return false;
-		    	 var value = document.getElementById('newMark').value;
-		    if (value >2) {
-		        return false;
-		    }
-		    return true;
-}
-
-function setWeight(evt) {
-	var charCode = (evt.which) ? evt.which : event.keyCode
-		    if (charCode < 49 || charCode > 58)
-		    	 return false;
-		    	 var value = document.getElementById('markWeight').value;
-		    if (value >2) {
-		        return false;
-		    }
-		    return true;
-		
-}
-
-
-function myFunction(val) {
-	  document.getElementById("purpose").innerHTML = val; 
-	}
+// function setMark(evt) {
+// 	var charCode = (evt.which) ? evt.which : event.keyCode
+// 		    if (charCode < 49 || charCode > 54)
+// 		    	 return false;
+// 		    	 var value = document.getElementById('newMark').value;
+// 		    if (value.length >0) {
+// 		        return false;
+// 		    }
+// 		    return true;
+// }
+//
+// function setWeight(evt) {
+// 	var charCode = (evt.which) ? evt.which : event.keyCode
+// 		    if (charCode < 49 || charCode > 58)
+// 		    	 return false;
+// 		    	 var value = document.getElementById('markWeight').value;
+// 		    if (value.length  >0) {
+// 		        return false;
+// 		    }
+// 		    return true;
+//
+// }
 </script>
 
 </head>
@@ -97,8 +92,12 @@ function myFunction(val) {
             </tr>
         </table>
     </form>
+<iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
 <div th:each="pupil: ${pupilList}">
-<form th:action="@{/insertOneMark}" method="post">
+
+
+
+<form th:action="@{/insertOneMark}" method="post" target="dummyframe" onsubmit="this.reset();return false">
   <table class="table table-hover">
        
            <thead  th:if="${pupil.index} < 2" >
@@ -117,17 +116,17 @@ function myFunction(val) {
 			<td><input class="form-control"  type="text" name="pupilId" th:value="${pupil.pupilId}"   readonly></td> 
 			<td><input class="form-control"  type="text"  name="firstName"   th:value="${pupil.firstName}" readonly></td>           	
             <td><input class="form-control" type="text"  name="lastName" th:value="${pupil.lastName}"  readonly></td>           	
-            <td> <input class="form-control" type="number" id='newMark'   max ="6" step="1"  onkeypress="return setMark(event)" name="mark" min="1" placeholder="Ocena"/></td>
-		    <td> <select id='purpose' class="form-control"  name="description"  >
+            <td> <input required class="form-control" type="number" id='newMark'   max ="6" step="1"  onkeypress="return setMark(event)" name="mark" min="1" placeholder="Ocena"/></td>
+		    <td> <select required id='purpose' class="form-control"  name="description"  >
 		      
 		    <option  value = "SPRAWDZIAN" selected>Sprawdzian</option >
             <option value = "KARTKOWKA">Kartkówka</option>
-            <option value = "ODPOWIEDZUSTNA">Odpowiedz ustna</option>
+            <option value = "ODPOWIEDZ USTNA">Odpowiedz ustna</option>
              <option value = "PRACA_DOMOWA">Praca domowa</option>
               <option value = "INNE">inne</option>
 		    </select>
 		</td>
-		    <td> <input class="form-control" type="number" name="markWeight" id='markWeight' min="1" max ="9" step="1"  onkeypress="return setWeight(event)"   placeholder="Waga Oceny"/></td> 
+		    <td> <input required class="form-control" type="number" name="markWeight" id='markWeight' min="1" max ="9" step="1"  onkeypress="return setWeight(event)"   placeholder="Waga Oceny"/></td>
 			  <td> <button type="submit" >Wstaw ocene</button>  </td> 
             </tr>
              

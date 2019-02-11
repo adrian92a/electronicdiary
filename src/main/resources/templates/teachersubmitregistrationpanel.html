@@ -7,6 +7,34 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var alert="Hasło musi mieć co najmniej 8 znaków";
+
+            var email = document.getElementById("email").value;
+            var atpos = email.indexOf("@");
+            var dotpos = email.lastIndexOf(".");
+
+
+            if (password.length < 8) {
+                document.getElementById("validpassword").innerHTML = alert;
+                return false;
+            }
+
+            var alert2 = "niepoprawny email"
+            if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length  ) {
+                document.getElementById("validemail").innerHTML = alert2;
+                return false;
+            }
+            return true;
+
+        }
+    </script>
+
 </head>
 <body>
 
@@ -16,10 +44,8 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="#">WebSiteName</a>
     </div>
-    <ul class="nav navbar-nav">
-            <li><a href="/pupils">Lista pupilków</a></li>
-            <li><a href="/addpupil">Dodaj</a></li>
-            <li><a href="/login">Zaloguj sie</a></li>
+    <ul class="nav navbar-nav">        
+            <li><a href="/loginform">Zaloguj sie</a></li>
             <li class="active" ><a href="/register">Utwórz konto</a></li>
         </ul>
     </div>
@@ -27,7 +53,7 @@
  <div class="col-lg-3" >
     		 <p th:text="${message}">Dodaj</p>
    			 <h2 style="font-size:130%;">Twoje dane:</h2> 
-<form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
+<form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" onsubmit="return validateForm();" method="post">
 	  			   <br/>  
 		    Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
 	 		Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>	
@@ -35,14 +61,26 @@
    			Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
 	      	
 			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
-			<br/>
-			Login					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.login}"/>				
-			Password				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}"/>		
-			<br/>
-				<button type="submit" >Submit to another page</button>
-				
+    <br/>
+    <br/>
+
+    <label for="password">
+        <span>Proszę wpisać hasło</span>
+        <input class="form-control" id="password" type="text" th:field="${RegisterKeyAndRoleDTO.password}"/>
+
+        <span  style="color:#ff0019"id="validpassword" aria-live="polite"></span>
+    </label>
+
+    <label for="email">
+        <span>Proszę wpisać email:</span>
+        <input class="form-control" id="email" type="text" th:field="${RegisterKeyAndRoleDTO.email}"/>
+        <span style="color:#ff0019" id="validemail" aria-live="polite"></span>
+    </label>
+
+    <button type="submit" >Submit to another page</button>
 </form>
-</div>	
+
+ </div>
     <div class ="col-lg-3">
     </div> 
   	<div class="col-lg-3">

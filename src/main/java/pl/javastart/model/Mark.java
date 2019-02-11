@@ -18,16 +18,6 @@ import javax.persistence.Table;
 @Table(name="mark")
 public class Mark implements Serializable {
 private static final long serialVersionUID = 7021150458271420830L;
-	 
-
-
-
-
-
-
-
-
-
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name="mark_id")

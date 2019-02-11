@@ -28,7 +28,6 @@ public class Schollclass {
 	 
 	
 	 @OneToMany(mappedBy="schollclass")
-//	 @JoinColumn(name="schollclass_id")
 	    private List<Pupil> pupils = new ArrayList<>();
 	 
 	 public Integer classNumber;

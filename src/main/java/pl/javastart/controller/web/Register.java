@@ -8,13 +8,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.javastart.model.Pupil;
 import pl.javastart.model.RegisterKey;
 import pl.javastart.model.RegisterKeyAndRoleDTO;
+import pl.javastart.model.UserDTO;
 import pl.javastart.model.User;
-
 @Controller
 public class Register {
 	 @GetMapping("/register")
-	    public String registerUser(Model model) {
-		  model.addAttribute("keyRegisterModel", new RegisterKeyAndRoleDTO());
+	    public String register(Model model) {
+		 model.addAttribute("userDTO", new UserDTO());
 	        return "register";
-	    } 
-}
+	    }
+
+	}
+

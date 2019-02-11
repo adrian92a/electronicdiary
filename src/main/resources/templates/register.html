@@ -4,9 +4,25 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var a = document.getElementById("registerKey").value;
+            if (!a.length) {
+                alert("Form number must be filled out");
+                return false;
+            }else if (!a.match(/^[0-9]+$/)) {
+                alert("Form number must be filled with numbers only");
+                return false;
+            }else if (!a.length == 20) {
+                alert("Form number must have 20 character length");
+                return false;
+            }
+        }
+    </script>
+
 </head>
 <body>
 
@@ -27,19 +43,31 @@
   
 	<div class="col-lg-6">
 
-    		<p th:text="${message}">Dodaj</p>
-  		
-   			 <h1 style="font-size:100%;">Aby rozpocząć rejestracje wpisz 20-cyfrowy kod otrzymany na uczelni / w szkole</h1> 
-   			
-   			 	<form th:action="@{/registerKeyController}" th:object="${keyRegisterModel}" method="post">
-    
-			        <p><input type="text" th:field="*{keyRegisterValue}" placeholder="20-cyfrowy kod" width="48" height="48"/></p>
-			      
-			        <p><input type="submit" value="Rozpocznij rejestracje" /></p>      
-		
-  			   </form>    
-  			      <h3 th:text="${keyRegisterModel.keyError}"></h3>    
-		
+
+        <h1 style="font-size:100%;" >Aby rozpocząć rejestracje wpisz 20- cyfrowy kod otrzymany na uczelni lub w szkole, następnie podaj swój email oraz wybierz hasło</h1>
+        <form th:action="@{/registerKeyController}" th:object="${userDTO}"  method="post">
+            <table>
+            <tr>
+            <td> <input type="text" th:field="*{registerKey}" id='registerKey' placeholder="20 cyfrowy kod" /></td>
+            <td  style="color:#ff0019; font-weight: 500"  th:if="${#fields.hasErrors('registerKey')}" th:errors="*{registerKey}">Name Error</td>
+            </tr>
+
+            <tr>
+            <td>  <input w type="text" th:field="*{email}" placeholder="Email" /></td>
+            <td  style="color:#ff0019; font-weight: 500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block"  >Name Error</td>
+            </tr>
+
+            <tr>
+            <td>    <input  type="text" th:field="*{password}" placeholder="Password" /></td>
+            <td    style="color:#ff0019; font-weight: 500"th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
+            </tr>
+
+            <tr>
+            <td>   <input type="submit"  value="Zarejestruj nowego uzytkownika" />
+            </tr>
+            </table>
+        </form>
+
 	</div>  
     	<div class="col-lg-3">
   

@@ -7,110 +7,96 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import pl.javastart.model.Pupil;
-import pl.javastart.model.RegisterKeyAndRoleDTO;
-import pl.javastart.model.Role;
-import pl.javastart.model.Schollclass;
-import pl.javastart.model.Teacher;
-import pl.javastart.model.User;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.javastart.model.*;
 import pl.javastart.repository.PupilRepository;
 import pl.javastart.repository.RegisterKeyRepository;
 import pl.javastart.repository.RoleRepository;
 import pl.javastart.repository.SchoolClassRepository;
 import pl.javastart.repository.TeacherRepository;
 import pl.javastart.repository.UserRepository;
-import pl.javastart.security.UserService;
+
 
 @Controller
-@RequestMapping("/registerUser")
 public class RegisterControllerMvc {
 	@Autowired
 	private SchoolClassRepository schoolRepo;
 	@Autowired
-	private UserService	userService;
-	@Autowired
-	private RoleRepository	roleRepo;
+	private RoleRepository roleRepo;
 	@Autowired
 	private RegisterKeyRepository registerKeyRepo;
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
 	private PupilRepository pupilRepo;
-
 	@Autowired
-	public RegisterControllerMvc(PupilRepository pupilRepo)
-	{
-		this.pupilRepo=pupilRepo;
+	UserService userService= new UserService();
+	@Autowired
+	public RegisterControllerMvc(PupilRepository pupilRepo) {
+		this.pupilRepo = pupilRepo;
 	}
+
 	@Autowired
 	private TeacherRepository teacherRepo;
-	
-	public RegisterControllerMvc(TeacherRepository teacherRepo)
-	{
-		this.teacherRepo=teacherRepo;
+
+	public RegisterControllerMvc(TeacherRepository teacherRepo) {
+		this.teacherRepo = teacherRepo;
 	}
-	 @PostMapping
-	 public String registerKey(@ModelAttribute @Valid RegisterKeyAndRoleDTO userRegisterDTO, Model model)
-	 {
-		 Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(userRegisterDTO.getKeyRegisterValue());
+
+	public User createUserAccount(UserDTO accountDto)
+	{
+		User registered = null;
+		try {
+			registered = userService.registerNewUserAccount(accountDto);
+		} catch (EmailExistsException e) {
+			return null;
+		}
+		return registered;
+	}
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+	 public String registerUserAccount (@ModelAttribute @Valid RegisterKeyAndRoleDTO userRegisterDTO,BindingResult result,
+											  Model model)
+		 {
+			 Set<Role> roles= registerKeyRepo.findRegisterKeyRoleName(userRegisterDTO.getKeyRegisterValue());
 			for(Role r:roles)
 			{
-				
-		if(r.getRoleName().equals("uczeń"))
-		{
-		 model.addAttribute("userRegistrationDto",userRegisterDTO);
-		 System.out.println(userRegisterDTO.getKeyRegisterValue() +"------key register");
-		 System.out.println("wchodzi do rejesestracji");
-		 Pupil pupil = new Pupil();
-		 
-		 Role role= roleRepo.getOne(1l);
-		 
-		 User user = new User();
-		 user.setUsername(userRegisterDTO.getLogin());
-		 user.setPassword(userRegisterDTO.getPassword());
+					if(r.getRoleName().equals("uczeń")) {
+							Pupil pupil = new Pupil();
+							pupil.setFirstName(userRegisterDTO.getFirstName());
+							pupil.setLastName(userRegisterDTO.getLastName());
+							pupil.setPesel(userRegisterDTO.getPesel());
+							Schollclass scholl = schoolRepo.findSchollclassByClassNumberAndClassLetter(userRegisterDTO.getSchollClassnumber(), userRegisterDTO.getSchollClassLetter());
+							pupil.setSchollclass(scholl);
+							User user=userRegisterDTO.getUser();
+							pupil.setUser(user);
+						System.out.println("pupil---------"+pupil);
 
-		user.setRole(role);	
-		 userRepo.save(user);
+							pupilRepo.save(pupil);
+							RegisterKey key = registerKeyRepo.findByRegisterey(userRegisterDTO.getKeyRegisterValue());
+							key.setUsed(false);
+							registerKeyRepo.save(key);
+							return "loginform";
+					}
 
-		 pupil.setFirstName(userRegisterDTO.getFirstName());
-		 pupil.setLastName(userRegisterDTO.getLastName());
-		 pupil.setPesel(userRegisterDTO.getPesel());
-		 Schollclass scholl=schoolRepo.findSchollclassByClassNumberAndClassLetter(userRegisterDTO.getSchollClassnumber(),userRegisterDTO.getSchollClassLetter());
-		 pupil.setSchollclass(scholl);
-		 pupilRepo.save(pupil);
+					if(r.getRoleName().equals("nauczyciel"))
+					{
+						model.addAttribute("userRegistrationDto", userRegisterDTO);
+						Role role = roleRepo.getOne(1l);
 
-		 model.addAttribute("userModel", new User());	
-		 return "/loginform";
-		}
-		
-		if(r.getRoleName().equals("nauczyciel"))
-		{
-		 model.addAttribute("userRegistrationDto",userRegisterDTO);
-		 System.out.println(userRegisterDTO.getKeyRegisterValue() +"------key register");
-		 System.out.println("wchodzi do rejesestracji");
-		 Role role= roleRepo.getOne(2l);
-		 User user = new User();
-		 user.setRole(role);	
-		 user.setUsername(userRegisterDTO.getLogin());
-		 user.setPassword(userRegisterDTO.getPassword());
-		 userRepo.save(user);
-
-		 Teacher teacher = new Teacher();
-		 teacher.setFirstName(userRegisterDTO.getFirstName());
-		 teacher.setLastName(userRegisterDTO.getLastName());
-		 teacher.setPesel(userRegisterDTO.getPesel());
-		 
-		 teacher.setUser(user);
-		 teacherRepo.save(teacher);
-		
-		model.addAttribute("userModel", new User());	
-		 return "/loginform";
-		} 
-	 }
-			 return "/login";
-}
+						UserDTO accountDto = new UserDTO();
+						accountDto.setEmail(userRegisterDTO.getEmail());
+						accountDto.setPassword(userRegisterDTO.getPassword());
+						accountDto.setRole(role);
+					}
+				}
+			return null;
+			}
 }

@@ -11,9 +11,5 @@ import pl.javastart.model.Teacher;
 public interface SchoolClassRepository  extends JpaRepository<Schollclass, Long>{
 	@Query("select s from Schollclass s where s.classNumber = ?1 and s.classLetter=?2")
 	Schollclass findSchollclassByClassNumberAndClassLetter(Integer schollclassNumber, String schollclassLetter);
-//	@Query("select s from Schollclass s where s.classNumber = ?1")
-//	Schollclass findSchollclassByClassNumberAndClassLetter(String schollclassNumber);
-	
-//	@Query("select s from Schollclass s where s.classLetter=?2")
-//	Schollclass findSchollclassByClassNumberAndClassLetter(String classLetter);
+
 }

@@ -35,12 +35,6 @@ public class User implements Serializable {
     private String email;
     private String password;
 
-//    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-//	private Set<Role> roles = new HashSet<>();
-//    @ManyToMany()
-//    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id",referencedColumnName="user_id",unique=false),
-//    inverseJoinColumns=@JoinColumn( name="role_id", referencedColumnName="role_id",unique=false))
-//    private Set<Role> roles= new HashSet<>();
 	@ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

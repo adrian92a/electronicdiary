@@ -1,4 +1,4 @@
-  package pl.javastart.model;
+   package pl.javastart.model;
 
 import java.beans.Transient;
 import java.io.Serializable;

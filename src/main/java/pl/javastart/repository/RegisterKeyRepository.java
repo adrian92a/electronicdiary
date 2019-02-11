@@ -20,10 +20,9 @@ import pl.javastart.model.Role;
 public interface RegisterKeyRepository extends JpaRepository<RegisterKey, Long>
 {
 	@Query("select u from RegisterKey u where u.keyRegisterValue = ?1")
-	  RegisterKey findByRegisterey(String key);
+	RegisterKey findByRegisterey(String key);
 	@Query("select r from Role r inner join RegisterKey rk on r.id=rk.role  where rk.keyRegisterValue = ?1")
-	Set<Role> findRegisterKeyRoleName(String registerKet);
+	Set<Role> findRegisterKeyRoleName(String registerKey);
 	
-//	@Query("INSERT INTO User(login,password) VALUES( ?1 ,?2)")
-//	void save(String login,String password);
+
 }
