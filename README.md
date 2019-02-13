@@ -17,5 +17,4 @@ Technologie użyte do napisania aplikacji
 -Framework Spring ( Spring Boot, Spring MVC)
 -HTML 5
 -JavaScript
->>>>>>> 5b7af318c42b2f66ab578ed8c151615c442a2d65
 -MySql (wersja 8.0.13)
