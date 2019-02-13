@@ -2,7 +2,12 @@ package pl.javastart.model;
 import java.util.Arrays;
 public enum SubjectType {
 	matematyka,
-	polski;
+	polski,
+	historia,
+	angielski,
+	fizyka,
+	muzyka,
+	geografia;
 
 	private String polishName;
 

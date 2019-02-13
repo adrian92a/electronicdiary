@@ -36,7 +36,7 @@ public class Schollclass {
 	public Schollclass() {
 		super();
 	}
-	
+
 	public Schollclass(int id, Integer classNumber, String classLetter) {
 		super();
 		this.id = id;
@@ -61,15 +61,15 @@ public class Schollclass {
 	public void setClassLetter(String classLetter) {
 		this.classLetter = classLetter;
 	}
-	 
-	
-	 
 
 
-	
 
- 
 
-	
-	 
+
+
+
+
+
+
+
 }

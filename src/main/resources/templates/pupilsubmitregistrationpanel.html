@@ -50,7 +50,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="#">Rejestracja ucznia</a>
     </div>
     <ul class="nav navbar-nav">
             <li><a href="/loginform">Zaloguj sie</a></li>
@@ -69,13 +69,12 @@ Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRo
 Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
 classNumber			    <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
 classLetter				 <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
+    Twoje hasło		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}" readonly/>
+    Twój E-mail		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.email}" readonly/>
 <br/>
 			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
              <br/>
-			<br/>
-
-
-		<button type="submit" >Submit to another page</button>
+            <button type="submit" >Zakończ rejestracje</button>
 
 
 			</form>

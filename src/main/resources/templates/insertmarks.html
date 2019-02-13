@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <style>
+DIV.table 
+{
+    display:table;
+}
+FORM.tr, DIV.tr
+{
+    display:table-row;
+}
+SPAN.td
+{
+    display:table-cell;
+}
+</style>
+
+   <script src="js/script.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" >
+    </script>
+    <script type="text/javascript" >
+// function setMark(evt) {
+// 	var charCode = (evt.which) ? evt.which : event.keyCode
+// 		    if (charCode < 49 || charCode > 54)
+// 		    	 return false;
+// 		    	 var value = document.getElementById('newMark').value;
+// 		    if (value.length >0) {
+// 		        return false;
+// 		    }
+// 		    return true;
+// }
+// function setWeight(evt) {
+// 	var charCode = (evt.which) ? evt.which : event.keyCode
+// 		    if (charCode < 49 || charCode > 58)
+// 		    	 return false;
+// 		    	 var value = document.getElementById('markWeight').value;
+// 		    if (value.length  >0) {
+// 		        return false;
+// 		    }
+// 		    return true;
+// }
+
+function myFunction(demo,size) {
+
+    for (i = 1; i <= size; i++) {
+        document.getElementById(i).innerHTML ='';
+    }
+    document.getElementById(demo).innerHTML ='Ocene wstawiono pomyślnie';
+}
+</script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Wstaw oceny</a>
+        </div>
+                    <ul class="nav navbar-nav">
+                        <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
+                        <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
+                        <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
+                        <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
+                        <li><a th:if="${session.rolename =='nauczyciel'}" href="/selectformget">Wstaw oceny</a></li>
+                    </ul>
+	      </div>
+</nav>  
+    <h1>Wstawianie ocen</h1>
+    <form th:action="@{/selectedClass}" name='f' th:object="${classes}" method='post'>
+        <table>
+            <tr>
+                <td>Wybierz klasę:</td>
+                <td>
+                    <select th:name=lessonId>
+                         <option value=""> -- </option>
+                         <option th:each="class : ${classes}"
+                            th:value="${class.lessonId}"
+                            th:utext="${class.classNumber} +' ' +  ${class.classLetter} +' ' + ${class.subjectName}"/>
+                  </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input name="submit" type="submit" value="submit" /></td>
+            </tr>
+        </table>
+    </form>
+
+
+<iframe width="-1" height="-1" border="0" value = "wpisany tekst" name="dframe" id="dframe"></iframe>
+<div th:each="pupil: ${pupilList}">
+<!--<form th:action="@{/insertOneMark}" th:onsubmit="'myFunction(\'' + ${pupil.index} + '\');'"  th:object="${pupil}" method="get" target="dframe">-->
+    <form th:action="@{/insertOneMark}" th:onsubmit="'myFunction(\'' + ${pupil.index} + '\',\'' + ${pupilList.size()} + '\');'"  th:object="${pupil}" method="get" target="dframe">
+
+    <table class="table table-hover">
+           <thead  th:if="${pupil.index} < 2" >
+            <tr>
+                <th>Numer lekcji (LessonId)	</th>
+                <th>Numer ucznia (PupilId) </th>
+                <th>Imię  </th>
+                <th>Nazwisko </th>
+                <th>Ocena </th>
+                <th>Powód otrzymania  </th>
+                <th>Waga oceny  </th>
+            </tr>
+           </thead>
+                <tr>
+                <td><input class="form-control"  type="text" name="lessonId" th:value="${pupil.lessonId}"   readonly></td>
+                <td><input class="form-control"  type="text" name="pupilId" th:value="${pupil.pupilId}"   readonly></td>
+                <td><input class="form-control"  type="text"  name="firstName"   th:value="${pupil.firstName}" value ="first" readonly></td>
+                <td><input class="form-control" type="text" id="lastName" name="lastName" th:value="${pupil.lastName}" value ="last" readonly></td>
+                <td> <input required class="form-control" type="number"   max ="6" step="1"  onkeypress="return setMark(event)" name="mark" min="1" placeholder="Ocena"/></td>
+                <td> <select required id='purpose' class="form-control"  name="description">
+
+                <option  value = "SPRAWDZIAN" selected>Sprawdzian</option >
+                <option value = "KARTKOWKA">Kartkówka</option>
+                <option value = "ODPOWIEDZ USTNA">Odpowiedz ustna</option>
+                <option value = "PRACA_DOMOWA">Praca domowa</option>
+                <option value = "INNE">inne</option>
+            </select>
+		</td>
+		    <td> <input required class="form-control" type="number" name="markWeight" id='markWeight' min="1" max ="9" step="1"  onkeypress="return setWeight(event)"   placeholder="Waga Oceny"/></td>
+			  <td> <button type="submit"  >Wstaw ocene</button>  </td>
+            </tr>
+        </table>
+    <p style="color:sandybrown; font-weight: bold"  th:id="${pupil.index}"> </p>
+
+   </form>
+</div>
+</body>
+</html>

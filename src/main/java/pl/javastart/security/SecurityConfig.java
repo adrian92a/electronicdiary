@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		return passwordEncoder;
 	}
-	
+// Narazie aplikacja nie korzysta ze Spring security
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http

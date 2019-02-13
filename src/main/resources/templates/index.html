@@ -14,7 +14,7 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="#">Strona główna</a>
     </div>
     
     <ul class="nav navbar-nav">
@@ -29,12 +29,13 @@
 	       	</ul>
 	      </div>
 	
-</nav>     		<p th:text="${message}">asdf</p>
+</nav>
     <div class ="col-lg-3">
-    <h1 style="font-size:100%;" >Zalogowany jako:</h1>
- <h1 style="font-size:100%;" th:text="${session.email}">Zalogowany</h1>  
-  <h3 style="font-size:100%;" >Twoje uprawnienia</h3>
- <h1 style="font-size:100%;"th:text="${session.rolename}">Zalogowany</h1>  
+         <p style="font-weight: 500; font-size:20px;color:#005dff;" th:text="${message}"></p>
+         <h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Zalogowany jako:</h1>
+         <h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" th:text="${session.email}">Zalogowany</h1>
+         <h3 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Twoje uprawnienia</h3>
+         <h1 th:if= "${not#strings.isEmpty(session.email)}"style="font-size:100%;"th:text="${session.rolename}">Zalogowany</h1>
 	<br>
 
 

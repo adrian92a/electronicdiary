@@ -2,7 +2,6 @@ package pl.javastart.controller.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.javastart.model.EmailExistsException;
 import pl.javastart.model.User;
 import pl.javastart.model.UserDTO;
 import pl.javastart.repository.UserRepository;

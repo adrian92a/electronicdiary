@@ -11,9 +11,9 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 7021150458271420830L;
 @Id
 @Column(name="role_id")
-private Long id;
+private Integer id;
 private String roleName;
-public Role(Long id, String roleName) {
+public Role(Integer id, String roleName) {
 	super();
 	this.id = id;
 	this.roleName = roleName;
@@ -34,10 +34,10 @@ public String getRoleName() {
 public void setRoleName(String roleName) {
 	this.roleName = roleName;
 }
-public Long getId() {
+public Integer getId() {
 	return id;
 }
-public void setId(Long id) {
+public void setId(Integer id) {
 	this.id = id;
 }
 @Override

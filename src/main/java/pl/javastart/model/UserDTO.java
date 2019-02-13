@@ -16,13 +16,6 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String email, String password, Role role, String registerKey) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.registerKey = registerKey;
-    }
-
     public String getRegisterKey() {
         return registerKey;
     }

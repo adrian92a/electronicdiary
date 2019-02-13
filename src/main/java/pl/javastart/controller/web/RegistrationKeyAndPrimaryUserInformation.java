@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/registerKeyController")
-public class RegisterKeyControllerMvc {
+public class RegistrationKeyAndPrimaryUserInformation {
 	public String error;
 	@Autowired
 	public RegisterKeyRepository registerKeyRepo;
@@ -26,7 +26,7 @@ public class RegisterKeyControllerMvc {
 	@Autowired
 	public UserRepository userRepo;
 	@Autowired
-	public RegisterKeyControllerMvc(RegisterKeyRepository registerKeyRepo)
+	public RegistrationKeyAndPrimaryUserInformation(RegisterKeyRepository registerKeyRepo)
 	{
 		this.registerKeyRepo=registerKeyRepo;
 	}
@@ -68,14 +68,16 @@ public class RegisterKeyControllerMvc {
 					result.addError(new FieldError("email", "email", "Podany e-mail: " + '"' + userDTO.getEmail() + '"' + "  jest już zajęty"));
 				}
 				else{
-					userRepo.save(user);
-					registerKeyAndRoleDTO.setUser(user);
+					registerKeyAndRoleDTO.setPassword(userDTO.getPassword());
+					registerKeyAndRoleDTO.setEmail(userDTO.getEmail());
 
 					if (r.getRoleName().equals("uczeń")) {
+						registerKeyAndRoleDTO.setRoleId(2);
 						model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
 						return "pupilsubmitregistrationpanel";
 					}
 					if (r.getRoleName().equals("nauczyciel")) {
+						registerKeyAndRoleDTO.setRoleId(1);
 						model.addAttribute("RegisterKeyAndRoleDTO", registerKeyAndRoleDTO);
 						return "teachersubmitregistrationpanel";
 					}

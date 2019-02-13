@@ -24,7 +24,7 @@ public class Teacher implements Serializable {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public Teacher() {}
+	public Teacher() {super();}
 	 
 	@OneToOne
     @JoinColumn(name = "user_id")
@@ -38,15 +38,13 @@ public class Teacher implements Serializable {
 		this.pesel = pesel;
 	}
 
-
-	public Teacher(String firstName, String lastName, String pesel, User user) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.user = user;
+	public String getPesel() {
+		return pesel;
 	}
 
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -68,14 +66,6 @@ public class Teacher implements Serializable {
 	}
 
 
-	public String getPesel() {
-		return pesel;
-	}
-
-
-	public void setPesel(String pesel) {
-		this.pesel = pesel;
-	}
 
 
 

@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import pl.javastart.model.Pupil;
-import pl.javastart.model.RegisterKeyAndRoleDTO;
 import pl.javastart.model.User;
 @Controller
 public class Login {

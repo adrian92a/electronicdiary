@@ -24,6 +24,6 @@ public interface PupilRepository extends JpaRepository<Pupil, Integer>{
 	
 	
 	@Query("select p.id, p.firstName, p.lastName from Pupil p "
-			+ "inner join Schollclass s on p.schollclass.id=s.id inner join Lesson  ")
-	List<Object[]>  findPupilListFromLessonId(Integer id);
+			+ "inner join Schollclass s on p.schollclass.id=s.id inner join Lesson l on l.schollclass.id =s.id where l.id =?1")
+	List<Object[]>  findPupilListFromLessonId(Integer lessonId);
 }

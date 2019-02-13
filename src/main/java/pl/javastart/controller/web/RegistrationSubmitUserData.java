@@ -26,11 +26,10 @@ import pl.javastart.repository.UserRepository;
 
 
 @Controller
-public class RegisterControllerMvc {
+public class RegistrationSubmitUserData {
 	@Autowired
 	private SchoolClassRepository schoolRepo;
-	@Autowired
-	private RoleRepository roleRepo;
+
 	@Autowired
 	private RegisterKeyRepository registerKeyRepo;
 	@Autowired
@@ -40,27 +39,19 @@ public class RegisterControllerMvc {
 	@Autowired
 	UserService userService= new UserService();
 	@Autowired
-	public RegisterControllerMvc(PupilRepository pupilRepo) {
+	public RegistrationSubmitUserData(PupilRepository pupilRepo) {
 		this.pupilRepo = pupilRepo;
 	}
 
 	@Autowired
 	private TeacherRepository teacherRepo;
 
-	public RegisterControllerMvc(TeacherRepository teacherRepo) {
+
+	public RegistrationSubmitUserData(TeacherRepository teacherRepo) {
 		this.teacherRepo = teacherRepo;
 	}
 
-	public User createUserAccount(UserDTO accountDto)
-	{
-		User registered = null;
-		try {
-			registered = userService.registerNewUserAccount(accountDto);
-		} catch (EmailExistsException e) {
-			return null;
-		}
-		return registered;
-	}
+
 	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
 	 public String registerUserAccount (@ModelAttribute @Valid RegisterKeyAndRoleDTO userRegisterDTO,BindingResult result,
 											  Model model)
@@ -69,34 +60,44 @@ public class RegisterControllerMvc {
 			for(Role r:roles)
 			{
 					if(r.getRoleName().equals("uczeń")) {
-							Pupil pupil = new Pupil();
-							pupil.setFirstName(userRegisterDTO.getFirstName());
-							pupil.setLastName(userRegisterDTO.getLastName());
-							pupil.setPesel(userRegisterDTO.getPesel());
-							Schollclass scholl = schoolRepo.findSchollclassByClassNumberAndClassLetter(userRegisterDTO.getSchollClassnumber(), userRegisterDTO.getSchollClassLetter());
-							pupil.setSchollclass(scholl);
-							User user=userRegisterDTO.getUser();
-							pupil.setUser(user);
-						System.out.println("pupil---------"+pupil);
+						Pupil pupil = new Pupil();
+						pupil.setFirstName(userRegisterDTO.getFirstName());
+						pupil.setLastName(userRegisterDTO.getLastName());
+						pupil.setPesel(userRegisterDTO.getPesel());
+						Schollclass scholl = schoolRepo.findSchollclassByClassNumberAndClassLetter(userRegisterDTO.getSchollClassnumber(), userRegisterDTO.getSchollClassLetter());
 
-							pupilRepo.save(pupil);
-							RegisterKey key = registerKeyRepo.findByRegisterey(userRegisterDTO.getKeyRegisterValue());
-							key.setUsed(false);
-							registerKeyRepo.save(key);
-							return "loginform";
+						pupil.setSchollclass(scholl);
+
+						User user=new User(userRegisterDTO.getEmail(),userRegisterDTO.getPassword());
+						user.setRole(r);
+						pupil.setUser(user);
+						userRepo.save(user);
+						pupilRepo.save(pupil);
+						return setRegisterKeyUsedValueAndRedirect(userRegisterDTO);
 					}
 
 					if(r.getRoleName().equals("nauczyciel"))
 					{
-						model.addAttribute("userRegistrationDto", userRegisterDTO);
-						Role role = roleRepo.getOne(1l);
+						Teacher teacher =new Teacher();
+						teacher.setFirstName(userRegisterDTO.getFirstName());
+						teacher.setLastName(userRegisterDTO.getLastName());
+						teacher.setPesel(userRegisterDTO.getPesel());
 
-						UserDTO accountDto = new UserDTO();
-						accountDto.setEmail(userRegisterDTO.getEmail());
-						accountDto.setPassword(userRegisterDTO.getPassword());
-						accountDto.setRole(role);
+
+						User user=new User(userRegisterDTO.getEmail(),userRegisterDTO.getPassword());
+						user.setRole(r);
+						teacher.setUser(user);
+						userRepo.save(user);
+						teacherRepo.save(teacher);
+						return setRegisterKeyUsedValueAndRedirect(userRegisterDTO);
 					}
 				}
 			return null;
 			}
+	private String setRegisterKeyUsedValueAndRedirect(@Valid @ModelAttribute RegisterKeyAndRoleDTO userRegisterDTO) {
+		RegisterKey key = registerKeyRepo.findByRegisterey(userRegisterDTO.getKeyRegisterValue());
+		key.setUsed(true);
+		registerKeyRepo.save(key);
+		return "loginform";
+	}
 }

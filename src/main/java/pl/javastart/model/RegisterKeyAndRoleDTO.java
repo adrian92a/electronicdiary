@@ -14,7 +14,7 @@ public class RegisterKeyAndRoleDTO {
 	public String firstName;
 	public String lastName;
 	public String pesel;
-	public User user;
+	public Integer roleId;
 	public Set<Role> roleName;
 	public Integer schollClassnumber;
 	public String schollClassLetter;
@@ -29,24 +29,12 @@ public class RegisterKeyAndRoleDTO {
 	public RegisterKeyAndRoleDTO() {
 		super();
 	}
-	public RegisterKeyAndRoleDTO(String keyRegisterValue, String firstName, String lastName, String pesel,
-								 Set<Role> roleName, Integer schollClassnumber, String schollClassLetter, String email, String password) {
-		super();
-		this.keyRegisterValue = keyRegisterValue;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.roleName = roleName;
-		this.schollClassnumber = schollClassnumber;
-		this.schollClassLetter = schollClassLetter;
-		this.email = email;
-		this.password = password;
-	}
+
 	public RegisterKeyAndRoleDTO(String keyRegisterValue, String firstName, String lastName, String pesel,
 								 Set<Role> roleName, Integer schollClassnumber,
 								 String schollClassLetter, String email,
-								 String password,User user) {
-		super();
+								 String password,Integer roleId) {
+
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -56,16 +44,15 @@ public class RegisterKeyAndRoleDTO {
 		this.schollClassLetter = schollClassLetter;
 		this.email = email;
 		this.password = password;
-		this.user=user;
+		this.roleId=roleId;
 	}
 
-
-	public User getUser() {
-		return user;
+	public Integer getRoleId() {
+		return roleId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getKeyRegisterValue() {
