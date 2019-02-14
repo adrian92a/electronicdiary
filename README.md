@@ -1,9 +1,9 @@
-# Aplikacja stworzona na wzór dzienników elektronicznych typu "Librus"
+# Aplikacja webowa stworzona na wzór dzienników elektronicznych typu "Librus"
 
 ### Funkcjonalności:
 -możliwość rejestracji nowego użytkownika który może być zarówno nauczycielem jak i uczniem (Do rejestracji potrzebny jest specjalny kod, który musi wcześniej być umieszczony w bazie danych). To czy po wpisaniu kodu nowy użytkownik rejestruje się jako uczeń czy nauczyciel zależy od roli do której jest przypisany "RegisterKey".<br/>
 <br/>
--możliwość zalogowania (użytkownik zapisuje się w sesji)<br/
+-możliwość zalogowania (użytkownik zapisuje się w sesji)<br/>
 <br/>
 -każdy uczeń jest przypisany do jakiejś klasy (np.1A, 2A, 3A, 2B,..., 3C)<br/>
 <br/>
@@ -20,10 +20,12 @@
 -możliwość wylogowania się(użytkownik zostaje usunięty
   <br/>
 <br/>
--dodana walidacja formularzy z wykorzystaniem Springa <br/>
+-dodana walidacja wszystkich formularzy z wykorzystaniem  Spring, JavaScriptu jak i zwykłego HTML<br/>
 <br/>
-
+-Do aplikacji została dodana duża baza testowa zarejestrowanych użytkowników( baza testowa jest dodawana tylko przy pierwszym uruchomieniu programu) <br/>
+<br/>
 ### Technologie użyte do napisania aplikacji
+-Java(1.8) <br/>
 -Thymeleaf <br/>
 -Framework Hibernate<br/>
 -Framework Spring ( Spring Boot, Spring MVC)<br/>
