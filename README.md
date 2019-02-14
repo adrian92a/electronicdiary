@@ -1,5 +1,5 @@
 # Aplikacja webowa stworzona na wzór dzienników elektronicznych typu "Librus"
-
+Aplikacja  opiera się na połączeniu serwera z bazy danych oraz 
 ### Funkcjonalności:
 -możliwość rejestracji nowego użytkownika który może być zarówno nauczycielem jak i uczniem (Do rejestracji potrzebny jest specjalny kod, który musi wcześniej być umieszczony w bazie danych). To czy po wpisaniu kodu nowy użytkownik rejestruje się jako uczeń czy nauczyciel zależy od roli do której jest przypisany "RegisterKey".<br/>
 <br/>
