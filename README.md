@@ -20,7 +20,7 @@
 -możliwość wylogowania się(użytkownik zostaje usunięty
   <br/>
 <br/>
--dodana walidacja wszystkich formularzy z wykorzystaniem  Spring, JavaScriptu jak i zwykłego HTML<br/>
+-dodana walidacja wszystkich formularzy przy użyciu  Spring, JavaScript jak i zwykłego HTML<br/>
 <br/>
 -Do aplikacji została dodana duża baza testowa zarejestrowanych użytkowników( baza testowa jest dodawana tylko przy pierwszym uruchomieniu programu) <br/>
 <br/>
