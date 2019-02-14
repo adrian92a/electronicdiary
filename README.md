@@ -5,8 +5,9 @@
 <br/>
 -możliwość zalogowania (użytkownik zapisuje się w sesji)<br/
 <br/>
--każdy uczeń jest przypisany do jakiejś klasy (1A, 2A, 3A, 2B,..., 3C)<br/>
--uczeń może przeglądać swoje oceny w podziale na przedmioty. Podczas przeglądania ocen uczeń widzi imię i nazwisko nauczyciela który mu wystawił owe oceny z danego przedmiotu.<br/>
+-każdy uczeń jest przypisany do jakiejś klasy (np.1A, 2A, 3A, 2B,..., 3C)<br/>
+<br/>
+-uczeń może przeglądać swoje oceny w podziale na przedmioty. Podczas przeglądania ocen uczeń widzi imię i nazwisko nauczyciela który mu wystawił daną ocene z danego przedmiotu.<br/>
 <br/>
 -do każdej lekcji w dzienniku jest przypisany zarówno nauczyciel jak i szkolna klasa<br/>
 <br/>
@@ -16,7 +17,8 @@
 <br/>
 -nauczyciel może wybrać daną klase i przejść do panelu z widokiem na wszystkich uczniów w danej klasie. W pamelu tym może poszczególnym uczniom wystawiać oceny.<br/>
 <br/>
--możliwość wylogowania się<br/>
+-możliwość wylogowania się(użytkownik zostaje usunięty
+  <br/>
 <br/>
 -dodana walidacja formularzy z wykorzystaniem Springa <br/>
 <br/>
