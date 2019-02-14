@@ -15,7 +15,7 @@ Aplikacja  opiera się na połączeniu logiki systemowej (serwera) z bazy danych
 <br/>
 -nauczyciel widzi klasy które uczy oraz przedmiot którego uczy w danej klasie<br/>
 <br/>
--nauczyciel może wybrać daną klase i przejść do panelu z widokiem na wszystkich uczniów w danej klasie. W pamelu tym może poszczególnym uczniom wystawiać oceny.<br/>
+-nauczyciel może wybrać daną klase i przejść do panelu z widokiem na wszystkich uczniów w danej klasie. W panelu tym może poszczególnym uczniom wystawiać oceny.<br/>
 <br/>
 -możliwość wylogowania się(użytkownik zostaje usunięty
   <br/>
