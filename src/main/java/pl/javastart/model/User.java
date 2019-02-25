@@ -38,8 +38,6 @@ public class User implements Serializable {
 	@ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-	
-
 
 	public User( String email, String password) {
 		super();
@@ -47,9 +45,6 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 	}
-
-
-
 
 	public User(String email, String password, Role role) {
 		super();
@@ -61,17 +56,9 @@ public class User implements Serializable {
 	public Role getRole() {
 		return role;
 	}
-
-
-
-
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
-
-
-
 	public User()
 	{
 		
@@ -103,15 +90,11 @@ public class User implements Serializable {
 		return serialVersionUID;
 	}
 
-	public String getUsername() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setUsername(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-
-
 }

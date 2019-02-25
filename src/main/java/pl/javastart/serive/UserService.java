@@ -1,4 +1,4 @@
-package pl.javastart.controller.web;
+package pl.javastart.serive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

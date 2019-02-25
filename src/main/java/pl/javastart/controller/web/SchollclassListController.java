@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import pl.javastart.model.ClassDTO;
@@ -14,19 +13,21 @@ import pl.javastart.repository.TeacherRepository;
 import pl.javastart.repository.UserRepository;
 @Repository
 public class SchollclassListController {
- 
-	@Autowired
-	private AccountController accountcontrol;
-	@Autowired
+
+	private UserController accountcontrol;
 	private UserRepository userRepo;
-	
-	@Autowired
 	private LessonRepository lessonRepo;
+	private TeacherRepository teacherRepo;
 
-	@Autowired
-	TeacherRepository teacherRepo;
 
-    private List<ClassDTO> list(HttpSession session) 
+	public SchollclassListController(UserController accountcontrol, UserRepository userRepo, LessonRepository lessonRepo, TeacherRepository teacherRepo) {
+		this.accountcontrol = accountcontrol;
+		this.userRepo = userRepo;
+		this.lessonRepo = lessonRepo;
+		this.teacherRepo = teacherRepo;
+	}
+
+	private List<ClassDTO> list(HttpSession session)
  {
     	 List<ClassDTO> teacherClasses = new ArrayList<ClassDTO>();
     	String email=(String) session.getAttribute("email");

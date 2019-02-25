@@ -1,16 +1,16 @@
 package pl.javastart.controller.web;
 import java.util.List;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import pl.javastart.model.*;
 import pl.javastart.repository.RegisterKeyRepository;
 import pl.javastart.repository.UserRepository;
+import pl.javastart.serive.UserService;
 
 import javax.validation.Valid;
 
@@ -18,18 +18,20 @@ import javax.validation.Valid;
 @RequestMapping("/registerKeyController")
 public class RegistrationKeyAndPrimaryUserInformation {
 	public String error;
-	@Autowired
-	public RegisterKeyRepository registerKeyRepo;
-	@Autowired
-	public UserService userService;
 
-	@Autowired
-	public UserRepository userRepo;
-	@Autowired
-	public RegistrationKeyAndPrimaryUserInformation(RegisterKeyRepository registerKeyRepo)
-	{
-		this.registerKeyRepo=registerKeyRepo;
+	private RegisterKeyRepository registerKeyRepo;
+	private UserService userService;
+	private UserRepository userRepo;
+
+
+	public RegistrationKeyAndPrimaryUserInformation(RegisterKeyRepository registerKeyRepo, UserService userService, UserRepository userRepo) {
+		this.registerKeyRepo = registerKeyRepo;
+		this.userService = userService;
+		this.userRepo = userRepo;
 	}
+
+
+
 	public boolean existRegisterKeyAndIsntUsed(String key)
 	{
 	 List<RegisterKey> registerkeys =  registerKeyRepo.findAll();

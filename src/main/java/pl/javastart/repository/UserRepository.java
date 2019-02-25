@@ -6,8 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import pl.javastart.model.User;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
+	Optional<User> findByEmail(String email);
+
 
 @Query(value = "SELECT CASE  WHEN count(u)> 0 THEN true ELSE false END FROM  User u where u.email = ?1 and u.password=?2")
 Boolean checkIfUsersEmailAndPasswordExists(String email, String password);

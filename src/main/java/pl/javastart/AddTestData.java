@@ -279,7 +279,7 @@ public class AddTestData {
             schoolClassRepo.save(schollclass7);
             schoolClassRepo.save(schollclass8);
             schoolClassRepo.save(schollclass9);
-
+            pupil2.setUser(user2);
             pupil3.setUser(user3);
             pupil10.setUser(user10);
             pupil11.setUser(user11);

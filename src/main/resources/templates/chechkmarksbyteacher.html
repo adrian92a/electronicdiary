@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/index">Wstaw oceny</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
+                <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
+                <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
+                <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
+                <li><a th:if="${session.rolename =='nauczyciel'}" href="/insertmarksform">Wstaw oceny</a></li>
+                <li><a th:if="${session.rolename =='nauczyciel'}" href="/viewmarksteacher">Wstawione oceny</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1>Przegladanie wstawionych ocen</h1>
+<form th:action="@{/selectedClassToViewMarks}" name='f' th:object="${classes}" id="classes" method='post'>
+    <table>
+        <tr>
+            <td><strong>Wybierz klasę:</strong></td>
+            <td>
+                <select th:name=lessonId>
+                    <option value=""> -- </option>
+                    <option th:each="class : ${classes}"
+                            th:value="${class.lessonId}"
+                            th:utext="${class.classNumber} +' ' +  ${class.classLetter} +' ' + ${class.subjectName}"/>
+                </select>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+    </table>
+</form>
+    <p><strong>Wybierz ucznia.</strong></p>
+    <form th:action="@{/selectedClassToViewMarks}" name='f' th:object="${pupilList}" id="pupils" method='post'>
+        <select th:name=lessonId>
+            <option value=""> -- </option>
+            <option th:each="list : ${pupilList}"
+                    th:value="${list.pupilId}"
+                    th:utext="${list.firstName} +' ' +  ${list.lastName}"/>
+        </select>
+
+    </form>
+
+</body>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#pupils').change(function() {
+            var parentForm = $(this).closest("form");
+            if (parentForm && parentForm.length > 0)
+                parentForm.submit();
+        });
+    });
+
+    $(document).ready(function() {
+        $('#classes').change(function() {
+            var parentForm = $(this).closest("form");
+            if (parentForm && parentForm.length > 0)
+                parentForm.submit();
+        });
+    });
+</script>
+</html>

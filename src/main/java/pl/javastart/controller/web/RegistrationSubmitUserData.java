@@ -4,50 +4,38 @@ import java.util.Set;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.javastart.model.*;
 import pl.javastart.repository.PupilRepository;
 import pl.javastart.repository.RegisterKeyRepository;
-import pl.javastart.repository.RoleRepository;
 import pl.javastart.repository.SchoolClassRepository;
 import pl.javastart.repository.TeacherRepository;
 import pl.javastart.repository.UserRepository;
+import pl.javastart.serive.UserService;
 
 
-@Controller
+ @Controller
 public class RegistrationSubmitUserData {
-	@Autowired
+
 	private SchoolClassRepository schoolRepo;
-
-	@Autowired
 	private RegisterKeyRepository registerKeyRepo;
-	@Autowired
 	private UserRepository userRepo;
-	@Autowired
 	private PupilRepository pupilRepo;
-	@Autowired
-	UserService userService= new UserService();
-	@Autowired
-	public RegistrationSubmitUserData(PupilRepository pupilRepo) {
-		this.pupilRepo = pupilRepo;
-	}
-
-	@Autowired
+	private UserService userService;
 	private TeacherRepository teacherRepo;
 
-
-	public RegistrationSubmitUserData(TeacherRepository teacherRepo) {
+	public RegistrationSubmitUserData(SchoolClassRepository schoolRepo, RegisterKeyRepository registerKeyRepo, UserRepository userRepo, PupilRepository pupilRepo, UserService userService, TeacherRepository teacherRepo) {
+		this.schoolRepo = schoolRepo;
+		this.registerKeyRepo = registerKeyRepo;
+		this.userRepo = userRepo;
+		this.pupilRepo = pupilRepo;
+		this.userService = userService;
 		this.teacherRepo = teacherRepo;
 	}
 

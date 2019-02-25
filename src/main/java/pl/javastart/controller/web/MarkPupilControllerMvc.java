@@ -24,7 +24,7 @@ public class MarkPupilControllerMvc {
 	TeacherRepository teacherRepo;
 	
 	@Autowired
-	AccountController accountController;
+	UserController userController;
 	@Autowired
 	private PupilRepository pupilRepo;
 

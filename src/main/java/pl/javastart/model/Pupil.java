@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@Entity
+	@Entity
 @Table(name="pupil")
 public class Pupil implements Serializable {
     private static final long serialVersionUID = 8539936152170847419L;
