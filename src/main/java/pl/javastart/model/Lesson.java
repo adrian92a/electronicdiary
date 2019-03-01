@@ -1,7 +1,6 @@
 package pl.javastart.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 @Entity
@@ -48,9 +44,16 @@ public class Lesson implements Serializable {
     @OneToOne	
     @JoinColumn(name="teacher_id")
     private Teacher teacher;
-    
-    
-    public Schollclass getSchollclass() {
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Schollclass getSchollclass() {
 		return schollclass;
 	}
 	public void setSchollclass(Schollclass schollclass) {

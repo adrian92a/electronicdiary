@@ -1,4 +1,4 @@
-package pl.javastart.model;
+package pl.javastart.DTO;
 
 public class ClassDTO {
 	public Integer classId;

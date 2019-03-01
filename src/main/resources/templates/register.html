@@ -45,7 +45,7 @@
 
 
         <h1 style="font-size:100%;" >Aby rozpocząć rejestracje wpisz 20- cyfrowy kod otrzymany na uczelni lub w szkole, następnie podaj swój email oraz wybierz hasło</h1>
-        <form th:action="@{/registerKeyController}" th:object="${userDTO}"  method="post">
+        <form th:action="@{/register}" th:object="${userDTO}"  method="post">
             <table>
             <tr>
             <td> <input type="text" th:field="*{registerKey}" id='registerKey' placeholder="20 cyfrowy kod" /></td>

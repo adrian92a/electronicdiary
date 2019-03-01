@@ -23,9 +23,10 @@
              	  <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
        			 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
 
-       		     <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
-       			 <li><a th:if="${session.rolename =='nauczyciel'}" href="/insertmarksform">Wstaw oceny</a></li>
-        <li><a th:if="${session.rolename =='nauczyciel'}" href="/viewmarksteacher">Wstawione oceny</a></li>
+<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
+<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
+<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
+
 	       	</ul>
 	      </div>
 	
@@ -35,7 +36,11 @@
          <h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Zalogowany jako:</h1>
          <h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" th:text="${session.email}">Zalogowany</h1>
          <h3 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Twoje uprawnienia</h3>
-         <h1 th:if= "${not#strings.isEmpty(session.email)}"style="font-size:100%;"th:text="${session.rolename}">Zalogowany</h1>
+
+
+        <div th:if= "${not#strings.isEmpty(session.email)}">
+        <div th:each="role: ${session.rolename}"> <h1 style="font-size:100%;"th:text="${role}">Zalogowany</h1><div/>
+        </div>
 	<br>
 
 

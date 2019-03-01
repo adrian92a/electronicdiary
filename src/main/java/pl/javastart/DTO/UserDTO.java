@@ -1,4 +1,6 @@
-package pl.javastart.model;
+package pl.javastart.DTO;
+
+import pl.javastart.model.User.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -58,4 +60,5 @@ public class UserDTO {
         this.email = email;
         this.password = password;
     }
+
 }

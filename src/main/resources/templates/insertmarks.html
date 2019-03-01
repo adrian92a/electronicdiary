@@ -21,10 +21,10 @@ SPAN.td
     display:table-cell;
 }
 </style>
-
-   <script src="js/script.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" >
+    <script type="text/javascript">
+        document.getElementById('lessonId').value = "<?php echo $_GET['lessonId'];?>";
     </script>
+
     <script type="text/javascript" >
 // function setMark(evt) {
 // 	var charCode = (evt.which) ? evt.which : event.keyCode
@@ -66,30 +66,25 @@ function myFunction(demo,size) {
                         <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
                         <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
                         <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-                        <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
-                        <li><a th:if="${session.rolename =='nauczyciel'}" href="/insertmarksform">Wstaw oceny</a></li>
-                        <li><a th:if="${session.rolename =='nauczyciel'}" href="/viewmarksteacher">Wstawione oceny</a></li>
+
+
+                        <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
+                        <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
+                        <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
+
                     </ul>
 	      </div>
 </nav>  
     <h1>Wstawianie ocen</h1>
-    <form th:action="@{/selectedClassToInsertMarks}" name='f' th:object="${classes}" method='post'>
-        <table>
-            <tr>
-                <td>Wybierz klasę:</td>
-                <td>
-                    <select th:name=lessonId>
-                         <option value=""> -- </option>
-                         <option th:each="class : ${classes}"
-                            th:value="${class.lessonId}"
-                            th:utext="${class.classNumber} +' ' +  ${class.classLetter} +' ' + ${class.subjectName}"/>
-                  </select>
-                </td>
-            </tr>
-            <tr>
-                <td><input name="submit" type="submit" value="submit" /></td>
-            </tr>
-        </table>
+    <form th:action="@{/selectedClassToInsertMarks}" name='f' th:object="${selectedOption}" method='post'>
+               Wybierz klasę:
+        <select th:field="*{option}">
+            <option th:each="option : ${searchOptions}"
+                    th:value="${option.getOption()}"
+                    th:text="${option.getOptionName()}">Options</option>
+        </select>
+        <button type="submit">submit</button>
+
     </form>
 
 

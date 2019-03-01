@@ -61,14 +61,14 @@
  <div class="col-lg-3" >
 
    			 <h2 style="font-size:130%;">Twoje dane:</h2> 
-<form action="#" th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
+<form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
 <br/>
 Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
 Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>
 Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
 Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
-classNumber			    <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
-classLetter				 <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
+classNumber			    <input th:if="${RegisterKeyAndRoleDTO.schollClassnumber != null}" class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
+classLetter				 <input th:if="${RegisterKeyAndRoleDTO.schollClassLetter != null}" class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
     Twoje hasło		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}" readonly/>
     Twój E-mail		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.email}" readonly/>
 <br/>

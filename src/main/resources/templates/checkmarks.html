@@ -46,29 +46,34 @@ table#t01 th {
  <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
                <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
        			<li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-						 	
-        </ul>
+
+<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
+<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
+<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
+
+    </ul>
     </div>
 </nav>
 
     <div class ="col-lg-3">
-	<form th:action="@{/subjects}" method="get">
-					    <select th:name="subjectType">
-						         <option th:each="state : ${T(pl.javastart.model.SubjectType).values()}"
-				          			  th:value="${state}"
-				            		  th:text="${state}"
-				            		  th:selected="${selectedsubjectType eq state.name()}" >
-				   			 	</option>
-					   	 </select>
+	<form th:action="@{/showMarks}" th:object="${selectedLeson}" method="post">
+
+        <select  th:name="value"  th:field="*{lessonList} ">
+            <option th:each="option : ${lessonList}"
+                    th:value="${option.getLessonList()}"
+                    th:text="${option.getOptionLessonName()}">Options</option>
+        </select>
 			   		   	 <input type="submit" value="Znajdz oceny" />
 					</form>
+        <p style="font-weight: 500; font-size:20px;color:#2d65ff;" th:text="${emptyList}"></p>
     </div>
 
-  <div class ="col-lg-6"   >
-	<p th:if="${teacherFirstName != null}" th:text ="'Imię i nazwisko nauczyciela:'+ ${teacherFirstName} + ' '+ ${teacherLastName}"></p>	
- 	 
 
- <table  id="t01">
+
+<!--<p th:if="${teacherFirstName != null}" th:text ="'Imię i nazwisko nauczyciela:'+ ${teacherFirstName} + ' '+ ${teacherLastName}"></p>	-->
+
+          <div class ="col-lg-2">
+ <table class="table table-bordered" >
     <tr>
         <th>Ocena      </th>
         <th>Opis oceny </th>
@@ -81,8 +86,9 @@ table#t01 th {
     </tr>
 </table>
 </div>
-
-  
+</div>
+<div class ="col-lg-7"   >
+</div>
 </body>
 </html>
 

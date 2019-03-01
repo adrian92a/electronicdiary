@@ -1,15 +1,23 @@
 package pl.javastart.controller.web;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.javastart.model.User;
+import pl.javastart.DTO.RegisterKeyAndRoleDTO;
+import pl.javastart.DTO.UserDTO;
+import pl.javastart.model.User.User;
+
 import pl.javastart.repository.LessonRepository;
+import pl.javastart.repository.RegisterKeyRepository;
 import pl.javastart.repository.UserRepository;
-import pl.javastart.serive.UserSessionService;
+import pl.javastart.service.UserService;
+import pl.javastart.service.UserSessionService;
 
 @Controller
 public class UserController {
@@ -17,12 +25,20 @@ public class UserController {
 	private UserSessionService userSessionService;
 	private UserRepository userRepository;
 	private LessonRepository lessonRepo;
-
-	public UserController(UserSessionService userSessionService, UserRepository userRepository, LessonRepository lessonRepo) {
+	private UserService userService;
+	private RegisterKeyRepository registerKeyRepo;
+	public UserController(UserSessionService userSessionService, UserRepository userRepository, LessonRepository lessonRepo, UserService userService, RegisterKeyRepository registerKeyRepo) {
 		this.userSessionService = userSessionService;
 		this.userRepository = userRepository;
 		this.lessonRepo = lessonRepo;
+		this.userService = userService;
+		this.registerKeyRepo = registerKeyRepo;
 	}
+	@GetMapping("/register")
+	public String register(Model model) {
+		model.addAttribute("userDTO", new UserDTO());
+		return "register"; }
+
 
 	@GetMapping("/index")
 	public String viewIndex(){
@@ -57,4 +73,34 @@ public class UserController {
 		userSessionService.logout(session);
 		return "index"; }
 
+	@PostMapping("/registerUser")
+	public String registerKeyView(@ModelAttribute RegisterKeyAndRoleDTO registerKeyAndRoleDTO, Model model)
+	{
+		userService.registerNewAccount(registerKeyAndRoleDTO);
+		 userService.setRegisterKeyUsedValueAndRedirect(registerKeyAndRoleDTO);
+
+		return "loginform";
+	}
+	@RequestMapping(value = "register" , method = RequestMethod.POST)
+	public String redirectKey( @ModelAttribute @Valid UserDTO userDTO, BindingResult result, Model model)
+	{
+		if(!userService.existRegisterKeyAndIsntUsed(userDTO.getRegisterKey()) ){
+			result.addError(new FieldError("registerKey","registerKey","Kod jest niepoprany lub zostal juz wykorzystany do rejestracji"));
+		}
+		if (result.hasErrors()) {
+			return "register";
+		}
+		if(!userService.emailDoesntExist(userDTO.getEmail()))
+		{
+			result.addError(new FieldError("email","email","Email jest już zajęty"));
+
+			return "register";
+		}
+		if(userService.existRegisterKeyAndIsntUsed(userDTO.getRegisterKey()) )
+		{
+			model.addAttribute("RegisterKeyAndRoleDTO",userService.getRegisterKeyAndRoleDTO(userDTO,registerKeyRepo.findByKeyRegisterValue(userDTO.getRegisterKey())));
+			return "/submitregistrationpanel";
+		}
+		return "/register";
+	}
 }

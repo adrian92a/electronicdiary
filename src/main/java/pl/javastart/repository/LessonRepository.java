@@ -7,9 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import pl.javastart.model.Lesson;
-import pl.javastart.model.Pupil;
-import pl.javastart.model.RegisterKey;
-import pl.javastart.model.User;
 
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Integer>{
@@ -23,14 +20,6 @@ public interface LessonRepository extends JpaRepository<Lesson, Integer>{
 	@Query("select l.id from Lesson l inner join Schollclass s on s.id=l.schollclass.id  where s.id=?1 and l.subjectName=?2")
 	Integer findLessonId(int schollclassId,String subjectName);
 
-	@Query("select m.markValue, m.markPurpose, m.markWeight, p.id, l.schollclass, l.teacher,l.subjectName from Lesson l "
-			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id inner join Mark m on "
-			+ "m.pupil.id=p.id "
-			+ "where p.id =?1 and l.id=?2")
-	List<Object[]> findValuesToMarkTable2(int id,Integer lessonId);
-
-
-
 	@Query("select l.teacher.id from Lesson l "
 			+ "inner join Pupil p on p.schollclass.id=l.schollclass.id "
 			+ "where p.id =?1 and l.subjectName=?2")
@@ -40,8 +29,11 @@ public interface LessonRepository extends JpaRepository<Lesson, Integer>{
 			+ "where l.teacher.id=?1")
 	List<Object[]> findTeacherClass(int id);
 	
-	@Query("select distinct l from Lesson l")
-	List<Lesson>  findDistinctSubject();
+	@Query("select l.subjectName from Lesson l where l.id=?1")
+	String lessonName(Integer lessonId);
+
+	List<Lesson> findAllBySchollclass_Id(Integer schoolClassId);
+
 
 
 }	 

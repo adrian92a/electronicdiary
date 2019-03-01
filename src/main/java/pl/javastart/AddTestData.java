@@ -1,38 +1,32 @@
 package pl.javastart;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.sql.Connection;
+
 import pl.javastart.model.Lesson;
-import pl.javastart.model.Mark;
+
 import pl.javastart.model.Pupil;
-import pl.javastart.model.RegisterKey;
-import pl.javastart.model.Role;
+
+import pl.javastart.model.RegisterKey.RegisterKey;
+
+import pl.javastart.model.RegisterKey.RoleKey;
 import pl.javastart.model.Schollclass;
 import pl.javastart.model.Teacher;
-import pl.javastart.model.User;
-import pl.javastart.repository.LessonRepository;
-import pl.javastart.repository.MarkRepository;
-import pl.javastart.repository.PupilRepository;
-import pl.javastart.repository.RegisterKeyRepository;
-import pl.javastart.repository.RoleRepository;
-import pl.javastart.repository.SchoolClassRepository;
-import pl.javastart.repository.TeacherRepository;
-import pl.javastart.repository.UserRepository;
+
+import pl.javastart.model.User.Role;
+import pl.javastart.model.User.User;
+import pl.javastart.repository.*;
 
 @Component
 public class AddTestData {
 
+    @Autowired
+    RoleKeyRepository roleKeyRepo;
 
     @Autowired
     PupilRepository pupilRepo;
@@ -61,19 +55,16 @@ public class AddTestData {
 
     @PostConstruct
     public void addTestData() {
-        if (!roleRepo.existsById(1)) {
-        roleRepo.deleteAllInBatch();
-        registerKeyRepo.deleteAllInBatch();
-        userRepo.deleteAllInBatch();
-        pupilRepo.deleteAllInBatch();
-        schoolClassRepo.deleteAllInBatch();
-        teacherRepo.deleteAllInBatch();
+        if (!roleRepo.existsById(1))
+        {
+            roleRepo.deleteAllInBatch();
+            registerKeyRepo.deleteAllInBatch();
+            userRepo.deleteAllInBatch();
+            pupilRepo.deleteAllInBatch();
+            schoolClassRepo.deleteAllInBatch();
+            teacherRepo.deleteAllInBatch();
 
-            Role role1 = new Role(1, "nauczyciel");
-            Role role2 = new Role(2, "uczeń");
 
-            roleRepo.save(role1);
-            roleRepo.save(role2);
 
             RegisterKey registerKey1 = new RegisterKey("12993", "Janusz", "Pędziwiatr", "99111664155", null, null, true);
             RegisterKey registerKey2 = new RegisterKey("32991", "Kuba", "Wojewódzki", "98010871488", 1, "B", true);
@@ -104,42 +95,6 @@ public class AddTestData {
             RegisterKey notUsedRegisterKey26 = new RegisterKey("3", "Dagmara", "Chałupka", "91041455771", 1, "C", false);
             RegisterKey notUsedRegisterKey27 = new RegisterKey("4", "Piotr", "Duda", "93072534128", null, null, false);
 
-
-
-
-
-
-            // 1- nauczyciel
-            // 2 -uczeń
-//9-4 nauczyciele
-            registerKey1.setRole(role1);
-            registerKey2.setRole(role2);
-            registerKey3.setRole(role2);
-            registerKey4.setRole(role1);
-            registerKey5.setRole(role1);
-            registerKey6.setRole(role1);
-            registerKey7.setRole(role1);
-            registerKey8.setRole(role1);
-            registerKey9.setRole(role1);
-            registerKey10.setRole(role2);
-            registerKey11.setRole(role2);
-            registerKey12.setRole(role2);
-            registerKey13.setRole(role2);
-            registerKey14.setRole(role2);
-            registerKey15.setRole(role2);
-            registerKey16.setRole(role2);
-            registerKey17.setRole(role2);
-            registerKey18.setRole(role2);
-            registerKey19.setRole(role2);
-            registerKey20.setRole(role2);
-            registerKey21.setRole(role2);
-            registerKey22.setRole(role2);
-            registerKey23.setRole(role2);
-            notUsedRegisterKey24.setRole(role2);
-            notUsedRegisterKey25.setRole(role2);
-            notUsedRegisterKey26.setRole(role2);
-            notUsedRegisterKey27.setRole(role1);
-
             registerKeyRepo.save(registerKey1);
             registerKeyRepo.save(registerKey2);
             registerKeyRepo.save(registerKey3);
@@ -169,6 +124,84 @@ public class AddTestData {
             registerKeyRepo.save(notUsedRegisterKey27);
 
 
+
+
+            // 1- nauczyciel
+            // 2 -uczeń
+//9-4 nauczyciele
+            RoleKey roleKey1 = new RoleKey("nauczyciel",registerKey1);
+            RoleKey roleKey2 = new RoleKey("uczen",registerKey2);
+            RoleKey roleKey3 = new RoleKey("uczen",registerKey3);
+            RoleKey roleKey4= new RoleKey("nauczyciel",registerKey4);
+            RoleKey roleKey5 = new RoleKey("nauczyciel",registerKey5);
+            RoleKey roleKey6 = new RoleKey("nauczyciel",registerKey6);
+            RoleKey roleKey7 = new RoleKey("nauczyciel",registerKey7);
+            RoleKey roleKey8 = new RoleKey("nauczyciel",registerKey8);
+            RoleKey roleKey9 = new RoleKey("nauczyciel",registerKey9);
+            RoleKey roleKey10 = new RoleKey("uczen",registerKey10);
+            RoleKey roleKey11 = new RoleKey("uczen",registerKey11);
+            RoleKey roleKey12 = new RoleKey("uczen",registerKey12);
+            RoleKey roleKey13 = new RoleKey("uczen",registerKey13);
+            RoleKey roleKey14 = new RoleKey("uczen",registerKey14);
+            RoleKey roleKey15 = new RoleKey("uczen",registerKey15);
+            RoleKey roleKey16 = new RoleKey("uczen",registerKey16);
+            RoleKey roleKey17 = new RoleKey("uczen",registerKey17);
+            RoleKey roleKey18 = new RoleKey("uczen",registerKey18);
+            RoleKey roleKey19 = new RoleKey("uczen",registerKey19);
+            RoleKey roleKey20 = new RoleKey("uczen",registerKey20);
+            RoleKey roleKey21 = new RoleKey("uczen",registerKey21);
+            RoleKey roleKey22 = new RoleKey("uczen",registerKey22);
+            RoleKey roleKey23 = new RoleKey("uczen",registerKey23);
+            RoleKey roleKey24 = new RoleKey("uczen",notUsedRegisterKey24);
+            RoleKey roleKey25 = new RoleKey("uczen",notUsedRegisterKey25);
+            RoleKey roleKey26 = new RoleKey("uczen",notUsedRegisterKey26);
+            RoleKey roleKey27 = new RoleKey("uczen",notUsedRegisterKey27);
+
+
+
+
+
+
+
+
+
+
+
+            roleKeyRepo.save(roleKey1);
+            roleKeyRepo.save(roleKey2);
+            roleKeyRepo.save(roleKey3);
+            roleKeyRepo.save(roleKey4);
+            roleKeyRepo.save(roleKey5);
+            roleKeyRepo.save(roleKey6);
+            roleKeyRepo.save(roleKey7);
+            roleKeyRepo.save(roleKey8);
+            roleKeyRepo.save(roleKey9);
+            roleKeyRepo.save(roleKey10);
+            roleKeyRepo.save(roleKey11);
+            roleKeyRepo.save(roleKey12);
+            roleKeyRepo.save(roleKey13);
+            roleKeyRepo.save(roleKey14);
+            roleKeyRepo.save(roleKey15);
+            roleKeyRepo.save(roleKey16);
+            roleKeyRepo.save(roleKey17);
+            roleKeyRepo.save(roleKey18);
+            roleKeyRepo.save(roleKey19);
+            roleKeyRepo.save(roleKey20);
+            roleKeyRepo.save(roleKey21);
+            roleKeyRepo.save(roleKey22);
+            roleKeyRepo.save(roleKey23);
+            roleKeyRepo.save(roleKey24);
+            roleKeyRepo.save(roleKey25);
+            roleKeyRepo.save(roleKey26);
+            roleKeyRepo.save(roleKey27);
+
+
+
+
+
+
+
+
             User user1 = new User("janpedz@szkola.com", "tajne");
             User user2 = new User("kjanpedz@szkola.com", "bardzotajne");
             User user3 = new User("ferkiep@szkola.com", "hasloniedozgadniecia");
@@ -193,31 +226,6 @@ public class AddTestData {
             User user22 = new User("idda@szkola.com", "hasloniedozgadniecia");
             User user23 = new User("dorr@szkola.com", "hasloniedozgadniecia");
 //9-4 nauczyciele
-            user1.setRole(role1);
-            user2.setRole(role2);
-            user3.setRole(role2);
-            user4.setRole(role1);
-            user5.setRole(role1);
-            user6.setRole(role1);
-            user7.setRole(role1);
-            user8.setRole(role1);
-            user9.setRole(role1);
-            user10.setRole(role2);
-            user11.setRole(role2);
-            user12.setRole(role2);
-            user13.setRole(role2);
-            user14.setRole(role2);
-            user15.setRole(role2);
-            user16.setRole(role2);
-            user17.setRole(role2);
-            user18.setRole(role2);
-            user19.setRole(role2);
-            user20.setRole(role2);
-            user21.setRole(role2);
-            user22.setRole(role2);
-            user23.setRole(role2);
-
-
 
             userRepo.save(user1);
             userRepo.save(user2);
@@ -242,6 +250,85 @@ public class AddTestData {
             userRepo.save(user21);
             userRepo.save(user22);
             userRepo.save(user23);
+
+
+
+            Role role1 = new Role("nauczyciel",user1);
+            Role role2 = new Role("uczen",user2);
+            Role role3 = new Role("uczen",user3);
+            Role role4 = new Role("nauczyciel",user4);
+            Role role5 = new Role("nauczyciel",user5);
+            Role role6 = new Role("nauczyciel",user6);
+            Role role7 = new Role("nauczyciel",user7);
+            Role role8 = new Role("nauczyciel",user8);
+            Role role9 = new Role("nauczyciel",user9);
+            Role role10 = new Role("uczen",user10);
+            Role role11 = new Role("uczen",user11);
+            Role role12 = new Role("uczen",user12);
+            Role role13 = new Role("uczen",user13);
+            Role role14 = new Role("uczen",user14);
+            Role role15 = new Role("uczen",user15);
+            Role role16 = new Role("uczen",user16);
+            Role role17 = new Role("uczen",user17);
+            Role role18 = new Role("uczen",user18);
+            Role role19 = new Role("uczen",user19);
+            Role role20 = new Role("uczen",user20);
+            Role role21 = new Role("uczen",user21);
+            Role role22 = new Role("uczen",user22);
+            Role role23 = new Role("uczen",user23);
+
+            roleRepo.save(role1);
+            roleRepo.save(role2);
+            roleRepo.save(role3);
+            roleRepo.save(role4);
+            roleRepo.save(role5);
+            roleRepo.save(role6);
+            roleRepo.save(role7);
+            roleRepo.save(role8);
+            roleRepo.save(role9);
+            roleRepo.save(role10);
+            roleRepo.save(role11);
+            roleRepo.save(role12);
+            roleRepo.save(role13);
+            roleRepo.save(role14);
+            roleRepo.save(role15);
+            roleRepo.save(role16);
+            roleRepo.save(role17);
+            roleRepo.save(role18);
+            roleRepo.save(role19);
+            roleRepo.save(role20);
+            roleRepo.save(role21);
+            roleRepo.save(role22);
+            roleRepo.save(role23);
+
+//
+//            user1.setRole(role1);
+//            user2.setRole(role2);
+//            user3.setRole(role2);
+//            user4.setRole(role1);
+//            user5.setRole(role1);
+//            user6.setRole(role1);
+//            user7.setRole(role1);
+//            user8.setRole(role1);
+//            user9.setRole(role1);
+//            user10.setRole(role2);
+//            user11.setRole(role2);
+//            user12.setRole(role2);
+//            user13.setRole(role2);
+//            user14.setRole(role2);
+//            user15.setRole(role2);
+//            user16.setRole(role2);
+//            user17.setRole(role2);
+//            user18.setRole(role2);
+//            user19.setRole(role2);
+//            user20.setRole(role2);
+//            user21.setRole(role2);
+//            user22.setRole(role2);
+//            user23.setRole(role2);
+
+
+
+
 
             Pupil pupil2 = new Pupil("Kuba", "Wojewódzki", "412412");
             Pupil pupil3 = new Pupil("Ferdynant", "Kiepski", "51251252");
@@ -510,4 +597,3 @@ public class AddTestData {
         }
     }
 }
-

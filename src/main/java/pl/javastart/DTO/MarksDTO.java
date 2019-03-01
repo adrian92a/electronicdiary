@@ -1,4 +1,4 @@
-package pl.javastart.model;
+package pl.javastart.DTO;
 
 import java.util.Set;
 
@@ -9,7 +9,33 @@ public class MarksDTO {
 	public Integer markWeight;
 	public Integer lessonId;
 	public Integer pupilId;
-	
+	public Integer index;
+	public Integer markId;
+
+	public Integer getMarkId() {
+		return markId;
+	}
+
+	public void setMarkId(Integer markId) {
+		this.markId = markId;
+	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+
+	public MarksDTO(Integer markId,Integer markValue, String markPurpose, Integer markWeight, Integer index) {
+		this.markValue = markValue;
+		this.markPurpose = markPurpose;
+		this.markWeight = markWeight;
+		this.index = index;
+		this.markId=markId;
+	}
+
 	public enum Purpose {
 
 		SPRAWDZIAN("Sprawdzian"), 
@@ -24,7 +50,10 @@ public class MarksDTO {
 			this.name = name;
 		}
 	}
-	
+
+	public MarksDTO() {
+	}
+
 	public int getMarkValue() {
 		return markValue;
 	}

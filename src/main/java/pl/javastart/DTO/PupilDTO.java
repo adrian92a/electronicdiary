@@ -1,4 +1,4 @@
-package pl.javastart.model;
+package pl.javastart.DTO;
 
 public class PupilDTO implements Comparable<PupilDTO> {
 	public Integer index;
@@ -57,7 +57,8 @@ public class PupilDTO implements Comparable<PupilDTO> {
 		this.lastName = lastName;
 	}
 
- 
+
+
 	@Override
 	 public int compareTo(PupilDTO o) {
 	        int a = index.compareTo(o.getIndex());

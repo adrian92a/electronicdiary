@@ -21,59 +21,91 @@
                 <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
                 <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
                 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-                <li><a th:if="${session.rolename =='uczeń'}" href="/checkmarks">Sprawdz oceny</a></li>
-                <li><a th:if="${session.rolename =='nauczyciel'}" href="/insertmarksform">Wstaw oceny</a></li>
-                <li><a th:if="${session.rolename =='nauczyciel'}" href="/viewmarksteacher">Wstawione oceny</a></li>
+
+                <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
+                <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
+                <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
+
             </ul>
         </div>
     </nav>
 
     <h1>Przegladanie wstawionych ocen</h1>
-<form th:action="@{/selectedClassToViewMarks}" name='f' th:object="${classes}" id="classes" method='post'>
-    <table>
-        <tr>
-            <td><strong>Wybierz klasę:</strong></td>
-            <td>
-                <select th:name=lessonId>
-                    <option value=""> -- </option>
-                    <option th:each="class : ${classes}"
-                            th:value="${class.lessonId}"
-                            th:utext="${class.classNumber} +' ' +  ${class.classLetter} +' ' + ${class.subjectName}"/>
-                </select>
-            </td>
-        </tr>
-        <tr>
-        </tr>
-    </table>
-</form>
-    <p><strong>Wybierz ucznia.</strong></p>
-    <form th:action="@{/selectedClassToViewMarks}" name='f' th:object="${pupilList}" id="pupils" method='post'>
-        <select th:name=lessonId>
-            <option value=""> -- </option>
-            <option th:each="list : ${pupilList}"
-                    th:value="${list.pupilId}"
-                    th:utext="${list.firstName} +' ' +  ${list.lastName}"/>
+    <form th:action="@{/selectPupilToVieMarks}"  th:object="${selectedOption}" method='post'>
+        Wybierz klasę:
+
+        <select th:class="form-control" th:name="value"  th:field="*{option}">
+            <option th:each="option : ${searchOptions}"
+                    th:value="${option.getOption()}"
+                    th:text="${option.getOptionName()}">Options</option>
         </select>
 
+        <button type="submit">submit</button>
+
     </form>
+    <form th:action="@{/viewMarksTableToEdit}"  th:object="${selectedOptionPupil}" id="pupils" method='post'>
+    Wybierz ucznia:
+
+        <select th:class="form-control" th:field="*{optionPupil}">
+            <option th:each="lessonList : ${searchOptionsPupil}"
+                    th:value="${lessonList.getOptionPupil()}"
+                    th:text="${lessonList.getOptionPupilName()}">Options</option>
+        </select>
+
+        <button type="submit">submit</button>
+
+<br/>
+        <p  style="font-weight: 500; font-size:30px;color:red;" th:text="${emptyListMessage}"></p>
+
+
+    <div th:each="marks: ${markList}">
+        <form >
+            <table class="table table-hover">
+                <thead  th:if="${marks.index} < 2 or marks.index==null" >
+                <tr>
+                    <th>Ocena      </th>
+                    <th>Opis oceny </th>
+                    <th>Waga oceny</th>
+                </tr>
+                </thead>
+                 <input class="form-control"  type="hidden" name="markId" th:value="${marks.markId}" >
+                <tr>
+
+                    <td><input class="form-control"  type="text" name="markValue" th:value="${marks.markValue}"   ></td>
+                    <td><input class="form-control"  type="text" name="markPurpose" th:value="${marks.markPurpose}"   ></td>
+                    <td><input class="form-control"  type="text"  name="markWeight"   th:value="${marks.markWeight}" value ="first" ></td>
+                    <td> <button type="submit" formaction="/editMark">Edytuj ocene</button></td>
+                    <td>   <button type="submit" formaction="/deleteMark">Usun ocene</button> </td>
+                </tr>
+            </table>
+            <p style="color:sandybrown; font-weight: bold" > </p>
+
+        </form>
+
+
+    </div>
+
+
+
+
 
 </body>
-<script type="text/javascript">
+<!--<script type="text/javascript">-->
 
-    $(document).ready(function() {
-        $('#pupils').change(function() {
-            var parentForm = $(this).closest("form");
-            if (parentForm && parentForm.length > 0)
-                parentForm.submit();
-        });
-    });
+    <!--$(document).ready(function() {-->
+        <!--$('#pupils').change(function() {-->
+            <!--var parentForm = $(this).closest("form");-->
+            <!--if (parentForm && parentForm.length > 0)-->
+                <!--parentForm.submit();-->
+        <!--});-->
+    <!--});-->
 
-    $(document).ready(function() {
-        $('#classes').change(function() {
-            var parentForm = $(this).closest("form");
-            if (parentForm && parentForm.length > 0)
-                parentForm.submit();
-        });
-    });
-</script>
+    <!--$(document).ready(function() {-->
+        <!--$('#classes').change(function() {-->
+            <!--var parentForm = $(this).closest("form");-->
+            <!--if (parentForm && parentForm.length > 0)-->
+                <!--parentForm.submit();-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
 </html>

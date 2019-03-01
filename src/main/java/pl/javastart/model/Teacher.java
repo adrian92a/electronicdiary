@@ -1,7 +1,8 @@
 package pl.javastart.model;
 
+import pl.javastart.model.User.User;
+
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

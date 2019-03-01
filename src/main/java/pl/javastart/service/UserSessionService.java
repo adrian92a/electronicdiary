@@ -1,4 +1,4 @@
-package pl.javastart.serive;
+package pl.javastart.service;
 
 import lombok.Getter;
 
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
-import pl.javastart.model.User;
+import pl.javastart.model.User.User;
 import pl.javastart.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
@@ -46,7 +46,9 @@ public class UserSessionService {
             this.user = userOptional.get();
 
             session.setAttribute("email", email);
-            session.setAttribute("rolename",userRepository.findUserRole(email));
+            session.setAttribute(
+                    "rolename",
+                    userRepository.findUserRole(email));
                 return true;
 
         }

@@ -1,5 +1,5 @@
 package pl.javastart.model;
-import java.util.Arrays;
+
 public enum SubjectType {
 	matematyka,
 	polski,

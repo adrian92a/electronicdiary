@@ -1,20 +1,23 @@
 package pl.javastart.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import pl.javastart.model.Lesson;
 import pl.javastart.model.Mark;
-import pl.javastart.model.Pupil;
-import pl.javastart.model.RegisterKey;
-import pl.javastart.model.User;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface MarkRepository extends JpaRepository<Mark, Long>{
+public interface MarkRepository extends JpaRepository<Mark, Integer>{
 
 	@Query("select id from Role u where u.roleName = ?1")
 	int findIdByRoleName(String roleName);
+
+	@Query("select m from Mark m where m.id = ?1")
+	Mark findMarkById(Integer markId);
+
+
+	List<Mark> findAllByPupil_Id(Integer id);
 }

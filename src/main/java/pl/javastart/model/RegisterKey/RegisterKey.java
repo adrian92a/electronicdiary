@@ -1,41 +1,37 @@
-   package pl.javastart.model;
+package pl.javastart.model.RegisterKey;
 
-import java.beans.Transient;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@Entity
+@Entity(name="RegisterKey")
+@Table(name="registerKey")
 public class RegisterKey implements Serializable {
-	  private static final long serialVersionUID =8539936152170847419L;
-	  
+	private static final long serialVersionUID =8539936152170847419L;
+
 	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="register_key_id")
 	private int id;
-	
+	@Column(name="key_register_value")
 	public String  keyRegisterValue;
 	public String firstName;
 	public String lastName;
 	public String pesel;
 	public Integer schollClassnumber;
 	public String schollClassLetter;
+
+
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	public boolean used;
 
 
-	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel,
-			Integer schollClassnumber, String schollClassLetter, boolean used) {
-		super();
+
+	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Integer schollClassnumber, String schollClassLetter, boolean used) {
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -45,9 +41,6 @@ public class RegisterKey implements Serializable {
 		this.used = used;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
 
 
 	public Integer getSchollClassnumber() {
@@ -77,13 +70,8 @@ public class RegisterKey implements Serializable {
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
-	public Role getRole() {
-		return role;
-	}
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+
 
 	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel) {
 		this.keyRegisterValue = keyRegisterValue;
@@ -92,14 +80,6 @@ public class RegisterKey implements Serializable {
 		this.pesel = pesel;
 	}
 
-	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Role role) {
-		super();
-		this.keyRegisterValue = keyRegisterValue;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pesel = pesel;
-		this.role = role;
-	}
 
 
 
@@ -135,7 +115,7 @@ public class RegisterKey implements Serializable {
 
 
 
-	public String getKeyRegisterValue() 
+	public String getKeyRegisterValue()
 	{
 		return keyRegisterValue;
 	}

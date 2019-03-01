@@ -1,8 +1,10 @@
-package pl.javastart.model;
+package pl.javastart.DTO;
+
+
+import pl.javastart.model.User.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -31,9 +33,9 @@ public class RegisterKeyAndRoleDTO {
 	}
 
 	public RegisterKeyAndRoleDTO(String keyRegisterValue, String firstName, String lastName, String pesel,
-								 Set<Role> roleName, Integer schollClassnumber,
-								 String schollClassLetter, String email,
-								 String password,Integer roleId) {
+                                 Set<Role> roleName, Integer schollClassnumber,
+                                 String schollClassLetter, String email,
+                                 String password, Integer roleId) {
 
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
