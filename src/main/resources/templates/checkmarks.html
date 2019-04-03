@@ -1,94 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style>
-table {
-  width:100%;
-}
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 15px;
-  text-align: left;
-}
-table#t01 tr:nth-child(even) {
-  background-color: #eee;
-}
-table#t01 tr:nth-child(odd) {
- background-color: #fff;
-}
-table#t01 th {
-  background-color: black;
-  color: white;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>Electronic diary</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+    <style>
+        .toHide
+        {
+            display: none;
+        }
+        {
+            display:table-cell;
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 
 
 </head>
 <body>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<div>
+    <div class="row justify-content-center mt-2">
+        <div class="col-md-9 col-lg-9 mt-1">
+            <div class="form-group">
+            <form th:action="@{/showMarks}" th:object="${selectedLeson}" method="post">
 
+                <select  th:name="value"  th:field="*{lessonList} ">
+                    <option th:each="option : ${lessonList}"
+                            th:value="${option.getLessonList()}"
+                            th:text="${option.getOptionLessonName()}">Options</option>
+                </select>
+                                 <input type="submit" value="Znajdz oceny" />
+                            </form>
+                <p style="font-weight: 500; font-size:20px;color:#00fffd;" th:text="${emptyList}"></p>
+            </div>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/index">Sprawdź oceny</a>
+            <div >
+                <table class="table table-hover">
+                    <tr>
+                        <th>Ocena      </th>
+                        <th>Opis oceny </th>
+                         <th>Waga oceny</th>
+                    </tr>
+                    <tr th:each="marks : ${userMarks}">
+                        <td th:text="${marks.markValue}"></td>
+                        <td th:text="${marks.markPurpose}"></td>
+                        <td th:text="${marks.markWeight}"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div>
+        </div>
     </div>
-    <ul class="nav navbar-nav">
-
- <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
-               <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
-       			<li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-
-<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
-<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
-<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
-
-    </ul>
-    </div>
-</nav>
-
-    <div class ="col-lg-3">
-	<form th:action="@{/showMarks}" th:object="${selectedLeson}" method="post">
-
-        <select  th:name="value"  th:field="*{lessonList} ">
-            <option th:each="option : ${lessonList}"
-                    th:value="${option.getLessonList()}"
-                    th:text="${option.getOptionLessonName()}">Options</option>
-        </select>
-			   		   	 <input type="submit" value="Znajdz oceny" />
-					</form>
-        <p style="font-weight: 500; font-size:20px;color:#2d65ff;" th:text="${emptyList}"></p>
-    </div>
-
-
-
-<!--<p th:if="${teacherFirstName != null}" th:text ="'Imię i nazwisko nauczyciela:'+ ${teacherFirstName} + ' '+ ${teacherLastName}"></p>	-->
-
-          <div class ="col-lg-2">
- <table class="table table-bordered" >
-    <tr>
-        <th>Ocena      </th>
-        <th>Opis oceny </th>
-         <th>Waga oceny</th>
-    </tr>
-    <tr th:each="marks : ${userMarks}">
-        <td th:text="${marks.markValue}"></td>
-        <td th:text="${marks.markPurpose}"></td>
-     	  <td th:text="${marks.markWeight}"></td>
-    </tr>
-</table>
 </div>
 </div>
-<div class ="col-lg-7"   >
-</div>
+<th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
 </body>
 </html>
 

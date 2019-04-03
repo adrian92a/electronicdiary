@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Dziennik elektroniczny</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
  <style>
-DIV.table 
-{
-    display:table;
-}
-FORM.tr, DIV.tr
-{
-    display:table-row;
-}
-SPAN.td
+     .toHide
+     {
+         display: none;
+     }
 {
     display:table-cell;
 }
+     table {
+         font-family: arial, sans-serif;
+         border-collapse: collapse;
+         width: 100%;
+     }
+
+     td, th {
+         border: 1px solid #dddddd;
+         text-align: left;
+         padding: 8px;
+     }
+
+     tr:nth-child(even) {
+         background-color: #dddddd;
+     }
 </style>
     <script type="text/javascript">
         document.getElementById('lessonId').value = "<?php echo $_GET['lessonId'];?>";
     </script>
 
     <script type="text/javascript" >
-// function setMark(evt) {
-// 	var charCode = (evt.which) ? evt.which : event.keyCode
-// 		    if (charCode < 49 || charCode > 54)
-// 		    	 return false;
-// 		    	 var value = document.getElementById('newMark').value;
-// 		    if (value.length >0) {
-// 		        return false;
-// 		    }
-// 		    return true;
-// }
-// function setWeight(evt) {
-// 	var charCode = (evt.which) ? evt.which : event.keyCode
-// 		    if (charCode < 49 || charCode > 58)
-// 		    	 return false;
-// 		    	 var value = document.getElementById('markWeight').value;
-// 		    if (value.length  >0) {
-// 		        return false;
-// 		    }
-// 		    return true;
-// }
 
 function myFunction(demo,size) {
 
@@ -57,27 +45,10 @@ function myFunction(demo,size) {
 </script>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/index">Wstaw oceny</a>
-        </div>
-                    <ul class="nav navbar-nav">
-                        <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
-                        <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
-                        <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-
-
-                        <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
-                        <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
-                        <li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
-
-                    </ul>
-	      </div>
-</nav>  
-    <h1>Wstawianie ocen</h1>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+    <h1><b>Wstawianie ocen</b></h1>
     <form th:action="@{/selectedClassToInsertMarks}" name='f' th:object="${selectedOption}" method='post'>
-               Wybierz klasę:
+        <b>  Wybierz klasę:</b>
         <select th:field="*{option}">
             <option th:each="option : ${searchOptions}"
                     th:value="${option.getOption()}"
@@ -92,23 +63,14 @@ function myFunction(demo,size) {
 <div th:each="pupil: ${pupilList}">
     <form th:action="@{/insertOneMark}" th:onsubmit="'myFunction(\'' + ${pupil.index} + '\',\'' + ${pupilList.size()} + '\');'"  th:object="${pupil}" method="get" target="dframe">
         <table class="table table-hover">
-            <thead  th:if="${pupil.index} < 2" >
+
+            <input class="toHide" type="text"  name="lessonId"   th:value="${pupil.lessonId}" value ="first" readonly>
+            <input class="toHide" type="text"  name="pupilId"   th:value="${pupil.pupilId}" value ="first" readonly>
             <tr>
-                <th>Numer lekcji (LessonId)	</th>
-                <th>Numer ucznia (PupilId) </th>
-                <th>Imię  </th>
-                <th>Nazwisko </th>
-                <th>Ocena </th>
-                <th>Powód otrzymania  </th>
-                <th>Waga oceny  </th>
-            </tr>
-            </thead>
-            <tr>
-                <td><input class="form-control"  type="text" name="lessonId" th:value="${pupil.lessonId}"   readonly></td>
-                <td><input class="form-control"  type="text" name="pupilId" th:value="${pupil.pupilId}"   readonly></td>
+
                 <td><input class="form-control"  type="text"  name="firstName"   th:value="${pupil.firstName}" value ="first" readonly></td>
                 <td><input class="form-control" type="text" id="lastName" name="lastName" th:value="${pupil.lastName}" value ="last" readonly></td>
-                <td> <input required class="form-control" type="number"   max ="6" step="1"  onkeypress="return setMark(event)" name="mark" min="1" placeholder="Ocena"/></td>
+                <td> <input required class="form-control"  type="number"   max ="6" step="1"  onkeypress="return setMark(event)" name="mark" min="1" placeholder="Ocena"/></td>
                 <td> <select required id='purpose' class="form-control"  name="description">
                     <option  value = "SPRAWDZIAN" selected>Sprawdzian</option >
                     <option value = "KARTKOWKA">Kartkówka</option>
@@ -117,15 +79,15 @@ function myFunction(demo,size) {
                     <option value = "INNE">inne</option>
                 </select>
                 </td>
-                <td> <input required class="form-control" type="number" name="markWeight" id='markWeight' min="1" max ="9" step="1"  onkeypress="return setWeight(event)"   placeholder="Waga Oceny"/></td>
+                <td> <input required class="form-control" type="number"  size="5" name="markWeight" id='markWeight' min="1" max ="9" step="1"  onkeypress="return setWeight(event)"   placeholder="Waga Oceny"/></td>
                 <td> <button type="submit"  >Wstaw ocene</button>  </td>
             </tr>
         </table>
         <p style="color:sandybrown; font-weight: bold"  th:id="${pupil.index}"> </p>
 
     </form>
-
-
 </div>
+
+<th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
 </body>
 </html>

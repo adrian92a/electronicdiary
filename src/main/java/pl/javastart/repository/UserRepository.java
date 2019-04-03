@@ -13,7 +13,7 @@ import java.util.Set;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	Optional<User> findByEmail(String email);
-
+	Optional <User> findAllByEmail (String email);
 
 @Query(value = "SELECT CASE  WHEN count(u)> 0 THEN true ELSE false END FROM  User u where u.email = ?1 and u.password=?2")
 Boolean checkIfUsersEmailAndPasswordExists(String email, String password);
@@ -21,8 +21,10 @@ Boolean checkIfUsersEmailAndPasswordExists(String email, String password);
 @Query(value = "SELECT CASE  WHEN count(u)=0  THEN true ELSE false END FROM  User u where u.email = ?1")
 Boolean checkIfDoesntExistByEmail(String email);
 
-	@Query("select r.roleName from Role r inner join User u on u.id=r.user.id where u.email=?1")
+	@Query("select r.roleName from Role r")
 	List<String> findUserRole(String email);
+
+
 
 @Query("select u.id from User u where u.email = ?1")
 Integer findUserByEmail(String email);

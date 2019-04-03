@@ -3,9 +3,10 @@ package pl.javastart;
 
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import pl.javastart.model.Lesson;
@@ -51,7 +52,12 @@ public class AddTestData {
 
     @Autowired
     private MarkRepository markRepository;
-    private static DataSource datasource;
+
+    private PasswordEncoder passwordEncoder;
+
+    public AddTestData(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostConstruct
     public void addTestData() {
@@ -129,43 +135,33 @@ public class AddTestData {
             // 1- nauczyciel
             // 2 -uczeń
 //9-4 nauczyciele
-            RoleKey roleKey1 = new RoleKey("nauczyciel",registerKey1);
-            RoleKey roleKey2 = new RoleKey("uczen",registerKey2);
-            RoleKey roleKey3 = new RoleKey("uczen",registerKey3);
-            RoleKey roleKey4= new RoleKey("nauczyciel",registerKey4);
-            RoleKey roleKey5 = new RoleKey("nauczyciel",registerKey5);
-            RoleKey roleKey6 = new RoleKey("nauczyciel",registerKey6);
-            RoleKey roleKey7 = new RoleKey("nauczyciel",registerKey7);
-            RoleKey roleKey8 = new RoleKey("nauczyciel",registerKey8);
-            RoleKey roleKey9 = new RoleKey("nauczyciel",registerKey9);
-            RoleKey roleKey10 = new RoleKey("uczen",registerKey10);
-            RoleKey roleKey11 = new RoleKey("uczen",registerKey11);
-            RoleKey roleKey12 = new RoleKey("uczen",registerKey12);
-            RoleKey roleKey13 = new RoleKey("uczen",registerKey13);
-            RoleKey roleKey14 = new RoleKey("uczen",registerKey14);
-            RoleKey roleKey15 = new RoleKey("uczen",registerKey15);
-            RoleKey roleKey16 = new RoleKey("uczen",registerKey16);
-            RoleKey roleKey17 = new RoleKey("uczen",registerKey17);
-            RoleKey roleKey18 = new RoleKey("uczen",registerKey18);
-            RoleKey roleKey19 = new RoleKey("uczen",registerKey19);
-            RoleKey roleKey20 = new RoleKey("uczen",registerKey20);
-            RoleKey roleKey21 = new RoleKey("uczen",registerKey21);
-            RoleKey roleKey22 = new RoleKey("uczen",registerKey22);
-            RoleKey roleKey23 = new RoleKey("uczen",registerKey23);
-            RoleKey roleKey24 = new RoleKey("uczen",notUsedRegisterKey24);
-            RoleKey roleKey25 = new RoleKey("uczen",notUsedRegisterKey25);
-            RoleKey roleKey26 = new RoleKey("uczen",notUsedRegisterKey26);
-            RoleKey roleKey27 = new RoleKey("uczen",notUsedRegisterKey27);
-
-
-
-
-
-
-
-
-
-
+            RoleKey roleKey1 = new RoleKey("ROLE_TEACHER",registerKey1);
+            RoleKey roleKey2 = new RoleKey("ROLE_PUPIL",registerKey2);
+            RoleKey roleKey3 = new RoleKey("ROLE_PUPIL",registerKey3);
+            RoleKey roleKey4= new RoleKey("ROLE_TEACHER",registerKey4);
+            RoleKey roleKey5 = new RoleKey("ROLE_TEACHER",registerKey5);
+            RoleKey roleKey6 = new RoleKey("ROLE_TEACHER",registerKey6);
+            RoleKey roleKey7 = new RoleKey("ROLE_TEACHER",registerKey7);
+            RoleKey roleKey8 = new RoleKey("ROLE_TEACHER",registerKey8);
+            RoleKey roleKey9 = new RoleKey("ROLE_TEACHER",registerKey9);
+            RoleKey roleKey10 = new RoleKey("ROLE_PUPIL",registerKey10);
+            RoleKey roleKey11 = new RoleKey("ROLE_PUPIL",registerKey11);
+            RoleKey roleKey12 = new RoleKey("ROLE_PUPIL",registerKey12);
+            RoleKey roleKey13 = new RoleKey("ROLE_PUPIL",registerKey13);
+            RoleKey roleKey14 = new RoleKey("ROLE_PUPIL",registerKey14);
+            RoleKey roleKey15 = new RoleKey("ROLE_PUPIL",registerKey15);
+            RoleKey roleKey16 = new RoleKey("ROLE_PUPIL",registerKey16);
+            RoleKey roleKey17 = new RoleKey("ROLE_PUPIL",registerKey17);
+            RoleKey roleKey18 = new RoleKey("ROLE_PUPIL",registerKey18);
+            RoleKey roleKey19 = new RoleKey("ROLE_PUPIL",registerKey19);
+            RoleKey roleKey20 = new RoleKey("ROLE_PUPIL",registerKey20);
+            RoleKey roleKey21 = new RoleKey("ROLE_PUPIL",registerKey21);
+            RoleKey roleKey22 = new RoleKey("ROLE_PUPIL",registerKey22);
+            RoleKey roleKey23 = new RoleKey("ROLE_PUPIL",registerKey23);
+            RoleKey roleKey24 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey24);
+            RoleKey roleKey25 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey25);
+            RoleKey roleKey26 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey26);
+            RoleKey roleKey27 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey27);
 
             roleKeyRepo.save(roleKey1);
             roleKeyRepo.save(roleKey2);
@@ -195,37 +191,96 @@ public class AddTestData {
             roleKeyRepo.save(roleKey26);
             roleKeyRepo.save(roleKey27);
 
-
-
-
-
-
-
-
-            User user1 = new User("janpedz@szkola.com", "tajne");
-            User user2 = new User("kjanpedz@szkola.com", "bardzotajne");
-            User user3 = new User("ferkiep@szkola.com", "hasloniedozgadniecia");
-            User user4 = new User("eugjab@szkola.com", "hasloniedozgadniecia");
-            User user5 = new User("dobczer@szkola.com", "hasloniedozgadniecia");
-            User user6 = new User("jadszcz@szkola.com", "hasloniedozgadniecia");
-            User user7 = new User("bar@szkola.com", "hasloniedozgadniecia");
-            User user8 = new User("miesz@szkola.com", "hasloniedozgadniecia");
-            User user9 = new User("jerz@szkola.com", "hasloniedozgadniecia");
-            User user10 = new User("mil@szkola.com", "hasloniedozgadniecia");
-            User user11 = new User("kinga@szkola.com", "hasloniedozgadniecia");
-            User user12 = new User("natan@szkola.com", "hasloniedozgadniecia");
-            User user13 = new User("mark@szkola.com", "hasloniedozgadniecia");
-            User user14 = new User("magd@szkola.com", "hasloniedozgadniecia");
-            User user15 = new User("ade@szkola.com", "hasloniedozgadniecia");
-            User user16 = new User("geno@szkola.com", "hasloniedozgadniecia");
-            User user17 = new User("gusd@szkola.com", "hasloniedozgadniecia");
-            User user18 = new User("danutt@szkola.com", "hasloniedozgadniecia");
-            User user19 = new User("rys@szkola.com", "hasloniedozgadniecia");
-            User user20 = new User("felii@szkola.com", "hasloniedozgadniecia");
-            User user21 = new User("aleeks@szkola.com", "hasloniedozgadniecia");
-            User user22 = new User("idda@szkola.com", "hasloniedozgadniecia");
-            User user23 = new User("dorr@szkola.com", "hasloniedozgadniecia");
+            User user1 = new
+                    User("janpedz@szkola.com",
+                    passwordEncoder.
+                            encode(
+                                    "hasloniedozgadniecia"));
+            User user2 = new User("kjanpedz@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user3 = new User("ferkiep@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user4 = new User("eugjab@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user5 = new User("dobczer@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user6 = new User("jadszcz@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user7 = new User("bar@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user8 = new User("miesz@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user9 = new User("jerz@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user10 = new User("mil@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user11 = new User("kinga@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user12 = new User("natan@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user13 = new User("mark@szkola.com",  passwordEncoder.encode("hasloniedozgadniecia"));
+            User user14 = new User("magd@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user15 = new User("ade@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user16 = new User("geno@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user17 = new User("gusd@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user18 = new User("danutt@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user19 = new User("rys@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user20 = new User("felii@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user21 = new User("aleeks@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user22 = new User("idda@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
+            User user23 = new User("dorr@szkola.com", passwordEncoder.encode("hasloniedozgadniecia"));
 //9-4 nauczyciele
+
+
+
+
+
+            Role roleTeacher = new Role("ROLE_TEACHER");
+            Role rolePupil = new Role("ROLE_PUPIL");
+
+//
+            roleRepo.save(roleTeacher);
+            roleRepo.save(rolePupil);
+
+
+
+            user1.getRoles().add(roleTeacher);
+            user2.getRoles().add(rolePupil);
+            user3.getRoles().add(rolePupil);
+            user4.getRoles().add(roleTeacher);
+            user5.getRoles().add(roleTeacher);
+            user6.getRoles().add(roleTeacher);
+            user7.getRoles().add(roleTeacher);
+            user8.getRoles().add(roleTeacher);
+            user9.getRoles().add(roleTeacher);
+            user10.getRoles().add(rolePupil);
+            user11.getRoles().add(rolePupil);
+            user12.getRoles().add(rolePupil);
+            user13.getRoles().add(rolePupil);
+            user14.getRoles().add(rolePupil);
+            user15.getRoles().add(rolePupil);
+            user16.getRoles().add(rolePupil);
+            user17.getRoles().add(rolePupil);
+            user18.getRoles().add(rolePupil);
+            user19.getRoles().add(rolePupil);
+            user20.getRoles().add(rolePupil);
+            user21.getRoles().add(rolePupil);
+            user22.getRoles().add(rolePupil);
+            user23.getRoles().add(rolePupil);
+
+            roleTeacher.getUsers().add(user1);
+            roleTeacher.getUsers().add(user4);
+            roleTeacher.getUsers().add(user5);
+            roleTeacher.getUsers().add(user6);
+            roleTeacher.getUsers().add(user7);
+            roleTeacher.getUsers().add(user8);
+            roleTeacher.getUsers().add(user9);
+
+            rolePupil.getUsers().add(user2);
+            rolePupil.getUsers().add(user3);
+            rolePupil.getUsers().add(user10);
+            rolePupil.getUsers().add(user11);
+            rolePupil.getUsers().add(user12);
+            rolePupil.getUsers().add(user13);
+            rolePupil.getUsers().add(user14);
+            rolePupil.getUsers().add(user15);
+            rolePupil.getUsers().add(user16);
+            rolePupil.getUsers().add(user17);
+            rolePupil.getUsers().add(user18);
+            rolePupil.getUsers().add(user19);
+            rolePupil.getUsers().add(user20);
+            rolePupil.getUsers().add(user21);
+            rolePupil.getUsers().add(user22);
+            rolePupil.getUsers().add(user23);
 
             userRepo.save(user1);
             userRepo.save(user2);
@@ -251,80 +306,6 @@ public class AddTestData {
             userRepo.save(user22);
             userRepo.save(user23);
 
-
-
-            Role role1 = new Role("nauczyciel",user1);
-            Role role2 = new Role("uczen",user2);
-            Role role3 = new Role("uczen",user3);
-            Role role4 = new Role("nauczyciel",user4);
-            Role role5 = new Role("nauczyciel",user5);
-            Role role6 = new Role("nauczyciel",user6);
-            Role role7 = new Role("nauczyciel",user7);
-            Role role8 = new Role("nauczyciel",user8);
-            Role role9 = new Role("nauczyciel",user9);
-            Role role10 = new Role("uczen",user10);
-            Role role11 = new Role("uczen",user11);
-            Role role12 = new Role("uczen",user12);
-            Role role13 = new Role("uczen",user13);
-            Role role14 = new Role("uczen",user14);
-            Role role15 = new Role("uczen",user15);
-            Role role16 = new Role("uczen",user16);
-            Role role17 = new Role("uczen",user17);
-            Role role18 = new Role("uczen",user18);
-            Role role19 = new Role("uczen",user19);
-            Role role20 = new Role("uczen",user20);
-            Role role21 = new Role("uczen",user21);
-            Role role22 = new Role("uczen",user22);
-            Role role23 = new Role("uczen",user23);
-
-            roleRepo.save(role1);
-            roleRepo.save(role2);
-            roleRepo.save(role3);
-            roleRepo.save(role4);
-            roleRepo.save(role5);
-            roleRepo.save(role6);
-            roleRepo.save(role7);
-            roleRepo.save(role8);
-            roleRepo.save(role9);
-            roleRepo.save(role10);
-            roleRepo.save(role11);
-            roleRepo.save(role12);
-            roleRepo.save(role13);
-            roleRepo.save(role14);
-            roleRepo.save(role15);
-            roleRepo.save(role16);
-            roleRepo.save(role17);
-            roleRepo.save(role18);
-            roleRepo.save(role19);
-            roleRepo.save(role20);
-            roleRepo.save(role21);
-            roleRepo.save(role22);
-            roleRepo.save(role23);
-
-//
-//            user1.setRole(role1);
-//            user2.setRole(role2);
-//            user3.setRole(role2);
-//            user4.setRole(role1);
-//            user5.setRole(role1);
-//            user6.setRole(role1);
-//            user7.setRole(role1);
-//            user8.setRole(role1);
-//            user9.setRole(role1);
-//            user10.setRole(role2);
-//            user11.setRole(role2);
-//            user12.setRole(role2);
-//            user13.setRole(role2);
-//            user14.setRole(role2);
-//            user15.setRole(role2);
-//            user16.setRole(role2);
-//            user17.setRole(role2);
-//            user18.setRole(role2);
-//            user19.setRole(role2);
-//            user20.setRole(role2);
-//            user21.setRole(role2);
-//            user22.setRole(role2);
-//            user23.setRole(role2);
 
 
 

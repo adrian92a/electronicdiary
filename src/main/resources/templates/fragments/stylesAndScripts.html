@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Styles and Scripts</title>
+    <th:block th:fragment="head">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+              integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA"
+              crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css" th:href="@{/style.css}">
+        <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+        <link rel="icon" href="/icons/favicon.ico" type="image/x-icon">
+    </th:block>
+</head>
+<body>
+
+<th:block th:fragment="navi">
+    <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark">
+
+
+        <div class="row justify-content-center">
+            <div class="nav-item active ml-md-3 ml-sm-2" id="user-name-label">
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}">Strona główna</a>
+                    </li>
+                    <li class="nav-item active"  th:unless="${@userContextService.logged}">
+                        <a class="nav-link" th:href="@{/register}">Rejestracja</a>
+                    </li>
+                    <li class="nav-item active"  th:unless="${@userContextService.logged}">
+                        <a class="nav-link" th:href="@{/loginform}">Logowanie</a>
+                    </li>
+                    <li  class="nav-item active" th:if="${@userContextService.logged}">
+                        <a class="nav-link" th:href="@{/user/logout}">Wyloguj sie</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_PUPIL')">
+                    <li class="nav-item active" th:if="${@userContextService.logged}" >
+                        <a class="nav-link" th:if="${@userContextService.roles.contains('ROLE_PUPIL')}" th:href="@{/checkmarks}">Sprawdz oceny</a>
+                    </li>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_TEACHER')">
+                    <li class="nav-item active" th:if="${@userContextService.logged}" >
+                        <a class="nav-link" th:if="${@userContextService.roles.contains('ROLE_TEACHER')}" th:href="@{/insertmarksform}">Wstaw oceny</a>
+                    </li>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_TEACHER')">
+                    <li class="nav-item active" th:if="${@userContextService.logged}" >
+                        <a class="nav-link" th:if="${@userContextService.roles.contains('ROLE_TEACHER')}" th:href="@{/checkMarksByTeacher}">Przeglądaj wystawione oceny</a>
+                    </li>
+                    </li>
+
+
+            </ul>
+        </div>
+    </nav>
+</th:block>
+
+<th:block th:fragment="js_import">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</th:block>
+</body>
+</html>

@@ -1,80 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script>
-        function validateForm() {
-            var a = document.getElementById("registerKey").value;
-            if (!a.length) {
-                alert("Form number must be filled out");
-                return false;
-            }else if (!a.match(/^[0-9]+$/)) {
-                alert("Form number must be filled with numbers only");
-                return false;
-            }else if (!a.length == 20) {
-                alert("Form number must have 20 character length");
-                return false;
-            }
+    <meta charset="UTF-8">
+    <title>Dziennik elektroniczny</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+</head>
+<script>
+    function validateForm() {
+        var a = document.getElementById("registerKey").value;
+        if (!a.length) {
+            alert("Form number must be filled out");
+            return false;
+        }else if (!a.match(/^[0-9]+$/)) {
+            alert("Form number must be filled with numbers only");
+            return false;
+        }else if (!a.length == 20) {
+            alert("Form number must have 20 character length");
+            return false;
         }
-    </script>
+    }
+</script>
 
 </head>
 <body>
-
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/index">Formularz tworzenia nowego użytkownika</a>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<div class="container-fluid">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-4 mt-3">
+            <h4>Aby rozpocząć rejestracje wpisz 20- cyfrowy kod otrzymany na uczelni lub w szkole, następnie podaj swój email oraz wybierz hasło</h4>
+            <form  th:action="@{/register}"  th:object="${userDTO}" method="post">
+                <div class="form-group">
+                    <label>Email address</label>
+                    <input type="text" class="form-control" th:field="*{registerKey}" id='registerKey' placeholder="20 cyfrowy kod">
+                    <span  class="error" th:if="${#fields.hasErrors('registerKey')}" th:errors="*{registerKey}">Name Error</span>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" th:field="*{email}" placeholder="Email"  class="form-control" required>
+                    <span  class="error"  th:if="${#fields.hasErrors('Email')}" th:errors="*{email}">Name Error</span>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="text" th:field="*{password}" placeholder="Password"   class="form-control" required>
+                    <span  th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Zarejestruj nowego uzytkownika</button>
+            </form>
+        </div>
     </div>
-    <ul class="nav navbar-nav">
-        <li> <a  href="/loginform">Zaloguj sie</a><li>
-   
-            <li class="active" ><a href="/register">Utwórz konto</a></li>
-        </ul>
-    </div>
-</nav>  
 
-  
-	<div class="col-lg-6">
-
-
-        <h1 style="font-size:100%;" >Aby rozpocząć rejestracje wpisz 20- cyfrowy kod otrzymany na uczelni lub w szkole, następnie podaj swój email oraz wybierz hasło</h1>
-        <form th:action="@{/register}" th:object="${userDTO}"  method="post">
-            <table>
-            <tr>
-            <td> <input type="text" th:field="*{registerKey}" id='registerKey' placeholder="20 cyfrowy kod" /></td>
-            <td  style="color:#ff0019; font-weight: 500"  th:if="${#fields.hasErrors('registerKey')}" th:errors="*{registerKey}">Name Error</td>
-            </tr>
-
-            <tr>
-            <td>  <input w type="text" th:field="*{email}" placeholder="Email" /></td>
-            <td  style="color:#ff0019; font-weight: 500" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block"  >Name Error</td>
-            </tr>
-
-            <tr>
-            <td>    <input  type="text" th:field="*{password}" placeholder="Password" /></td>
-            <td    style="color:#ff0019; font-weight: 500"th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</td>
-            </tr>
-
-            <tr>
-            <td>   <input type="submit"  value="Zarejestruj nowego uzytkownika" />
-            </tr>
-            </table>
-        </form>
-
-	</div>  
-    	<div class="col-lg-3">
-  
-</div>   
-  	<div class="col-lg-3">
-  
 </div>
+<th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
 </body>
 </html>
 

@@ -1,16 +1,26 @@
 package pl.javastart.DTO;
 
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class MarksDTO {
+	@Size(min = 1, max = 6, message = "niepoprawna wartość")
 	public Integer  markValue;
 	public String subjectName;
 	public String markPurpose;
+	@Size(min = 1, max = 10, message = "niepoprawna wartość")
 	public Integer markWeight;
 	public Integer lessonId;
 	public Integer pupilId;
 	public Integer index;
 	public Integer markId;
+
+	public MarksDTO(Integer markValue, String markPurpose, Integer markWeight, Integer markId) {
+		this.markValue = markValue;
+		this.markPurpose = markPurpose;
+		this.markWeight = markWeight;
+		this.markId = markId;
+	}
 
 	public Integer getMarkId() {
 		return markId;

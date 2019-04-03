@@ -1,59 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Electronic diary</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
+
 </head>
-<body>
+<body >
 
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Strona główna</a>
-    </div>
-    
-    <ul class="nav navbar-nav">
-
-				 <li> <a th:if= "${#strings.isEmpty(session.email)}" href="/loginform">Zaloguj sie</a><li>
-             	  <li><a th:if= "${#strings.isEmpty(session.email)}" href="/register">Utwórz konto</a></li>
-       			 <li> <a th:if= "${not #strings.isEmpty(session.email)}" href="/logout">Wyloguj sie</a></li>
-
-<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'uczen')}" href="/checkmarks">Sprawdz oceny</a></li>
-<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/insertmarksform">Wstaw oceny</a></li>
-<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'nauczyciel')}" href="/viewmarksteacher">Wstawione oceny</a></li>
-
-	       	</ul>
-	      </div>
-	
-</nav>
-    <div class ="col-lg-3">
-         <p style="font-weight: 500; font-size:20px;color:#005dff;" th:text="${message}"></p>
-         <h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Zalogowany jako:</h1>
-         <h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" th:text="${session.email}">Zalogowany</h1>
-         <h3 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Twoje uprawnienia</h3>
-
-
-        <div th:if= "${not#strings.isEmpty(session.email)}">
-        <div th:each="role: ${session.rolename}"> <h1 style="font-size:100%;"th:text="${role}">Zalogowany</h1><div/>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-5">
+            <a class="welcome fade-in">Welcome to electronic diary </a>
         </div>
-	<br>
-
-
-<div class="col-lg-3">
-
-</div>    
-
-    </div> 
-    
-  	<div class="col-lg-3">
- 
-     </div>  
-
+    </div>
+</div>
+<th:block th:include="fragments/stylesAndScripts :: js_import"></th:block>
 </body>
 </html>
+
+
+
+        <!--<li th:if= "${not #strings.isEmpty(@userContextService.getLoggedAs())}" ><a th:if="${#lists.contains(@userContextService.getRoles(), 'ROLE_PUPIL')}" href="/checkmarks">Sprawdz oceny</a></li>-->
+        <!--<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'ROLE_TEACHER')}" href="/insertmarksform">Wstaw oceny</a></li>-->
+        <!--<li th:if= "${not #strings.isEmpty(session.email)}" ><a th:if="${#lists.contains(session.rolename, 'ROLE_TEACHER')}" href="/viewmarksteacher">Wstawione oceny</a></li>-->
+
+
+	
+
+
+
+
+    <!--<div class ="col-lg-3">-->
+
+         <!--<p style="font-weight: 500; font-size:20px;color:#005dff;" th:text="${message}"></p>-->
+         <!--<h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Zalogowany jako:</h1>-->
+         <!--<h1 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" th:text="${session.email}">Zalogowany</h1>-->
+         <!--<h3 th:if= "${not#strings.isEmpty(session.email)}" style="font-size:100%;" >Twoje uprawnienia</h3>-->
+
+
+        <!--<div th:if= "${not#strings.isEmpty(session.email)}">-->
+        <!--<div th:each="role: ${session.rolename}"> <h1 style="font-size:100%;"th:text="${role}">Zalogowany</h1><div/>-->
+        <!--<div th:if= "${not#strings.isEmpty(session.email)}">-->
+            <!--<div th:each="role: ${session.rolename}"> <h1 style="font-size:100%;"th:text="${role}">Zalogowany</h1><div/>-->
+            <!--</div>-->
+
+                <!--<div th:each="role: ${@userContextService.getRoles()}">-->
+                    <!--<h1 style="font-size:100%;"th:text="${#strings.substring(role,5)}"></h1>-->
+                <!--</div>-->
+
+                <!--<p th:text="${@userContextService.getLoggedAs()}"></p>-->
+
+        <!--</div>-->
+	<!--<br>-->
+
+
+
+<!--</div>-->
+
+        <!--<div class="col-lg-3">-->
+
+<!--</div>-->
+
+  	<!--<div class="col-lg-3">-->
+
+     <!--</div>-->
+
+
 

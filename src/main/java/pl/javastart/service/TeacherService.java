@@ -17,6 +17,7 @@ import pl.javastart.model.Pupil;
 import pl.javastart.repository.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -31,9 +32,11 @@ public class TeacherService {
     private LessonRepository lessonRepo;
     private TeacherRepository teacherRepo;
     @Autowired
+    private  UserContextService userContextService;
+    @Autowired
     private TeacherService teacherService;
 
-    public TeacherService( MarkRepository markRepo, PupilRepository pupilRepo, UserController accountcontrol, UserRepository userRepo, LessonRepository lessonRepo, TeacherRepository teacherRepo) {
+    public TeacherService(MarkRepository markRepo, PupilRepository pupilRepo, UserController accountcontrol, UserRepository userRepo, LessonRepository lessonRepo, TeacherRepository teacherRepo, UserContextService userContextService) {
 
         this.markRepo = markRepo;
         this.pupilRepo = pupilRepo;
@@ -41,11 +44,13 @@ public class TeacherService {
         this.userRepo = userRepo;
         this.lessonRepo = lessonRepo;
         this.teacherRepo = teacherRepo;
+        this.userContextService = userContextService;
+
     }
-    public List<ClassDTO> lessonList(HttpSession session)
+    public List<ClassDTO> lessonList()
     {
         List<ClassDTO> teacherClasses = new ArrayList<ClassDTO>();
-        String email=(String) session.getAttribute("email");
+        String email= userContextService.getLoggedAs();
 
         Integer lessonId;
         Integer classId;
@@ -66,9 +71,9 @@ public class TeacherService {
         return teacherClasses;
     }
 
-    public TreeSet<PupilDTO> getListOfPupilsFromLesson(HttpSession session, Integer lessonId, Model model)
+    public TreeSet<PupilDTO> getListOfPupilsFromLesson( Integer lessonId, Model model)
     {
-                String email=(String) session.getAttribute("email");
+                String email=(String) userContextService.getLoggedAs();
                 Integer pupilId;
                 String pupilFirstName;
                 String pupilLastName;
@@ -87,30 +92,27 @@ public class TeacherService {
                return pupilList;
         }
 
-    public void insertMark(HttpSession session,@RequestParam("lessonId") Integer lessonId,
-                             @RequestParam("firstName") String firstName,
+    public void insertMark(@RequestParam("lessonId") Integer lessonId,
                              @RequestParam("pupilId") Integer pupilId,
-                             @RequestParam("lastName") String lastName,
                              @RequestParam("mark") Integer mark,
                              @RequestParam("description") String description,
-                             @RequestParam("markWeight") Integer markWeight,
-                             Model model)
+                             @RequestParam("markWeight") Integer markWeight)
     {
         Lesson lesson;
         lesson=lessonRepo.getOne(lessonId);
         Pupil pupil;
         pupil = pupilRepo.getOne(pupilId);
         Mark insertMark= new Mark(mark,markWeight,description);
-
+        System.out.println("mark============="+mark);
         insertMark.setLesson(lesson);
         insertMark.setPupil(pupil);
         markRepo.save(insertMark);
 
     }
 
-    public void inserMarksForm(HttpSession session, Model model,SearchOption selectedOption) {
+    public void inserMarksForm( Model model, SearchOption selectedOption) {
         List<SearchOption> searchOptions = new ArrayList<>();
-        for (ClassDTO x : teacherService.lessonList(session)) {
+        for (ClassDTO x : teacherService.lessonList()) {
             SearchOption searchOption = new SearchOption();
             searchOption.setOption(x.getLessonId());
             searchOption.setOptionName(x.getClassNumber().toString() + x.getClassLetter().toString() + " " + x.getSubjectName().toString());
@@ -120,8 +122,8 @@ public class TeacherService {
 
     }
 
-    public void selectPupilToViewMarks(HttpSession session, Model model, Integer lessonId, SearchOptionPupils selectedOptionPupil) {
-        TreeSet<PupilDTO> pupilList= teacherService.getListOfPupilsFromLesson(session,lessonId,model);
+    public void selectPupilToViewMarks( Model model, Integer lessonId, SearchOptionPupils selectedOptionPupil) {
+        TreeSet<PupilDTO> pupilList= teacherService.getListOfPupilsFromLesson(lessonId,model);
         List<SearchOptionPupils> searchOptionPupils = new ArrayList<>();
 
         for (PupilDTO x : pupilList) {
@@ -136,9 +138,7 @@ public class TeacherService {
 
     }
 
-    public String viewMarksTableToEdit(HttpSession session, Model model,
-                                               SearchOption selectedOption,
-                                               SearchOptionPupils selectedOptionPupil)
+    public String viewMarksTableToEdit(Model model, SearchOptionPupils selectedOptionPupil)
     {
 
         List<Mark> marks= markRepo.findAllByPupil_Id(selectedOptionPupil.getOptionPupil());
@@ -159,13 +159,18 @@ public class TeacherService {
         return "chechkmarksbyteacher";
     }
 
-    public void editMark(Integer markId, Integer markValue,String markPurpose, Integer markWeight)
-    {
-        Mark mark=markRepo.findMarkById(markId);
-        mark.setMarkValue(markValue);
-        mark.setMarkPurpose(markPurpose);
-        mark.setMarkWeight(markWeight);
-        markRepo.save(mark);
+    public void editMark(Model model,Integer markId, Integer markValue,String markPurpose, Integer markWeight) {
+        if (markValue < 7 && markValue > 0 && markWeight < 11 && markWeight > 0) {
+            Mark mark = markRepo.findMarkById(markId);
+            mark.setMarkValue(markValue);
+            mark.setMarkPurpose(markPurpose);
+            mark.setMarkWeight(markWeight);
+            markRepo.save(mark);
+        }
+        else {
+            model.addAttribute("editMarksError", "Zostały wprowadzone niepoprawne wartości, wartośc oceny musi być w przedziale od 1 do 6, natomiast waga oceny od 1 do 10");
+        }
+        }
     }
 
-}
+

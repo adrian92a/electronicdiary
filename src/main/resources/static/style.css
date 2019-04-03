@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+body {
+    background-image: url('images/background.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.error_page {
+    background-image: url('images/sad.jpg');
+}
+
+.error {
+    color: red;
+}
+
+.navbar {
+    background-color: black;
+    -webkit-box-shadow: 0 2px 22px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0 2px 22px 0 rgba(0, 0, 0, 0.75);
+    box-shadow: 0 2px 22px 0 rgba(0, 0, 0, 0.75);
+}
+
+li.nav-item {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+li.nav-item:hover {
+}
+
+ul.navbar-nav {
+    margin-right: 20px;
+}
+
+#user-name-label a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+
+#user-name-label a::before {
+    content: url(icons/user-16.png) " ";
+    position: relative;
+    top: 2px;
+}
+
+.buttons {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a.welcome {
+    margin-top: 35vh;
+    color: white;
+    font-size: 28px;
+    text-decoration: none;
+    transition: 1.5s;
+}
+
+a.welcome:hover {
+    font-size: 29px;
+}
+
+.custom-card-body {
+    margin: 5px 0;
+    padding: 10px;
+    opacity: 0.9;
+    background-color: rgba(78, 78, 78, 0.98);
+    border-radius: 10px 10px 10px 10px;
+    border: rgba(23, 23, 23, 0.91) solid 1px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    -webkit-box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
+}
+
+.custom-card-header {
+    padding-bottom: 3px;
+    border-bottom: darkslategrey solid 1px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.fade-in {
+    animation: fadeIn ease 5s;
+    -webkit-animation: fadeIn ease 5s;
+    -moz-animation: fadeIn ease 5s;
+    -o-animation: fadeIn ease 5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+
+
+}

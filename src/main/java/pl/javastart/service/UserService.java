@@ -1,6 +1,7 @@
 package pl.javastart.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.javastart.DTO.RegisterKeyAndRoleDTO;
@@ -25,37 +26,37 @@ public class UserService   {
     private UserRepository userRepo;
     private RegisterKeyRepository registerKeyRepo;
     private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    public UserService(UserRepository userRepo, RegisterKeyRepository registerKeyRepo, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepo, RegisterKeyRepository registerKeyRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.registerKeyRepo = registerKeyRepo;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void registerNewAccount(RegisterKeyAndRoleDTO registerKeyAndRoleDTO) {
 
             User user = new User();
             user.setLogin(registerKeyAndRoleDTO.getEmail());
-            user.setPassword(registerKeyAndRoleDTO.getPassword());
+            user.setPassword(passwordEncoder.encode(registerKeyAndRoleDTO.getPassword()));
             userRepo.findByEmail(registerKeyAndRoleDTO.getEmail());
 
 
             Set<RoleKey> registerKeyRoles =registerKeyRepo.findRegisterKeyRoleName(registerKeyAndRoleDTO.getKeyRegisterValue());
-        userRepo.save(user);
+
             for(RoleKey r:registerKeyRoles)
             {
-                Role role=new Role();
-                role.setRoleName(r.getRoleName());
-                role.setUser(user);
-                roleRepository.save(role);
+                Optional<Role> role= roleRepository.findByRoleName(r.getRoleName());
+                user.addRole(role.get());
             }
-
+        userRepo.save(user);
 
     }
 
 
     public void setRegisterKeyUsedValueAndRedirect(@ModelAttribute RegisterKeyAndRoleDTO userRegisterDTO) {
-        RegisterKey key = registerKeyRepo.findByRegisterey(userRegisterDTO.getKeyRegisterValue());
+        RegisterKey key = registerKeyRepo.findByKeyRegisterValue(userRegisterDTO.getKeyRegisterValue()).get();
         key.setUsed(true);
         registerKeyRepo.save(key);
     }
@@ -69,6 +70,7 @@ public class UserService   {
             {
                 if(registerkey.getUsed()==false)
                 {
+                    System.out.println(registerkey.getKeyRegisterValue());
                     return true;
                 }
             }

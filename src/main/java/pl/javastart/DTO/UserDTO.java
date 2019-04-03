@@ -22,6 +22,19 @@ public class UserDTO {
         return registerKey;
     }
 
+    public UserDTO(String email, String password, String registerKey) {
+        this.email = email;
+        this.password = password;
+        this.registerKey = registerKey;
+    }
+
+    public UserDTO(String email, String password, Role role, String registerKey) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.registerKey = registerKey;
+    }
+
     public void setRegisterKey(String registerKey) {
         this.registerKey = registerKey;
     }

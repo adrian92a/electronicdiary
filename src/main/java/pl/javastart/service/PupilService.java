@@ -18,14 +18,15 @@ import java.util.List;
 
 @Service
 public class PupilService {
-
+    private UserContextService userContextService;
     private TeacherRepository teacherRepo;
     private PupilRepository pupilRepo;
     private LessonRepository lessonRepo;
     private MarkRepository markRepo;
 
 
-    public PupilService(TeacherRepository teacherRepo, PupilRepository pupilRepo, LessonRepository lessonRepo, MarkRepository markRepo) {
+    public PupilService(UserContextService userContextService, TeacherRepository teacherRepo, PupilRepository pupilRepo, LessonRepository lessonRepo, MarkRepository markRepo) {
+        this.userContextService = userContextService;
         this.teacherRepo = teacherRepo;
         this.pupilRepo = pupilRepo;
         this.lessonRepo = lessonRepo;
@@ -39,11 +40,11 @@ public class PupilService {
 
 
     public void showMarks(HttpSession session, String subjectType,
-                                      Model model)
+                                      Model model,String email)
     {
         model.addAttribute("selectedsubjectType", subjectType);
         model.addAttribute("subjectType", subjectType);
-        String email=(String) session.getAttribute("email");
+//        String email=(String) session.getAttribute("email");
         Integer markValue;
         String markPurpose;
         Integer markWeight;
@@ -77,10 +78,10 @@ public class PupilService {
 
 
     }
-    public void showListOfSubjects(HttpSession session, Model model)
+    public void showListOfSubjects(HttpSession session, Model model,String email)
     {
         List<String> lessonList= new ArrayList<>();
-        List<Lesson> pupilLessonList = lessonRepo.findAllBySchollclass_Id(pupilRepo.pupilSchoolclassId(pupilRepo.szukajId(session.getAttribute("email").toString())));
+        List<Lesson> pupilLessonList = lessonRepo.findAllBySchollclass_Id(pupilRepo.pupilSchoolclassId(pupilRepo.szukajId(userContextService.getLoggedAs())));
         List<SearchLessonList> searchLessonLists = new ArrayList<>();
         for(Lesson l:pupilLessonList)
         {

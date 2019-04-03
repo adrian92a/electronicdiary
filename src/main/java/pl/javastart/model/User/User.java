@@ -1,33 +1,43 @@
 package pl.javastart.model.User;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @XmlRootElement
-@Entity(name="User")
+@Entity
 @Table(name="user")
-public class User implements Serializable {
-	private static final long serialVersionUID = 8539936152170847419L;
+public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="user_id")
 	private int id;
+	@Column(name="email", length = 150, unique = true)
 	private String email;
+	@Column(name = "passwordHash")
 	private String password;
 
+	@ManyToMany
+	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") },
+			inverseJoinColumns = { @JoinColumn(name = "role_id") })
+	private Set<Role> roles= new HashSet<>();
 
+	public void addRole(Role role){
+		if(roles == null){
+			roles = new HashSet<>();
+		}
+
+		roles.add(role);
+	}
+
+	public User(String email, String password, Set<Role> roles) {
+		this.email = email;
+		this.password = password;
+		this.roles = roles;
+	}
 
 	public User()
 	{}
@@ -39,10 +49,6 @@ public class User implements Serializable {
 		return email;}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getLogin() {
-		return email;
 	}
 	public void setLogin(String email) {
 		this.email = email;
@@ -56,24 +62,12 @@ public class User implements Serializable {
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Set<Role> getRoles() {
+		return this.roles;
 	}
-
-	public String getUsername() {
-		return email;
-	}
-
-	public void setUsername(String email) {
-		this.email = email;
-	}
-
-
 
 
 }

@@ -13,6 +13,8 @@ import pl.javastart.repository.MarkRepository;
 import pl.javastart.repository.PupilRepository;
 import pl.javastart.repository.TeacherRepository;
 import pl.javastart.service.PupilService;
+import pl.javastart.service.UserContextService;
+
 import javax.servlet.http.HttpSession;
 
 
@@ -24,13 +26,15 @@ public class PupilController {
 	private PupilRepository pupilRepo;
 	private LessonRepository lessonRepo;
 	private MarkRepository markRepo;
+	private UserContextService userContextService;
 
-	public PupilController(PupilService pupilService, TeacherRepository teacherRepo, PupilRepository pupilRepo, LessonRepository lessonRepo, MarkRepository markRepo) {
+	public PupilController(PupilService pupilService, TeacherRepository teacherRepo, PupilRepository pupilRepo, LessonRepository lessonRepo, MarkRepository markRepo, UserContextService userContextService) {
 		this.pupilService = pupilService;
 		this.teacherRepo = teacherRepo;
 		this.pupilRepo = pupilRepo;
 		this.lessonRepo = lessonRepo;
 		this.markRepo = markRepo;
+		this.userContextService = userContextService;
 	}
 
 	public String lessonName;
@@ -39,7 +43,9 @@ public class PupilController {
 											Model model,
 											@ModelAttribute("selectedLeson") SearchLessonList selectedLeson)
 	{
-		pupilService.showListOfSubjects(session,model);
+		pupilService.showListOfSubjects(session,
+				model,
+				userContextService.getLoggedAs());
 		return "checkmarks";
 	}
 
@@ -50,8 +56,8 @@ public class PupilController {
 								   @RequestParam("lessonList") Integer lessonId)
 		{
 			lessonName=lessonRepo.lessonName(lessonId);
-			pupilService.showListOfSubjects(session,model);
-			pupilService.showMarks(session,lessonName,model);
+			pupilService.showListOfSubjects(session,model,userContextService.getLoggedAs());
+			pupilService.showMarks(session,lessonName,model,userContextService.getLoggedAs());
 			return "checkmarks";
 
 		}

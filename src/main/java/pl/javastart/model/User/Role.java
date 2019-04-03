@@ -1,37 +1,46 @@
 package pl.javastart.model.User;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @Entity
 @Table(name="role")
 public class Role implements Serializable {
-	private static final long serialVersionUID = 7021150458271420830L;
 	@Id
-	@Column(name = "role_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="role_id")
 	private Integer id;
 
-	@Column(name="role_name")
+	@Column(name="role_name", length = 30, unique = true)
 	private String roleName;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
-
-	public Role(String roleName, User user) {
+	public Role(String roleName) {
 		this.roleName = roleName;
-		this.user = user;
 	}
 
-	public Integer getId() {
-		return id;
+	public Role() {
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+					CascadeType.PERSIST,
+					CascadeType.MERGE
+			},
+			mappedBy = "roles")
+	private Set<User> users= new HashSet<>();
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	public String getRoleName() {
@@ -41,19 +50,5 @@ public class Role implements Serializable {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Role() {
-		super();
-	}
-
-
 }
 

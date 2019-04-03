@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+    <meta charset="UTF-8">
+    <title>Dziennik elektroniczny</title>
+    <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
 
     <script>
-
         function validateForm() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
@@ -45,50 +40,62 @@
 
 </head>
 <body>
+<th:block th:include="fragments/stylesAndScripts :: navi"></th:block>
 
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/index">Rejestracja ucznia</a>
-    </div>
-    <ul class="nav navbar-nav">
-            <li><a href="/loginform">Zaloguj sie</a></li>
-            <li class="active" ><a href="/register">Utwórz konto</a></li>
-        </ul>
-    </div>
-</nav>  
- <div class="col-lg-3" >
+<div class="container-fluid">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-4 mt-3">
 
-   			 <h2 style="font-size:130%;">Twoje dane:</h2> 
+   			 <h4 style="font-size:130%;">Twoje dane:</h4>
 <form th:action="@{/registerUser}" th:object="${RegisterKeyAndRoleDTO}" method="post">
 <br/>
-Kod logowania 			<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
-Imię				 	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>
-Nazwisko				<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
-Pesel					<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
-classNumber			    <input th:if="${RegisterKeyAndRoleDTO.schollClassnumber != null}" class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
-classLetter				 <input th:if="${RegisterKeyAndRoleDTO.schollClassLetter != null}" class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
-    Twoje hasło		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}" readonly/>
-    Twój E-mail		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.email}" readonly/>
-<br/>
-			W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193
-             <br/>
-            <button type="submit" >Zakończ rejestracje</button>
+    <div class="form-group">
+        <label>Kod logowania </label>
+		<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.keyRegisterValue}" readonly/>
+    </div>
+                         <div class="form-group">
+                             <label>Imię</label>
+				    	<input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.firstName}" readonly/>
+                         </div>
+                         <div class="form-group">
+                             <label>Nazwisko</label>
+		        	    <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.lastName}" readonly/>
+                         </div>
+                        <div class="form-group">
+                            <label>Pesel</label>
+				        <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.pesel}" readonly/>
+		                 </div>
+                        <div  th:if="${RegisterKeyAndRoleDTO.schollClassnumber != null}"class="form-group">
+                        <label>classNumber </label>
+                         <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassnumber}" readonly/>
+                        </div>
+		                  <div th:if="${RegisterKeyAndRoleDTO.schollClassLetter != null}" class="form-group">
+                            <label>classLetter	</label>
+                      <input  class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.schollClassLetter}" readonly/>
+    	                 </div>
+                            <div class="form-group">
+                            <label>Twoje hasło	 </label>
+                       <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.password}" readonly/>
+                         </div>
+ 	                     <div class="form-group">
+                            <label>  Twój E-mail</label>
+                      <input class="form-control" type="text" th:field="${RegisterKeyAndRoleDTO.email}" readonly/>
+                     </div>
+                            <label ><b>W przypadku gdy któraś z powyższych danych osoboowych jest błędna proszę skontakować się z adminem: adrian.skorupa92@gmail.com lub tel. 608820193<b></label>
+
+      <button type="submit" >Zakończ rejestracje</button>
 
 
 			</form>
-			
-				
-</div>	
+
+        </div>
+    </div>
+</div>
 
 
     
-    <div class ="col-lg-3">
-    
-    </div> 
-    
-  	<div class="col-lg-3">
+
   
 </div>   	 
 </body>
