@@ -28,7 +28,7 @@
             <div class="form-group">
                 <h1>Wystawione oceny</h1>
             </div>
-            <form th:action="@{/selectPupilToVieMarks}"  th:object="${selectedOption}" method='get'>
+            <form th:action="@{/selectPupilToVieMarks}"  th:object="${selectedOption}" method='post'>
 
                 <label>Wybierz klasę:</label>
                 <div class="form-group">
@@ -43,7 +43,7 @@
             </form>
 
 
-            <form  th:action="@{/viewMarksTableToEdit}"  th:object="${selectedOptionPupil}" method='get'>
+            <form  th:action="@{/viewMarksTableToEdit}"  th:object="${selectedOptionPupil}" method='post'>
 
                 <label>  Wybierz ucznia:</label>
                 <select class="form-control" th:field="*{optionPupil}">
@@ -53,38 +53,42 @@
                 </select>
                 <button type="submit">Zatwierdź</button>
                 <p style="font-weight: 500; font-size:15px;color:#ff9494;" th:text="${editMarksError}"></p>
+             </form>
+
 
                 <div th:each="marks: ${markList}">
-                    <form   >
                         <table class="table table-hover">
                             <thead  th:if="${marks.index} < 2 or marks.index==null" >
+
                             <tr>
+                                <th>Data     </th>
                                 <th>Ocena      </th>
                                 <th>Opis oceny </th>
                                 <th>Waga oceny</th>
                             </tr>
                             </thead>
-                            <input class="form-control"  type="hidden" name="markId" th:value="${marks.markId}" >
+                            <col width="90">
+                            <col width="80">
+                            <col width="120">
+                            <col width="80">
+                            <col width="80">
+                            <col width="80">
                             <tr>
-
-                                <td><input class="form-control"  type="number" name="markValue" th:value="${marks.markValue}"   ></td>
+                                <form th:method="post">
+                                <input class="form-control"  type="hidden" name="markId" th:value="${marks.markId}" >
+                                <td><input class="form-control"  type="date" name="markDate" th:value="${marks.markDate}"   ></td>
+                                <td><input class="form-control"  type="number" width="10%" name="markValue" th:value="${marks.markValue}"   ></td>
                                 <td><input class="form-control"  type="text" name="markPurpose" th:value="${marks.markPurpose}"   ></td>
                                 <td><input class="form-control"  type="number"  name="markWeight"   th:value="${marks.markWeight}" value ="first" ></td>
-                                <td> <button type="submit" formaction="/editMark">Edytuj ocene</button></td>
-                                <td> <button type="submit" formaction="/deleteMark">Usun ocene</button> </td>
+                                <td> <button type="submit" method='post' formaction="/editMark">Edytuj ocene</button></td>
+                                <td> <button type="submit" method='post' formaction="/deleteMark">Usun ocene</button> </td>
+                                </form>
                             </tr>
 
                         </table>
-
-
-                    </form>
-
-
                 </div>
 
 
-
-            </form>
             <div class="form-group">
                 <p  style="font-weight: 500; font-size:30px;color:red;" th:text="${emptyListMessage}"></p>
             </div>

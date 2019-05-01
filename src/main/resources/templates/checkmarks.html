@@ -5,13 +5,7 @@
     <title>Electronic diary</title>
     <th:block th:include="fragments/stylesAndScripts :: head"></th:block>
     <style>
-        .toHide
-        {
-            display: none;
-        }
-        {
-            display:table-cell;
-        }
+
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -22,10 +16,6 @@
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
         }
     </style>
 
@@ -55,11 +45,13 @@
                         <th>Ocena      </th>
                         <th>Opis oceny </th>
                          <th>Waga oceny</th>
+                         <th>Data wystawienia oceny</th>
                     </tr>
                     <tr th:each="marks : ${userMarks}">
                         <td th:text="${marks.markValue}"></td>
                         <td th:text="${marks.markPurpose}"></td>
                         <td th:text="${marks.markWeight}"></td>
+                        <td th:text="${marks.markDate}"></td>
                     </tr>
                 </table>
             </div>

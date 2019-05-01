@@ -64,13 +64,14 @@ function myFunction(demo,size) {
     <form th:action="@{/insertOneMark}" th:onsubmit="'myFunction(\'' + ${pupil.index} + '\',\'' + ${pupilList.size()} + '\');'"  th:object="${pupil}" method="get" target="dframe">
         <table class="table table-hover">
 
-            <input class="toHide" type="text"  name="lessonId"   th:value="${pupil.lessonId}" value ="first" readonly>
-            <input class="toHide" type="text"  name="pupilId"   th:value="${pupil.pupilId}" value ="first" readonly>
+            <input class="toHide" type="text"  name="lessonId"   th:value="${pupil.lessonId}" readonly>
+            <input class="toHide" type="text"  name="pupilId"   th:value="${pupil.pupilId}"  readonly>
             <tr>
 
-                <td><input class="form-control"  type="text"  name="firstName"   th:value="${pupil.firstName}" value ="first" readonly></td>
-                <td><input class="form-control" type="text" id="lastName" name="lastName" th:value="${pupil.lastName}" value ="last" readonly></td>
+                <td><input class="form-control"  type="text" id="firstName" name="firstName"   th:value="${pupil.firstName}"  readonly></td>
+                <td><input class="form-control" type="text" id="lastName" name="lastName" th:value="${pupil.lastName}" readonly></td>
                 <td> <input required class="form-control"  type="number"   max ="6" step="1"  onkeypress="return setMark(event)" name="mark" min="1" placeholder="Ocena"/></td>
+                <td> <input type="date" name="markDate" ></td>
                 <td> <select required id='purpose' class="form-control"  name="description">
                     <option  value = "SPRAWDZIAN" selected>Sprawdzian</option >
                     <option value = "KARTKOWKA">Kartkówka</option>

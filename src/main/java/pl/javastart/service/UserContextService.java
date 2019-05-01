@@ -58,10 +58,9 @@ public class UserContextService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication instanceof AnonymousAuthenticationToken) {
-            System.out.println("NIE ZALOGOWANY==========");
+
             return false;
         }
-        System.out.println("ZALOGOWANY================");
         return authentication.isAuthenticated();
     }
 }

@@ -1,7 +1,9 @@
 package pl.javastart.controller.web;
 
+import java.time.LocalDate;
 import java.util.TreeSet;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,15 +48,17 @@ public class TeacherController {
 
 	@GetMapping("/insertOneMark")
 	public String insertMarkHandler(@RequestParam("lessonId") Integer lessonId,
-									@ModelAttribute("selectedOption") SearchOption selectedOption,
-							 @RequestParam("pupilId") Integer pupilId,
-							 @RequestParam("mark") Integer mark,
-							 @RequestParam("description") String description,
-							 @RequestParam("markWeight") Integer markWeight,
+	@ModelAttribute("selectedOption") SearchOption selectedOption,
+	@RequestParam("pupilId") Integer pupilId,
+	@RequestParam("mark") Integer mark,
+	@RequestParam("markDate") @DateTimeFormat(pattern ="yyyy-MM-dd") LocalDate markDate,
+	@RequestParam("description") String description,
+	@RequestParam("markWeight") Integer markWeight,
 							Model model )
 	{
+
 		teacherService.inserMarksForm(model,selectedOption);
-		 teacherService.insertMark(lessonId,pupilId,mark,description,markWeight);
+		 teacherService.insertMark(lessonId,pupilId,mark,description,markWeight,markDate);
 		return "/insertmarks";
 	}
 
@@ -79,7 +83,7 @@ public class TeacherController {
 	}
 
 
-	@RequestMapping(value="/selectPupilToVieMarks", method = RequestMethod.GET)
+	@RequestMapping(value="/selectPupilToVieMarks", method = RequestMethod.POST)
 	public String selectPupilToViewMarksHandler( Model model,
 												  @ModelAttribute("selectedOption") SearchOption selectedOption,
 												  @ModelAttribute(	"selectedOptionPupil") SearchOptionPupils selectedOptionPupil,
@@ -91,22 +95,24 @@ public class TeacherController {
 		teacherService.inserMarksForm(model,selectedOption);
 		teacherService.selectPupilToViewMarks(model,lessonId,selectedOptionPupil);
 		lessonID=selectedLesson;
+		pupilID=selectedOptionPupil.getOptionPupil();
 		return "checkMarksByTeacher";
 	}
 
-	@GetMapping("/viewMarksTableToEdit")
+	@PostMapping("/viewMarksTableToEdit")
 	public String viewMarksTableToEditHandler( Model model,
 											  @ModelAttribute("selectedOption") SearchOption selectedOption,
 											  @ModelAttribute("selectedOptionPupil") SearchOptionPupils selectedOptionPupil,
 														  @RequestParam("optionPupil") Integer selectedPupil)
 	{
-		teacherService.viewMarksTableToEdit(model,selectedOptionPupil);
+		model.addAttribute("markList",teacherService.viewMarksTableToEdit(model,selectedOptionPupil));
+
 		pupilID=selectedPupil;
 		teacherService.inserMarksForm(model,selectedOption);
 		teacherService.selectPupilToViewMarks(model,lessonID,selectedOptionPupil);
 		return "checkMarksByTeacher";
 	}
-	@GetMapping("/deleteMark")
+	@PostMapping("/deleteMark")
 	public String deleteMarkHandler(Model model,
 									@ModelAttribute("selectedOption") SearchOption selectedOption,
 									@ModelAttribute("selectedOptionPupil") SearchOptionPupils selectedOptionPupil,
@@ -118,19 +124,26 @@ public class TeacherController {
 		teacherService.viewMarksTableToEdit(model,selectedOptionPupil);
 		return "checkMarksByTeacher";
 	}
-	@GetMapping("/editMark")
+	@PostMapping("/editMark")
 	public String editMarkHandler( Model model,
 								  @ModelAttribute("selectedOption") SearchOption selectedOption,
 								  @ModelAttribute("selectedOptionPupil") SearchOptionPupils selectedOptionPupil,
 								  @RequestParam("markId") Integer markId,
 								  @RequestParam("markValue") Integer markValue,
 								  @RequestParam("markPurpose") String markPurpose,
-								  @RequestParam("markWeight") Integer markWeight)
+								  @RequestParam("markWeight") Integer markWeight,
+								   @RequestParam("markDate") @DateTimeFormat(pattern ="yyyy-MM-dd") LocalDate markDate)
+
+
 	{
+
+
 		teacherService.inserMarksForm(model,selectedOption);
 		teacherService.selectPupilToViewMarks(model,lessonID,selectedOptionPupil);
-		teacherService.editMark( model,markId,markValue,markPurpose,markWeight);
-		teacherService.viewMarksTableToEdit(model,selectedOptionPupil);
+		teacherService.editMark( model,markDate,markId,markValue,markPurpose,markWeight);
+
+		teacherService.viewMarksTableToEditAfterEdit(model,pupilID);
+
 		return "checkMarksByTeacher";
 	}
 

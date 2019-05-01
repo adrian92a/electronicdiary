@@ -161,7 +161,7 @@ public class AddTestData {
             RoleKey roleKey24 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey24);
             RoleKey roleKey25 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey25);
             RoleKey roleKey26 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey26);
-            RoleKey roleKey27 = new RoleKey("ROLE_PUPIL",notUsedRegisterKey27);
+            RoleKey roleKey27 = new RoleKey("ROLE_TEACHER",notUsedRegisterKey27);
 
             roleKeyRepo.save(roleKey1);
             roleKeyRepo.save(roleKey2);

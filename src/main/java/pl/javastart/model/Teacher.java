@@ -39,6 +39,13 @@ public class Teacher implements Serializable {
 		this.pesel = pesel;
 	}
 
+	public Teacher(String firstName, String lastName, String pesel, User user) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
+		this.user = user;
+	}
+
 	public String getPesel() {
 		return pesel;
 	}

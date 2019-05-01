@@ -6,15 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import pl.javastart.DTO.RegisterKeyAndRoleDTO;
 import pl.javastart.DTO.UserDTO;
+import pl.javastart.model.Pupil;
 import pl.javastart.model.RegisterKey.RegisterKey;
 import pl.javastart.model.RegisterKey.RoleKey;
 
+import pl.javastart.model.Schollclass;
+import pl.javastart.model.Teacher;
 import pl.javastart.model.User.Role;
 import pl.javastart.model.User.User;
 
-import pl.javastart.repository.RegisterKeyRepository;
-import pl.javastart.repository.RoleRepository;
-import pl.javastart.repository.UserRepository;
+import pl.javastart.repository.*;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -27,12 +28,19 @@ public class UserService   {
     private RegisterKeyRepository registerKeyRepo;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private SchoolClassRepository schoolClassRepo;
+    private PupilRepository pupilRepo;
+    private TeacherRepository teacherRepo;
     @Autowired
-    public UserService(UserRepository userRepo, RegisterKeyRepository registerKeyRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepo, RegisterKeyRepository registerKeyRepo, RoleRepository roleRepository, PasswordEncoder passwordEncoder, SchoolClassRepository schoolClassRepo, PupilRepository pupilRepo,  TeacherRepository teacherRepo)
+    {
         this.userRepo = userRepo;
         this.registerKeyRepo = registerKeyRepo;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.schoolClassRepo = schoolClassRepo;
+        this.pupilRepo = pupilRepo;
+        this.teacherRepo = teacherRepo;
     }
 
     public void registerNewAccount(RegisterKeyAndRoleDTO registerKeyAndRoleDTO) {
@@ -50,7 +58,23 @@ public class UserService   {
                 Optional<Role> role= roleRepository.findByRoleName(r.getRoleName());
                 user.addRole(role.get());
             }
-        userRepo.save(user);
+             userRepo.save(user);
+            if(registerKeyAndRoleDTO.getSchollClassLetter()!=null)
+            {
+                Pupil pupil=new Pupil(registerKeyAndRoleDTO.getFirstName(),registerKeyAndRoleDTO.getLastName(),registerKeyAndRoleDTO.getPesel());
+                Schollclass schollclass;
+                Integer schoolClassId= (schoolClassRepo.findScholdClassByClassNumberAndClassLetter(registerKeyAndRoleDTO.schollClassnumber,registerKeyAndRoleDTO.getSchollClassLetter()));
+                schollclass=schoolClassRepo.getOne(schoolClassId);
+                pupil.setUser(user);
+                pupil.setSchollclass(schollclass);
+                pupilRepo.save(pupil);
+            }
+            if(registerKeyAndRoleDTO.getSchollClassLetter()==null)
+            {
+                Teacher teacher= new Teacher(registerKeyAndRoleDTO.getFirstName(),registerKeyAndRoleDTO.getLastName(),registerKeyAndRoleDTO.getPesel());
+                teacher.setUser(user);
+                teacherRepo.save(teacher);
+            }
 
     }
 

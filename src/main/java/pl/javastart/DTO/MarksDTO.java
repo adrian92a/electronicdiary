@@ -1,6 +1,7 @@
 package pl.javastart.DTO;
 
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.Set;
 
 public class MarksDTO {
@@ -14,12 +15,17 @@ public class MarksDTO {
 	public Integer pupilId;
 	public Integer index;
 	public Integer markId;
+	public LocalDate markDate;
 
 	public MarksDTO(Integer markValue, String markPurpose, Integer markWeight, Integer markId) {
 		this.markValue = markValue;
 		this.markPurpose = markPurpose;
 		this.markWeight = markWeight;
 		this.markId = markId;
+	}
+
+	public LocalDate getMarkDate() {
+		return markDate;
 	}
 
 	public Integer getMarkId() {
@@ -38,11 +44,12 @@ public class MarksDTO {
 		this.index = index;
 	}
 
-	public MarksDTO(Integer markId,Integer markValue, String markPurpose, Integer markWeight, Integer index) {
+	public MarksDTO(Integer markId,Integer markValue, String markPurpose, Integer markWeight, LocalDate markDate, Integer index) {
 		this.markValue = markValue;
 		this.markPurpose = markPurpose;
 		this.markWeight = markWeight;
 		this.index = index;
+		this.markDate=markDate;
 		this.markId=markId;
 	}
 
@@ -88,11 +95,12 @@ public class MarksDTO {
 	public void setMarkWeight(Integer markWeight) {
 		this.markWeight = markWeight;
 	}
-	public MarksDTO(int markValue,  String markPurpose, Integer markWeight) {
+	public MarksDTO(int markValue, String markPurpose, Integer markWeight, LocalDate markDate) {
 		super();
 		this.markValue = markValue;
 		this.markPurpose = markPurpose;
 		this.markWeight = markWeight;
+		this.markDate=markDate;
 	}
 	public MarksDTO(Integer markValue, String markPurpose, Integer markWeight, Integer lessonId, Integer pupilId) {
 		super();

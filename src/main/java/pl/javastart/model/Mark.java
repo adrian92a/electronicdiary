@@ -1,6 +1,9 @@
 package pl.javastart.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,10 +22,14 @@ private static final long serialVersionUID = 7021150458271420830L;
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 @Column(name="mark_id")
 	 private Integer id;
-	 
-	 public Integer markValue;
-	 public Integer markWeight;
-	 public String markPurpose;
+
+	private Integer markValue;
+	private Integer markWeight;
+	private String markPurpose;
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	public LocalDate markDate;
+
+
 	 @ManyToOne
 	    @JoinColumn(name="lesson_id")
 	    private Lesson lesson;
@@ -34,29 +41,24 @@ private static final long serialVersionUID = 7021150458271420830L;
 			return lesson;
 		}
 
-
-
-		public Mark(Integer markValue, Integer markWeight, String markPurpose) {
-		super();
-		this.markValue = markValue;
-		this.markWeight = markWeight;
-		this.markPurpose = markPurpose;
+	public LocalDate getMarkDate() {
+		return markDate;
 	}
-		public Mark(Integer markValue, Integer markWeight, String markPurpose, Pupil pupil) {
+
+	public void setMarkDate(LocalDate markDate) {
+		this.markDate = markDate;
+	}
+
+
+		public Mark(Integer markValue, Integer markWeight, String markPurpose, Pupil pupil,LocalDate markDate) {
 		super();
 		this.markValue = markValue;
 		this.markWeight = markWeight;
 		this.markPurpose = markPurpose;
 		this.pupil = pupil;
+		this.markDate=markDate;
 	}
-		public Mark(Integer markValue, Integer markWeight, String markPurpose, Lesson lesson, Pupil pupil) {
-		super();
-		this.markValue = markValue;
-		this.markWeight = markWeight;
-		this.markPurpose = markPurpose;
-		this.lesson = lesson;
-		this.pupil = pupil;
-	}
+
 		public void setLesson(Lesson lesson) {
 			this.lesson = lesson;
 		}
@@ -82,12 +84,6 @@ private static final long serialVersionUID = 7021150458271420830L;
 			this.pupil = pupil;
 		}
 
-
-
-
-
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -97,22 +93,6 @@ private static final long serialVersionUID = 7021150458271420830L;
 		public Mark() {
 		super();
 	}
-
-
-
-		public Mark(Pupil pupil) {
-			super();
-			this.pupil = pupil;
-		}
-
-
-
-		public Mark(Integer markValue, Pupil pupil) {
-			super();
-			this.markValue = markValue;
-			this.pupil = pupil;
-		}
-
 
 
 		public Integer getMarkValue() {
@@ -138,11 +118,6 @@ private static final long serialVersionUID = 7021150458271420830L;
 		}
 
 
-
-		public Mark(Integer markValue) {
-		super();
-		this.markValue = markValue;
-	}
 
 
 

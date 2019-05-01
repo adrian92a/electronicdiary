@@ -57,7 +57,7 @@ public class PupilController {
 		{
 			lessonName=lessonRepo.lessonName(lessonId);
 			pupilService.showListOfSubjects(session,model,userContextService.getLoggedAs());
-			pupilService.showMarks(session,lessonName,model,userContextService.getLoggedAs());
+			model.addAttribute("userMarks",pupilService.showMarks(session,lessonName,model,userContextService.getLoggedAs()));
 			return "checkmarks";
 
 		}

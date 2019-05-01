@@ -65,7 +65,7 @@ public class UserController {
 		HttpSession session,
 		Model model)
 	{
-		System.out.println("----------1"+password);
+
 		boolean userLogged = userSessionService.loginUser(email, password,session);
 	if(!userLogged){
 			redirectAttributes.addFlashAttribute("message", "Niepoprawny email lub hasło");
@@ -116,11 +116,8 @@ public class UserController {
 		}
 		if(userService.existRegisterKeyAndIsntUsed(userDTO.getRegisterKey()) )
 		{
-			System.out.println("REGISTER KEY =========="+userDTO.getRegisterKey());
-			System.out.println("REGISTER KEY =========="+userDTO.getEmail());
-			System.out.println("REGISTER KEY =========="+userDTO.getPassword());
+
 			Optional<RegisterKey> registerKey= registerKeyRepo.findByKeyRegisterValue(userDTO.getRegisterKey());
-			System.out.println("REGISTER KEY=============="+ registerKey.get().firstName);
 			model.addAttribute("RegisterKeyAndRoleDTO",userService.getRegisterKeyAndRoleDTO(userDTO,registerKey.get()));
 			return "/submitregistrationpanel";
 		}

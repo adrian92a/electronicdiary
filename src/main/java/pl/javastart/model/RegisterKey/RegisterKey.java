@@ -31,6 +31,7 @@ public class RegisterKey implements Serializable {
 
 
 
+
 	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel, Integer schollClassnumber, String schollClassLetter, boolean used) {
 		this.keyRegisterValue = keyRegisterValue;
 		this.firstName = firstName;
@@ -46,32 +47,24 @@ public class RegisterKey implements Serializable {
 	public Integer getSchollClassnumber() {
 		return schollClassnumber;
 	}
-
 	public void setSchollClassnumber(Integer schollClassnumber) {
 		this.schollClassnumber = schollClassnumber;
 	}
-
 	public String getSchollClassLetter() {
 		return schollClassLetter;
 	}
-
 	public void setSchollClassLetter(String schollClassLetter) {
 		this.schollClassLetter = schollClassLetter;
 	}
-
 	public void setUsed(Boolean used) {
 		this.used = used;
 	}
-
 	public Boolean getUsed() {
 		return used;
 	}
-
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
-
-
 
 	public RegisterKey(String keyRegisterValue, String firstName, String lastName, String pesel) {
 		this.keyRegisterValue = keyRegisterValue;
@@ -79,59 +72,40 @@ public class RegisterKey implements Serializable {
 		this.lastName = lastName;
 		this.pesel = pesel;
 	}
-
-
-
-
 	public RegisterKey() {
 		super();
 	}
-
-
-
 	public String getFirstName() {
 		return firstName;
 	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
 	public String getLastName() {
 		return lastName;
 	}
-
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 	public String getPesel() {
 		return pesel;
 	}
-
 	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
-
-
-
 	public String getKeyRegisterValue()
 	{
 		return keyRegisterValue;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 	public void setKeyRegisterValue(String keyRegisterValue) {
 		this.keyRegisterValue = keyRegisterValue;
 	}

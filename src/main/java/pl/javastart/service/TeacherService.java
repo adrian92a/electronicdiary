@@ -1,6 +1,7 @@
 package pl.javastart.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,7 @@ import pl.javastart.repository.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -92,20 +94,16 @@ public class TeacherService {
                return pupilList;
         }
 
-    public void insertMark(@RequestParam("lessonId") Integer lessonId,
-                             @RequestParam("pupilId") Integer pupilId,
-                             @RequestParam("mark") Integer mark,
-                             @RequestParam("description") String description,
-                             @RequestParam("markWeight") Integer markWeight)
+    public void insertMark(Integer lessonId, Integer pupilId, Integer mark, String description, Integer markWeight,
+                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate markDate)
     {
         Lesson lesson;
         lesson=lessonRepo.getOne(lessonId);
         Pupil pupil;
         pupil = pupilRepo.getOne(pupilId);
-        Mark insertMark= new Mark(mark,markWeight,description);
+        Mark insertMark= new Mark(mark,markWeight,description,pupil,markDate);
         System.out.println("mark============="+mark);
         insertMark.setLesson(lesson);
-        insertMark.setPupil(pupil);
         markRepo.save(insertMark);
 
     }
@@ -138,16 +136,19 @@ public class TeacherService {
 
     }
 
-    public String viewMarksTableToEdit(Model model, SearchOptionPupils selectedOptionPupil)
-    {
 
+
+
+    public List<MarksDTO> viewMarksTableToEdit(Model model, SearchOptionPupils selectedOptionPupil)
+    {
+        System.out.println(selectedOptionPupil.getOptionPupil());
         List<Mark> marks= markRepo.findAllByPupil_Id(selectedOptionPupil.getOptionPupil());
         List<MarksDTO> markList= new ArrayList<>();
         int index=0;
         for(Mark m:marks)
         {
             index= index+1;
-            MarksDTO marksDTO = new MarksDTO(m.getId(),m.getMarkValue(),m.getMarkPurpose(),m.getMarkWeight(),index);
+            MarksDTO marksDTO = new MarksDTO(m.getId(),m.getMarkValue(),m.getMarkPurpose(),m.getMarkWeight(),m.getMarkDate(),index);
             markList.add(marksDTO);
         }
         if(markList.isEmpty())
@@ -156,15 +157,40 @@ public class TeacherService {
         }
 
         model.addAttribute("markList",markList);
-        return "chechkmarksbyteacher";
+        return markList;
     }
 
-    public void editMark(Model model,Integer markId, Integer markValue,String markPurpose, Integer markWeight) {
+    public List<MarksDTO> viewMarksTableToEditAfterEdit(Model model, Integer pupilId)
+    {
+
+        List<Mark> marks= markRepo.findAllByPupil_Id(pupilId);
+        List<MarksDTO> markList= new ArrayList<>();
+        int index=0;
+        for(Mark m:marks)
+        {
+            index= index+1;
+            MarksDTO marksDTO = new MarksDTO(m.getId(),m.getMarkValue(),m.getMarkPurpose(),m.getMarkWeight(),m.getMarkDate(),index);
+            markList.add(marksDTO);
+        }
+        if(markList.isEmpty())
+        {
+            model.addAttribute("emptyListMessage","Wybrany czen nie ma zadnych ocen");
+        }
+
+        model.addAttribute("markList",markList);
+        return markList;
+    }
+
+
+
+
+    public void editMark(Model model,@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate markDate ,Integer markId, Integer markValue,String markPurpose, Integer markWeight) {
         if (markValue < 7 && markValue > 0 && markWeight < 11 && markWeight > 0) {
             Mark mark = markRepo.findMarkById(markId);
             mark.setMarkValue(markValue);
             mark.setMarkPurpose(markPurpose);
             mark.setMarkWeight(markWeight);
+            mark.setMarkDate(markDate);
             markRepo.save(mark);
         }
         else {

@@ -62,9 +62,10 @@ ul {
 a.welcome {
     margin-top: 35vh;
     color: white;
-    font-size: 28px;
+    font-size: 23px;
     text-decoration: none;
     transition: 1.5s;
+
 }
 
 a.welcome:hover {
@@ -72,17 +73,11 @@ a.welcome:hover {
 }
 
 .custom-card-body {
-    margin: 5px 0;
-    padding: 10px;
-    opacity: 0.9;
-    background-color: rgba(78, 78, 78, 0.98);
-    border-radius: 10px 10px 10px 10px;
-    border: rgba(23, 23, 23, 0.91) solid 1px;
-    -moz-border-radius: 10px 10px 10px 10px;
-    -webkit-border-radius: 10px 10px 10px 10px;
-    -webkit-box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
-    box-shadow: 10px 10px 30px -6px rgba(0, 0, 0, 0.75);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
 
 .custom-card-header {
@@ -95,10 +90,13 @@ li {
 }
 
 .fade-in {
-    animation: fadeIn ease 5s;
-    -webkit-animation: fadeIn ease 5s;
-    -moz-animation: fadeIn ease 5s;
-    -o-animation: fadeIn ease 5s;
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+
+
+
 }
 
 @keyframes fadeIn {

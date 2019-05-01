@@ -12,6 +12,7 @@ import pl.javastart.repository.PupilRepository;
 import pl.javastart.repository.TeacherRepository;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,7 +40,7 @@ public class PupilService {
     }
 
 
-    public void showMarks(HttpSession session, String subjectType,
+    public  HashSet<Object> showMarks(HttpSession session, String subjectType,
                                       Model model,String email)
     {
         model.addAttribute("selectedsubjectType", subjectType);
@@ -48,6 +49,7 @@ public class PupilService {
         Integer markValue;
         String markPurpose;
         Integer markWeight;
+        LocalDate markDate;
         HashSet<Object> userMarks = new HashSet<Object>();
         userMarks.clear();
 
@@ -66,15 +68,16 @@ public class PupilService {
             markValue =   (int) obj[0];
             markPurpose =  (String) obj[1];
             markWeight =  (int) obj[2];
+            markDate= (LocalDate)obj[3];
 
-            MarksDTO mark = new MarksDTO(markValue,markPurpose,markWeight);
+            MarksDTO mark = new MarksDTO(markValue,markPurpose,markWeight,markDate);
             userMarks.add(mark);
         }
         if(userMarks.isEmpty())
         {
             model.addAttribute("emptyList","Z wybranego przedmiotu nie masz jeszcze zadnych ocen");
         }
-        model.addAttribute("userMarks",userMarks);
+        return userMarks;
 
 
     }

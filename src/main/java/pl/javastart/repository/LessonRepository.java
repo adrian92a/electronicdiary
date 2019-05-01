@@ -11,7 +11,7 @@ import pl.javastart.model.Lesson;
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Integer>{
 
-	@Query("select m.markValue, m.markPurpose, m.markWeight from Mark m where m.pupil.id=?1 and m.lesson.id=?2")
+	@Query("select m.markValue, m.markPurpose, m.markWeight, m.markDate from Mark m where m.pupil.id=?1 and m.lesson.id=?2")
 	List<Object[]> findValuesToMarkTable(int pupilId,int lessonId);
 
 	@Query("select s.id from Schollclass s inner join Pupil p on p.schollclass.id=s.id where p.id=?1")

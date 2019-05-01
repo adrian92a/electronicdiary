@@ -30,7 +30,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/chechkmarksbyteacher").hasAnyAuthority("ROLE_TEACHER")
                 .antMatchers("/insertmarks").hasAnyAuthority("ROLE_TEACHER")
                 .antMatchers("/checkmarks").hasAnyAuthority("ROLE_PUPIL")
-                .anyRequest().permitAll()
+                .antMatchers("/login-by-spring","/index").permitAll()
             .and()
                 .csrf().disable()
                 .headers().frameOptions().disable()
@@ -39,7 +39,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/loginBySpring")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .failureUrl("/loginBySpring?status=error")
+                .failureUrl("/loginform?status=error")
                 .loginProcessingUrl("/user/loggedIn")
                 .defaultSuccessUrl("/index")
                 .and()
@@ -47,6 +47,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/index")
                 .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
         ;
 
     }
