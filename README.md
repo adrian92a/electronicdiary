@@ -26,6 +26,21 @@ Aplikacja  opiera się na połączeniu logiki systemowej (serwera) z bazą danyc
 <br/>
 -Do aplikacji została dodana duża baza testowa zarejestrowanych użytkowników( baza testowa jest dodawana tylko przy pierwszym uruchomieniu programu) <br/>
 <br/>
+### Przykładowe dane do logowania
+-janpedz@szkola.com
+-kjanpedz@szkola.com
+-ferkiep@szkola.com
+-eugjab@szkola.com
+-dobczer@szkola.com
+-jadszcz@szkola.com
+-bar@szkola.com
+-miesz@szkola.com
+-jerz@szkola.com
+-mil@szkola.com
+### Wszyscy użytkownicy mają to samo hasło: "hasloniedozgadniecia"
+
+
+
 ### Technologie użyte do napisania aplikacji
 -Java(1.8) <br/>
 -Thymeleaf <br/>
